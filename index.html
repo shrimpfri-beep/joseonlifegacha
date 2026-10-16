@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>천년 한반도 생존기</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: 한지 두루마리 위 한 줄 세로 흐름. 시대 탭 = 문패, 결과 = 붉은 낙관, 죽음 = 세로쓰기 비석 */
+:root{
+  --paper:#f1e7d2;      /* 한지 */
+  --paper-2:#e8dcc1;    /* 접힌 한지 */
+  --card:#f8f1e1;
+  --ink:#24201b;        /* 먹 */
+  --ink-soft:#5d5448;
+  --line:#cdbd9c;
+  --seal:#a8321f;       /* 낙관 주홍 */
+  --seal-ink:#fff6ea;
+  --cheong:#2c5866;     /* 쪽빛 */
+  --hwang:#b98a2a;      /* 황 */
+  --celadon:#6f9a8c;    /* 비색 */
+  --good:#3f7a52; --bad:#a8321f; --warn:#b98a2a;
+  --shadow:0 1px 0 rgba(60,40,10,.08),0 6px 18px -10px rgba(60,40,10,.35);
+  --f-display:"Song Myung","Nanum Myeongjo","Batang",serif;
+  --f-body:"Gowun Batang","Nanum Myeongjo","Batang",serif;
+  --f-ui:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --era:var(--celadon);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#1b1915;--paper-2:#24211c;--card:#25221d;--ink:#eee3cc;--ink-soft:#b6aa94;--line:#4a4336;
+  --seal:#d0563f;--seal-ink:#1b1915;--cheong:#7fb2c0;--hwang:#d9ad4f;--celadon:#8fbfae;
+  --good:#7cbf8e;--bad:#e2705a;--warn:#d9ad4f;--shadow:0 6px 18px -10px rgba(0,0,0,.7);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#1b1915;--paper-2:#24211c;--card:#25221d;--ink:#eee3cc;--ink-soft:#b6aa94;--line:#4a4336;
+  --seal:#d0563f;--seal-ink:#1b1915;--cheong:#7fb2c0;--hwang:#d9ad4f;--celadon:#8fbfae;
+  --good:#7cbf8e;--bad:#e2705a;--warn:#d9ad4f;--shadow:0 6px 18px -10px rgba(0,0,0,.7);color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{min-height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  background-image:radial-gradient(circle at 20% 10%,rgba(150,120,70,.07),transparent 40%),radial-gradient(circle at 80% 70%,rgba(150,120,70,.06),transparent 45%);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--paper)}
+.wrap{max-width:1080px;margin:0 auto}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--seal);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0}
+.ui{font-family:var(--f-ui)}
+.muted{color:var(--ink-soft)}
+.num{font-variant-numeric:tabular-nums}
+
+/* 단청 띠 */
+.dancheong{height:8px;background:
+  repeating-linear-gradient(90deg,var(--cheong) 0 14px,var(--celadon) 14px 18px,var(--hwang) 18px 22px,var(--seal) 22px 30px,var(--celadon) 30px 34px,var(--hwang) 34px 38px);opacity:.85;border-radius:2px}
+
+/* Header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);padding-block:10px 8px;border-bottom:1px solid var(--line)}
+.topRow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.seal{display:inline-grid;place-items:center;background:var(--seal);color:var(--seal-ink);font-family:var(--f-display);border-radius:4px;line-height:1.05;text-align:center}
+.brand .seal{width:38px;height:38px;font-size:22px;transform:rotate(-3deg);flex:none}
+@media (max-width:520px){.brand p{display:none}.brand h1{font-size:19px}.btn{padding:6px 9px}}
+.brand h1{font-size:21px;line-height:1.1}
+.brand p{margin:0;font-size:11.5px;letter-spacing:.04em}
+.topBtns{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:6px;padding:7px 11px;font-family:var(--f-ui);font-size:13px;box-shadow:var(--shadow)}
+.btn:hover{border-color:var(--ink-soft)}
+.btn.primary{background:var(--seal);color:var(--seal-ink);border-color:var(--seal);font-size:15px;padding:12px 18px}
+.btn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.speed{display:flex;gap:4px;margin-top:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.speed::-webkit-scrollbar{display:none}
+.speed .btn{flex:none;white-space:nowrap}
+.speed .btn{padding:6px 9px;font-size:12.5px}
+
+/* Start screen */
+#startScreen{padding-top:22px;display:grid;gap:22px}
+.hero{display:grid;gap:10px}
+.eyebrow{font-family:var(--f-ui);font-size:12px;letter-spacing:.12em;color:var(--seal)}
+.hero h2{font-size:clamp(28px,6.5vw,46px);line-height:1.15}
+.hero p{margin:0;max-width:62ch;color:var(--ink-soft)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:640px){.tabs{grid-template-columns:repeat(2,1fr)}}
+.tab{position:relative;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:12px 12px 12px 16px;display:grid;gap:2px;box-shadow:var(--shadow);overflow:hidden}
+.tab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--tc)}
+.tab b{font-family:var(--f-display);font-weight:400;font-size:20px}
+.tab span{font-family:var(--f-ui);font-size:12px;color:var(--ink-soft)}
+.tab[aria-selected="true"]{border-color:var(--tc);outline:2px solid var(--tc);outline-offset:-2px}
+.eraPanel{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:820px){.eraPanel{grid-template-columns:1fr}}
+.scroll{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:var(--shadow);position:relative}
+.scroll::after{content:"";position:absolute;left:12px;right:12px;top:-4px;height:4px;border-radius:4px 4px 0 0;background:var(--era)}
+.eraHead{font-size:24px;line-height:1.3;margin-bottom:6px}
+.eraSub{margin:0 0 10px;color:var(--ink-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--f-ui);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--ink-soft);background:var(--paper)}
+.probs{display:grid;gap:7px;margin-top:14px}
+.prob{display:grid;grid-template-columns:7.2em 1fr 3.4em;gap:8px;align-items:center;font-family:var(--f-ui);font-size:13px}
+.prob .bar{height:9px;background:var(--paper-2);border-radius:5px;overflow:hidden}
+.prob .bar i{display:block;height:100%;background:var(--era)}
+.prob em{font-style:normal;text-align:right}
+.note{font-family:var(--f-ui);font-size:12px;color:var(--ink-soft);margin:10px 0 0}
+.genderPick{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 10px}
+
+/* 산통 */
+.sanStage{display:grid;place-items:center;gap:10px;padding:10px 0}
+#santong{width:min(220px,60vw);height:auto;overflow:visible}
+#santong .tong{transform-origin:110px 250px}
+.shake #santong .tong{animation:shake .18s linear infinite}
+@keyframes shake{0%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}100%{transform:rotate(-6deg)}}
+#santong .stick{transition:transform .9s cubic-bezier(.2,.9,.2,1.2)}
+.drawn #santong .stick.win{transform:translateY(-95px)}
+@media (prefers-reduced-motion:reduce){.shake #santong .tong{animation:none}#santong .stick{transition:none}}
+.sanMsg{font-family:var(--f-ui);font-size:13px;color:var(--ink-soft);text-align:center;min-height:2.6em}
+
+/* Birth card */
+.birth{display:grid;gap:12px}
+.birthTitle{display:flex;gap:12px;align-items:flex-start}
+.birthTitle .seal{width:52px;height:52px;font-size:17px;flex:none;transform:rotate(4deg)}
+.birthTitle h3{font-size:22px;line-height:1.3}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0}
+.kv dt{font-family:var(--f-ui);color:var(--ink-soft);font-size:12.5px;padding-top:2px}
+.kv dd{margin:0}
+.fate{border-left:3px solid var(--era);padding:4px 0 4px 12px;margin:0;color:var(--ink)}
+.rowBtns{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Game */
+#game{display:grid;gap:14px;padding-top:14px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:820px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;box-shadow:var(--shadow);min-width:0}
+.panel h3{font-size:17px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.panel h3 small{font-family:var(--f-ui);font-size:11.5px;color:var(--ink-soft)}
+.who{display:flex;gap:12px;align-items:flex-start}
+.avatar{width:58px;height:58px;border-radius:50%;background:var(--paper-2);border:2px solid var(--era);display:grid;place-items:center;font-size:28px;flex:none}
+.who h2{font-size:24px;line-height:1.2}
+.badges{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0}
+.badge{font-family:var(--f-ui);font-size:11.5px;padding:1px 8px;border-radius:4px;background:var(--paper-2);color:var(--ink)}
+.badge.red{background:var(--seal);color:var(--seal-ink)}
+.clock{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.clock .big{font-family:var(--f-display);font-size:34px;line-height:1}
+.clock .gz{font-family:var(--f-display);font-size:18px;color:var(--seal)}
+.track{height:8px;background:var(--paper-2);border-radius:5px;overflow:hidden;margin-top:6px}
+.track i{display:block;height:100%;background:var(--era);transition:width .25s linear}
+.track.life i{background:var(--hwang)}
+.trackLbl{display:flex;justify-content:space-between;font-family:var(--f-ui);font-size:11.5px;color:var(--ink-soft);margin-top:4px;gap:8px}
+.stats{display:grid;gap:9px}
+.stat{display:grid;gap:3px}
+.stat .l{display:flex;justify-content:space-between;font-family:var(--f-ui);font-size:13px}
+.stat .track{margin:0}
+.stat.restrict .track i{background:var(--seal)}
+.stat .track i.hp{background:var(--good)}
+.life2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.mini{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px}
+.mini b{display:block;font-family:var(--f-display);font-weight:400;font-size:20px;line-height:1.2}
+.mini span{font-family:var(--f-ui);font-size:11.5px;color:var(--ink-soft)}
+#log{max-height:440px;overflow:auto;display:grid;gap:0;padding-right:4px}
+.entry{display:grid;grid-template-columns:4.4em 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.entry .when{font-family:var(--f-ui);font-size:12px;color:var(--ink-soft);line-height:1.35}
+.entry .when b{display:block;font-family:var(--f-display);font-weight:400;font-size:15px;color:var(--ink)}
+.entry p{margin:0;font-size:14px}
+.entry.k-hist p{color:var(--cheong)}
+.entry.k-choice p::before{content:"선택 ";font-family:var(--f-ui);font-size:11px;background:var(--seal);color:var(--seal-ink);padding:0 5px;border-radius:3px;margin-right:6px;vertical-align:2px}
+.entry.k-sad p{color:var(--bad)}
+.entry.k-good p{color:var(--good)}
+.fam{display:grid;gap:4px;font-size:14px}
+.fam .kid{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line);padding:2px 0}
+.fam .kid.dead{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--line)}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(20,15,8,.55);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow:auto}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:12px;width:min(640px,100%);max-height:100%;overflow:auto;padding:18px;box-shadow:0 20px 50px -20px rgba(0,0,0,.6)}
+.sheet h2{font-size:24px;line-height:1.3;margin:4px 0 8px}
+.tag{font-family:var(--f-ui);font-size:12px;letter-spacing:.06em;color:var(--seal)}
+.opts{display:grid;gap:8px;margin-top:12px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:11px 12px;display:grid;gap:3px}
+.opt:hover{border-color:var(--seal)}
+.opt b{font-family:var(--f-display);font-weight:400;font-size:17px}
+.opt span{font-family:var(--f-ui);font-size:12.5px;color:var(--ink-soft)}
+.opt.locked{opacity:.5;cursor:not-allowed}
+.countdown{font-family:var(--f-ui);font-size:12px;color:var(--ink-soft);margin-top:8px}
+.result{border-left:3px solid var(--seal);padding:6px 0 6px 12px;margin:12px 0 0;font-size:15px}
+
+/* 비석 */
+.stoneWrap{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:520px){.stoneWrap{grid-template-columns:1fr;justify-items:center}}
+.stone{width:150px;height:300px;background:linear-gradient(180deg,#6d6a63,#4b4842);border-radius:60px 60px 4px 4px;position:relative;display:flex;justify-content:center;padding:28px 10px 16px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.07),0 10px 24px -12px #000}
+.stone::after{content:"";position:absolute;left:-12px;right:-12px;bottom:-14px;height:18px;background:#3d3a35;border-radius:3px}
+.stone .v{writing-mode:vertical-rl;font-family:var(--f-display);color:#f1e7d2;font-size:19px;letter-spacing:.12em;line-height:1.5;max-height:100%}
+.stone .v small{font-size:13px;color:#d7cbb3;letter-spacing:.05em}
+.report{display:grid;gap:8px;font-size:14px}
+.report .kv{font-size:14px}
+.epi{font-family:var(--f-display);font-size:18px;line-height:1.5}
+#shareImg{width:100%;border-radius:8px;border:1px solid var(--line);margin-top:8px}
+.srcList{font-size:13.5px;padding-left:18px}
+.srcList li{margin-bottom:6px}
+table.t{border-collapse:collapse;font-family:var(--f-ui);font-size:12.5px;width:100%}
+table.t td,table.t th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+.tblWrap{overflow-x:auto}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);font-family:var(--f-ui);font-size:13px;padding:8px 14px;border-radius:999px;z-index:60;max-width:90vw}
+.resume{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--paper-2);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-family:var(--f-ui);font-size:13px}
+footer{margin-top:26px;font-family:var(--f-ui);font-size:11.5px;color:var(--ink-soft);text-align:center}
+</style>
+</head><body>
+
+<div class="wrap">
+<header class="top">
+  <div class="topRow">
+    <div class="brand">
+      <span class="seal" aria-hidden="true">命</span>
+      <div>
+        <h1>천년 한반도 생존기</h1>
+        <p class="ui muted">고려에서 오늘까지, 극한 한국판 랜덤 인생 뽑기</p>
+      </div>
+    </div>
+    <div class="topBtns">
+      <button class="btn" id="btnSources" type="button">고증·출처</button>
+      <button class="btn" id="btnJokbo" type="button">족보</button>
+      <button class="btn" id="btnNew" type="button" hidden>새 인생</button>
+    </div>
+  </div>
+  <div class="speed" id="speedBar" hidden>
+    <button class="btn" data-speed="0" type="button">멈춤</button>
+    <button class="btn" data-speed="1" type="button">보통 (4초=1살)</button>
+    <button class="btn" data-speed="3" type="button">빠름 (1.5초)</button>
+    <button class="btn" data-speed="10" type="button">매우 빠름</button>
+    <button class="btn" id="btnSkip" type="button">+1살</button>
+    <button class="btn" id="btnAuto" type="button">자동 선택 끔</button>
+  </div>
+</header>
+
+<!-- 시작 화면 -->
+<section id="startScreen">
+  <div id="resumeBox" hidden></div>
+  <div class="hero">
+    <span class="eyebrow">천 년 동안 이 땅에서 태어난 아이 중 하나</span>
+    <h2>어느 시대, 어떤 집안에<br>태어나게 될까요?</h2>
+    <p>시대를 고르면 산통에서 운명의 산가지가 뽑힙니다. 신분 비율, 다섯 살까지의 생존율, 상속과 혼인 제도, 그 해에 실제로 일어난 사건이 당신의 한평생을 만듭니다. 이름과 개인사는 창작입니다.</p>
+  </div>
+  <div class="tabs" role="tablist" id="eraTabs"></div>
+  <div class="eraPanel">
+    <div class="scroll" id="eraInfo"></div>
+    <div class="scroll">
+      <div id="sanBox" class="sanStage">
+        <svg id="santong" viewBox="0 0 220 300" role="img" aria-label="산가지가 든 산통">
+          <g class="tong">
+            <g class="sticks">
+              <rect class="stick" x="78" y="40" width="9" height="150" rx="3" fill="#c9a86a"/>
+              <rect class="stick" x="92" y="30" width="9" height="160" rx="3" fill="#d8b979"/>
+              <rect class="stick win" x="106" y="22" width="10" height="170" rx="3" fill="#e6c98a"/>
+              <rect class="stick" x="121" y="34" width="9" height="156" rx="3" fill="#cfae6f"/>
+              <rect class="stick" x="135" y="44" width="9" height="146" rx="3" fill="#c39f60"/>
+              <rect x="106" y="26" width="10" height="16" rx="2" fill="var(--seal)" class="stick win"/>
+            </g>
+            <path d="M62 112 L158 112 L150 262 Q110 274 70 262 Z" fill="#7a3a22"/>
+            <path d="M62 112 L158 112 L157 128 L63 128 Z" fill="#5a2a18"/>
+            <path d="M66 236 L154 236 L151 262 Q110 274 69 262 Z" fill="#5a2a18"/>
+            <circle cx="110" cy="182" r="26" fill="none" stroke="#e6c98a" stroke-width="2.5"/>
+            <text x="110" y="191" text-anchor="middle" font-family="Song Myung, serif" font-size="25" fill="#e6c98a">命</text>
+          </g>
+        </svg>
+        <p class="sanMsg" id="sanMsg">산통을 흔들면 산가지 하나가 솟아오릅니다.</p>
+      </div>
+      <div id="birthCard" hidden></div>
+      <div class="genderPick ui" id="genderPick" role="group" aria-label="성별">
+        <button class="btn on" data-g="rand" type="button">성별도 운에 맡기기</button>
+        <button class="btn" data-g="M" type="button">남자로</button>
+        <button class="btn" data-g="F" type="button">여자로</button>
+      </div>
+      <button class="btn primary" id="btnDraw" type="button" style="width:100%">산통 흔들어 태어나기</button>
+    </div>
+  </div>
+</section>
+
+<!-- 게임 화면 -->
+<section id="game" hidden>
+  <div class="grid2">
+    <div class="panel">
+      <div class="who">
+        <div class="avatar" id="avatar" aria-hidden="true">👶</div>
+        <div style="min-width:0">
+          <div class="badges" id="whoBadges"></div>
+          <h2 id="whoName">이름</h2>
+          <div class="ui muted" id="whoSub" style="font-size:13px"></div>
+        </div>
+      </div>
+      <dl class="kv" style="margin-top:10px" id="whoKv"></dl>
+    </div>
+    <div class="panel">
+      <div class="clock">
+        <div>
+          <div class="ui muted" style="font-size:12px" id="stageLbl">영유아기</div>
+          <div class="big num"><span id="ageNow">0</span>세</div>
+        </div>
+        <div style="text-align:right">
+          <div class="gz" id="gzNow">갑자년</div>
+          <div class="ui num" id="yearNow" style="font-size:15px">0000년</div>
+        </div>
+      </div>
+      <div class="track"><i id="yearBar" style="width:0%"></i></div>
+      <div class="trackLbl"><span id="tickerTxt">새 생명이 숨을 고릅니다</span><span id="nextHint"></span></div>
+      <div class="track life" style="margin-top:12px"><i id="lifeBar" style="width:0%"></i></div>
+      <div class="trackLbl"><span>같은 해 태어난 아이 100명 중 살아 있는 수</span><span class="num" id="aliveOf100">100명</span></div>
+      <div class="life2">
+        <div class="mini"><b class="num" id="e0Lbl">-</b><span>출생 시 기대여명</span></div>
+        <div class="mini"><b class="num" id="e20Lbl">-</b><span>20세까지 살면 기대 수명</span></div>
+        <div class="mini"><b id="riskLbl">-</b><span>올해 사망 위험</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>여섯 가지 삶의 기운 <small>매년 시대·선택이 반영됩니다</small></h3>
+      <div class="stats" id="stats"></div>
+      <h3 style="margin-top:16px">가족 <small id="famSum"></small></h3>
+      <div class="fam" id="fam"></div>
+    </div>
+    <div class="panel">
+      <h3>생애 기록 <small>최근 일이 위에</small></h3>
+      <div id="log"></div>
+    </div>
+  </div>
+</section>
+
+<footer>모든 확률과 수명은 역사인구학 연구를 게임용으로 근사한 값입니다. 자세한 근거는 ‘고증·출처’에서 볼 수 있습니다.</footer>
+</div>
+
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" hidden></div>
+<script>
+// ===== 유틸 =====
+const R = Math.random;
+const ri = (a, b) => a + Math.floor(R() * (b - a + 1));
+const pick = a => a[Math.floor(R() * a.length)];
+const clamp = (v, a = 0, b = 100) => Math.max(a, Math.min(b, v));
+const wpick = arr => { const t = arr.reduce((s, x) => s + x.p, 0); let r = R() * t; for (const x of arr) { r -= x.p; if (r <= 0) return x; } return arr[arr.length - 1]; };
+const lerp = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 1; i < pts.length; i++) { if (x <= pts[i][0]) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]; return y0 + (y1 - y0) * (x - x0) / (x1 - x0); } } return pts[pts.length - 1][1]; };
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const STEM = '갑을병정무기경신임계', BRANCH = '자축인묘진사오미신유술해';
+const ganji = y => STEM[((y - 4) % 10 + 10) % 10] + BRANCH[((y - 4) % 12 + 12) % 12] + '년';
+const lsGet = k => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } };
+
+// ===== 시대 =====
+const ERAS = {
+  goryeo: {
+    id: 'goryeo', tab: '고려', years: '918–1392', color: '#6f9a8c', birth: [960, 1340],
+    title: '귀족과 바다의 시대',
+    head: '개경의 비색 청자 속에서, 세계를 향해 닻을 올리다',
+    sub: '불교와 유교가 함께 숨 쉬고 벽란도에 아라비아 상인이 드나드는 개방의 나라. 아들딸이 재산을 똑같이 나누고, 신랑이 처가에 들어가 사는 것이 당연했습니다. 대신 거란·몽골·홍건적·왜구의 침입이 끊이지 않습니다.',
+    keys: ['남녀 균분 상속', '처가살이', '재가 자유', '거란·몽골 침입', '무신정변']
+  },
+  joseonA: {
+    id: 'joseonA', tab: '조선 전·중기', years: '1392–1700', color: '#2c5866', birth: [1395, 1670],
+    title: '건국과 전란의 시대',
+    head: '조선의 새벽을 설계하고, 전란의 불길을 건너다',
+    sub: '훈민정음과 경국대전으로 유교 국가의 틀이 서지만, 일상에는 아직 고려식 관습이 남아 있습니다. 임진왜란과 병자호란, 경신대기근을 지나며 장자 상속과 시집살이가 뿌리내립니다.',
+    keys: ['훈민정음', '경국대전', '임진왜란', '병자호란', '경신대기근']
+  },
+  joseonB: {
+    id: 'joseonB', tab: '조선 후기', years: '1700–1910', color: '#a8321f', birth: [1700, 1885],
+    title: '자본과 격변의 시대',
+    head: '돈으로 신분을 사는 세상, 민중의 함성이 문을 두드리다',
+    sub: '모내기법과 상업으로 평민 부자가 나오고, 족보를 사서 양반이 되는 사람이 늘어납니다. 양반 여성은 내외법에 갇히고, 세도정치와 괴질, 민란 끝에 개항과 동학, 갑오개혁이 옵니다.',
+    keys: ['신분 세탁', '장자 상속', '내외법', '홍경래의 난', '동학·갑오개혁']
+  },
+  modern: {
+    id: 'modern', tab: '근현대', years: '1900–오늘', color: '#b98a2a', birth: [1900, 2000],
+    title: '식민·전쟁·압축성장의 시대',
+    head: '나라를 잃고 다시 세우고, 세계에서 가장 빨리 늙어가다',
+    sub: '강제병합과 동원, 광복과 분단, 전쟁의 폐허에서 반세기 만에 선진국이 된 나라. 보릿고개와 여공, 파독과 중동 건설, IMF와 영끌, 저출생까지 한 사람의 생애에 다 들어갑니다.',
+    keys: ['일제강점기', '6·25 전쟁', '산업화', 'IMF', '초저출생']
+  }
+};
+
+// 시대 규범 구간: 출생보다 '그 해'의 제도가 삶을 결정
+function normOf(y) {
+  if (y < 1392) return 'open';
+  if (y < 1600) return 'trans';
+  if (y < 1894) return 'strict';
+  if (y < 1945) return 'early';
+  if (y < 1990) return 'modern';
+  return 'now';
+}
+
+// ===== 신분 구성비 (자료: 호적대장 추계를 게임용으로 근사) =====
+function classesFor(era, by) {
+  if (era === 'goryeo') return [
+    { key: 'noble', label: by >= 1270 ? '권문세족' : '문벌귀족', p: 2, hj: 'noble' },
+    { key: 'middle', label: '향리·중류층', p: 6, hj: 'middle' },
+    { key: 'commoner', label: '백정(일반 양민)', p: 62, hj: 'commoner' },
+    { key: 'sobugok', label: '향·소·부곡민', p: 8, hj: 'commoner' },
+    { key: 'slave', label: '노비', p: 22, hj: 'slave' }
+  ];
+  if (era === 'joseonA') return by < 1560 ? [
+    { key: 'noble', label: '양반(사대부)', p: 10 },
+    { key: 'middle', label: '중인·향리', p: 5 },
+    { key: 'commoner', label: '양인(상민)', p: 55 },
+    { key: 'slave', label: '노비', p: 30 }
+  ] : [
+    { key: 'noble', label: '양반(사림)', p: 15 },
+    { key: 'middle', label: '중인·향리', p: 5 },
+    { key: 'commoner', label: '상민', p: 40 },
+    { key: 'slave', label: '노비', p: 40 }
+  ];
+  if (era === 'joseonB') return by < 1780 ? [
+    { key: 'noble', label: '양반', p: 30 },
+    { key: 'middle', label: '중인·향리', p: 5 },
+    { key: 'commoner', label: '상민', p: 52 },
+    { key: 'slave', label: '노비', p: 13 }
+  ] : [
+    { key: 'noble', label: '양반', p: 43 },
+    { key: 'middle', label: '중인·향리', p: 5 },
+    { key: 'commoner', label: '상민', p: 46 },
+    { key: 'slave', label: '노비', p: 6 }
+  ];
+  const t = clamp((by - 1945) / 25, 0, 1);
+  return [
+    { key: 'noble', label: by < 1950 ? '지주·부호 집안' : '자산가 집안', p: 3 + t },
+    { key: 'middle', label: by < 1950 ? '관리·교사·상인 집안' : '중산층(봉급생활자)', p: 10 + 35 * t },
+    { key: 'commoner', label: by < 1950 ? '자작·소작농 집안' : '서민(농민·노동자·자영업)', p: 67 - 26 * t },
+    { key: 'poor', label: by < 1950 ? '빈농·도시빈민' : '저소득층', p: 20 - 10 * t }
+  ];
+}
+// 화면 표시용 대표 확률 (탭 미리보기)
+function previewClasses(era) {
+  const b = ERAS[era].birth, mid = Math.round((b[0] + b[1]) / 2);
+  if (era === 'joseonB') return [
+    { label: '양반(호적 기준)', p: '30→43' }, { label: '중인·향리', p: '5' }, { label: '상민', p: '52→46' }, { label: '노비', p: '13→6' }];
+  if (era === 'joseonA') return [
+    { label: '양반', p: '10→15' }, { label: '중인·향리', p: '5' }, { label: '양인·상민', p: '55→40' }, { label: '노비', p: '30→40' }];
+  if (era === 'modern') return [
+    { label: '지주·자산가', p: '3→4' }, { label: '중류·중산층', p: '10→45' }, { label: '농민·서민', p: '67→41' }, { label: '빈민·저소득', p: '20→10' }];
+  return classesFor(era, mid).map(c => ({ label: c.label, p: String(c.p) }));
+}
+
+// ===== 지역 =====
+function regionFor(era, by, cls) {
+  if (era === 'goryeo') {
+    if (cls === 'noble') return wpick([{ v: '개경', p: 80 }, { v: '서경(평양)', p: 8 }, { v: '동경(경주)', p: 6 }, { v: '남경(한양)', p: 6 }]).v;
+    if (cls === 'sobugok') return pick(['강진 대구소(청자 장인 마을)', '공주 명학소', '부안 유천리 소', '양광도 어느 부곡', '경상도 어느 향']);
+    return wpick([{ v: '개경', p: 10 }, { v: '예성강 벽란도 인근', p: 5 }, { v: '서경(평양)', p: 9 }, { v: '양광도(충청·경기)', p: 18 }, { v: '경상도', p: 22 }, { v: '전라도', p: 18 }, { v: '교주도(강원)', p: 6 }, { v: '서해도(황해)', p: 7 }, { v: '동계·북계', p: 5 }]).v;
+  }
+  if (era === 'modern' && by >= 1953) {
+    const t = clamp((by - 1955) / 45, 0, 1);
+    return wpick([{ v: '서울', p: 9 + 12 * t }, { v: '부산', p: 6 }, { v: '대구', p: 4 }, { v: '인천', p: 3 + 2 * t }, { v: '광주', p: 2 + t }, { v: '대전', p: 2 + t }, { v: '경기 농촌', p: 10 + 12 * t }, { v: '강원 산골', p: 7 - 4 * t }, { v: '충청 농촌', p: 14 - 6 * t }, { v: '전라 농촌', p: 17 - 10 * t }, { v: '경상 농촌', p: 20 - 10 * t }, { v: '제주', p: 1.5 }]).v;
+  }
+  const list = [{ v: '경상도', p: 22 }, { v: '전라도', p: 18 }, { v: '충청도', p: 12 }, { v: '경기도', p: 10 }, { v: era === 'modern' ? '경성' : '한양', p: era === 'modern' ? 5 : 4 }, { v: '황해도', p: 8 }, { v: '평안도', p: 12 }, { v: '함경도', p: 8 }, { v: '강원도', p: 4 }, { v: '제주', p: 2 }];
+  if (cls === 'noble' && era !== 'modern') list[4].p = 14;
+  if (era === 'modern' && by < 1945) list.push({ v: '간도(만주)', p: 2 });
+  return wpick(list).v;
+}
+const isNorth = r => /평안|함경|황해|서경|평양|간도|북계|동계/.test(r);
+
+// ===== 이름 =====
+const SUR = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임', '한', '오', '서', '신', '권', '황', '안', '송', '류', '홍'];
+const SUR_W = [21, 15, 8, 5, 4.5, 2.3, 2.1, 2, 2, 1.6, 1.5, 1.5, 1.5, 1.5, 1.4, 1.4, 1.3, 1.3, 1.2, 1.1];
+const BON = { 김: ['경주', '김해', '안동', '광산', '청풍'], 이: ['전주', '경주', '인주', '광산', '연안'], 박: ['밀양', '반남', '함양'], 최: ['해주', '경주', '전주'], 정: ['동래', '연일', '진주'], 강: ['진주'], 조: ['한양', '평양', '창녕'], 윤: ['파평', '해평'], 장: ['인동', '안동'], 임: ['나주', '평택'], 한: ['청주'], 오: ['해주', '보성'], 서: ['달성', '대구'], 신: ['평산', '고령'], 권: ['안동'], 황: ['장수'], 안: ['순흥', '죽산'], 송: ['여산', '은진'], 류: ['문화', '풍산'], 홍: ['남양', '풍산'] };
+const surname = () => { let t = R() * SUR_W.reduce((a, b) => a + b, 0); for (let i = 0; i < SUR.length; i++) { t -= SUR_W[i]; if (t <= 0) return SUR[i]; } return '김'; };
+const HAN = ['문', '지', '원', '석', '경', '수', '인', '효', '정', '승', '우', '영', '직', '의', '현', '광', '세', '준', '덕', '중', '익', '종', '희', '연', '규', '한', '치', '상'];
+const N = {
+  pmM_low: ['돌쇠', '개똥', '막동', '삼돌', '억쇠', '칠복', '귀동', '마당쇠', '바우', '만석', '복남', '똥개', '언복', '두꺼비', '떡쇠', '작은놈'],
+  pmF: ['간난', '끝순', '언년', '귀덕', '막례', '분이', '옥이', '복덕', '섭섭이', '말녀', '큰년', '작은년', '순덕', '금이', '덕이', '아기'],
+  m1: ['춘식', '만석', '덕수', '용팔', '정남', '성길', '재근', '병철', '봉수', '창호', '종팔', '학수'],
+  f1: ['순자', '말순', '영자', '정자', '옥순', '금순', '분례', '끝례', '춘자', '말자', '복순', '순례'],
+  m2: ['영수', '영철', '영호', '정호', '성수', '상철', '종수', '광수', '기수', '명호', '재철', '병수'],
+  f2: ['영숙', '정숙', '영희', '미숙', '경자', '순희', '명숙', '말자', '정희', '숙자', '옥자', '경숙'],
+  m3: ['성호', '정훈', '상훈', '성민', '준호', '동현', '재현', '민호', '성진', '진우', '상민', '현석'],
+  f3: ['미경', '은영', '지영', '현정', '은주', '미영', '수진', '선영', '혜진', '정은', '은정', '미정'],
+  m4: ['지훈', '민수', '현우', '동현', '성민', '준영', '민준', '도현', '승현', '재민', '태현', '건우'],
+  f4: ['지혜', '지은', '수진', '민지', '유진', '서연', '혜원', '은지', '수빈', '예진', '지원', '다은']
+};
+function makeName(era, by, cls, g) {
+  const s = surname();
+  const premod = era !== 'modern';
+  if (premod) {
+    if (g === 'M') {
+      if (cls === 'slave') return { s: '', given: pick(N.pmM_low), full: pick(N.pmM_low), hj: '노(奴) ' };
+      if (cls === 'noble' || cls === 'middle' || R() < .45) { const gv = pick(HAN) + pick(HAN); return { s, given: gv, full: s + gv }; }
+      const a = pick(N.pmM_low); return { s, given: a, full: s + a, child: true };
+    }
+    const a = pick(N.pmF);
+    if (cls === 'slave') return { s: '', given: a, full: a, hj: '비(婢) ' };
+    return { s, given: a, full: s + ' ' + a };
+  }
+  const k = by < 1935 ? 1 : by < 1960 ? 2 : by < 1982 ? 3 : 4;
+  const gv = pick(N[(g === 'M' ? 'm' : 'f') + k]);
+  return { s, given: gv, full: s + gv };
+}
+// 호적 표기: 양반 여성 '씨(氏)', 양인 여성 '소사(召史)', 노비 '노(奴)/비(婢)'
+function hojeokName(st) {
+  const n = st.nm;
+  if (st.era === 'modern') return n.full;
+  if (st.cls === 'slave') return (st.g === 'M' ? '노(奴) ' : '비(婢) ') + n.given;
+  if (st.g === 'F') return (st.cls === 'noble' || st.cls === 'middle') ? n.s + '씨(氏)' : n.s + '소사(召史)';
+  if (st.cls === 'noble' && st.bon) return st.bon + ' ' + n.s + '씨 ' + n.given;
+  return n.full;
+}
+
+// ===== 사망 모형 =====
+// 전근대: 영아 사망 약 20%, 1~4세 연 5.5%, 이후 배경위험 + 곰페르츠. 5세 전 사망 약 35~40%(자료의 30~50%).
+// 근현대: 통계청 생명표 흐름(1925~30 기대여명 약 33~35세 → 2023년 83.5세)을 연도별 배수로 근사.
+function infantQ(y) { return y < 1880 ? 0.22 : lerp([[1880, .22], [1925, .17], [1950, .11], [1960, .07], [1970, .045], [1980, .017], [1990, .010], [2000, .005], [2020, .0025]], y); }
+function bgMult(y) { return y < 1880 ? 1 : lerp([[1880, 1], [1925, .85], [1950, .6], [1960, .4], [1970, .24], [1990, .1], [2010, .05], [2020, .035]], y); }
+function gpMult(y) { return y < 1880 ? 1 : lerp([[1880, 1], [1925, .9], [1960, .6], [1990, .34], [2010, .24], [2025, .2], [2060, .16]], y); }
+const CLS_MULT = { noble: .85, middle: .95, commoner: 1, sobugok: 1.08, slave: 1.2, poor: 1.15 };
+function baseHazard(age, y, cls) {
+  let h;
+  if (age === 0) h = infantQ(y);
+  else if (age < 5) h = infantQ(y) * 0.28;
+  else if (age < 15) h = 0.011 * bgMult(y);
+  else h = 0.015 * bgMult(y) + 0.00015 * Math.exp(0.09 * age) * gpMult(y);
+  const cm = CLS_MULT[cls] || 1;
+  h *= age < 5 ? (1 + (cm - 1) * .7) : cm;
+  return Math.min(h, 0.95);
+}
+// 연도별 재난 가산 위험 (전쟁·기근·역병)
+const CRISIS = [
+  [1010, 1011, .02, '거란 2차 침입'], [1018, 1019, .015, '거란 3차 침입'], [1231, 1259, .012, '몽골의 침입'],
+  [1361, 1362, .02, '홍건적의 개경 함락'], [1592, 1598, .045, '임진왜란'], [1627, 1627, .015, '정묘호란'], [1636, 1637, .03, '병자호란'],
+  [1670, 1671, .07, '경신대기근'], [1695, 1696, .05, '을병대기근'], [1821, 1821, .025, '괴질(콜레라)'], [1859, 1860, .012, '괴질(콜레라)'], [1886, 1886, .015, '괴질(콜레라)'],
+  [1918, 1918, .012, '무오년 독감(스페인 독감)'], [1950, 1953, .03, '6·25 전쟁']
+];
+function crisisAt(y) { return CRISIS.find(c => y >= c[0] && y <= c[1]); }
+
+function hazardNow(st, ageAt) {
+  const age = ageAt ?? st.age;
+  let h = baseHazard(age, st.year, st.cls);
+  const s = st.s;
+  if (age >= 5) {
+    if (s.hp < 20) h *= 2.6; else if (s.hp < 40) h *= 1.6; else if (s.hp > 80) h *= .8;
+    if (s.wealth < 10) h *= 1.25; else if (s.wealth > 70) h *= .88;
+    if (s.joy < 15) h *= 1.15;
+  }
+  const c = crisisAt(st.year);
+  if (c) h += c[2] * (st.cls === 'noble' ? .6 : st.cls === 'slave' || st.cls === 'poor' ? 1.3 : 1) * (age < 5 || age > 60 ? 1.4 : 1);
+  h += st.extraRisk || 0;
+  return Math.min(h, .97);
+}
+// 기대여명(게임 모형) 계산
+function lifeTable(by, cls) {
+  let S = 1, e0 = 0, S20 = 0, e20 = 0, curve = [];
+  for (let a = 0; a < 110; a++) {
+    curve.push(S);
+    const q = baseHazard(a, by + a, cls);
+    const Sn = S * (1 - q);
+    e0 += (S + Sn) / 2;
+    if (a === 20) S20 = S;
+    if (a >= 20) e20 += (S + Sn) / 2;
+    S = Sn;
+  }
+  return { e0, e20: 20 + e20 / S20, curve };
+}
+
+// ===== 직업 =====
+// inc: 해마다 재산 변화, edu/voice/joy/hp: 해마다 변화
+const JOBS = {
+  baby: { n: '젖먹이', inc: 0 },
+  child: { n: '아이', inc: 0 },
+  study: { n: '글공부하는 선비', inc: -.6, edu: 2, joy: -.2 },
+  official: { n: '관료', inc: 1.6, voice: .6 },
+  military: { n: '무관', inc: 1.1, voice: .4, hp: -.2 },
+  monk: { n: '승려', inc: .1, edu: 1, joy: .3 },
+  nun: { n: '비구니', inc: 0, edu: .6, joy: .3 },
+  hyangni: { n: '향리', inc: .8, voice: .3 },
+  farmer: { n: '농사꾼', inc: .25, hp: -.1 },
+  tenant: { n: '소작농', inc: -.1, hp: -.2, joy: -.2 },
+  merchant: { n: '상인', inc: .9 },
+  bigmerchant: { n: '거상', inc: 2.2, voice: .3 },
+  peddler: { n: '보부상', inc: .5, hp: -.2 },
+  artisan: { n: '장인', inc: .5, edu: .3 },
+  potter: { n: '도공', inc: .4, edu: .3 },
+  slave: { n: '노비', inc: 0, joy: -.4, hp: -.2 },
+  runaway: { n: '도망 노비', inc: -.2, joy: .2, hp: -.3 },
+  soldier: { n: '군졸', inc: .2, hp: -.4 },
+  gunner: { n: '훈련도감 포수', inc: .5, hp: -.3 },
+  housewife: { n: '안살림', inc: .1 },
+  weaver: { n: '길쌈·삯바느질', inc: .35, hp: -.1 },
+  innkeeper: { n: '주막 주인', inc: .7 },
+  physician: { n: '의녀', inc: .4, edu: .6 },
+  translator: { n: '역관', inc: 1.4, edu: .6 },
+  techno: { n: '기술관', inc: 1, edu: .8 },
+  teacher: { n: '서당 훈장', inc: .2, edu: .5 },
+  miner: { n: '광산 덕대', inc: 1.4, hp: -.3 },
+  // 근현대
+  student: { n: '학생', inc: -.3, edu: 2.2 },
+  factory: { n: '공장 노동자', inc: .4, hp: -.4, joy: -.2 },
+  yeogong: { n: '여공', inc: .4, hp: -.5, joy: -.3 },
+  clerk: { n: '사무직 회사원', inc: .9, edu: .2 },
+  civil: { n: '공무원·교사', inc: .8, voice: .3 },
+  selfemp: { n: '자영업자', inc: .7 },
+  laborer: { n: '막노동꾼', inc: .2, hp: -.5 },
+  gyeongseong: { n: '도시 품팔이', inc: .15, hp: -.3 },
+  pro: { n: '전문직', inc: 2, voice: .4 },
+  manager: { n: '회사 중역', inc: 2.2, voice: .5 },
+  homemaker: { n: '전업주부', inc: .1 },
+  retired: { n: '은퇴', inc: -.4 },
+  jobless: { n: '실업자', inc: -1, joy: -.6 },
+  gigs: { n: '비정규직', inc: .3, joy: -.3 },
+  drafted: { n: '강제 동원', inc: -.3, hp: -1.5, joy: -1 },
+  abroadWork: { n: '해외 파견 노동', inc: 2.2, hp: -.7 }
+};
+
+// ===== 해마다 일어나는 잔잔한 일 =====
+const SMALL = {
+  premod: [
+    ['올해는 비가 알맞게 와서 곡식이 잘 여물었다.', { wealth: 2, joy: 2 }],
+    ['가뭄이 들어 논바닥이 갈라졌다.', { wealth: -3, hp: -2 }],
+    ['장마에 둑이 터져 밭 한 뙈기를 잃었다.', { wealth: -3 }],
+    ['정월 대보름에 부럼을 깨물고 쥐불놀이를 했다.', { joy: 2 }],
+    ['단오에 그네를 뛰고 창포물에 머리를 감았다.', { joy: 2 }],
+    ['한가위에 햅쌀로 송편을 빚었다.', { joy: 3 }],
+    ['동짓날 팥죽을 쑤어 문간에 뿌렸다.', { joy: 1 }],
+    ['돌림병이 마을을 휩쓸고 지나갔다.', { hp: -5 }],
+    ['장터에서 좋은 값에 물건을 팔았다.', { wealth: 2 }],
+    ['호랑이가 고개 너머 마을에 나타났다는 소문이 돌았다.', { joy: -1 }],
+    ['이웃과 품앗이로 김매기를 끝냈다.', { joy: 1, voice: 1 }],
+    ['세금을 바치러 관아에 다녀왔다.', { wealth: -2 }],
+    ['겨울이 유난히 길어 땔감이 모자랐다.', { hp: -2 }],
+    ['한 해가 별일 없이 지나갔다.', {}]
+  ],
+  modern: [
+    ['보릿고개를 겨우 넘겼다.', { hp: -2, wealth: -1 }, 1900, 1965],
+    ['라디오에서 흘러나오는 노래를 따라 불렀다.', { joy: 2 }, 1930, 1990],
+    ['동네에 처음으로 텔레비전이 들어왔다.', { joy: 2 }, 1966, 1980],
+    ['명절에 기차표를 끊으려 밤새 줄을 섰다.', { joy: -1 }, 1970, 1995],
+    ['연탄가스 사고 소식이 이웃에서 들려왔다.', { hp: -1 }, 1960, 1990],
+    ['월급날 통닭 한 마리를 사 들고 집에 갔다.', { joy: 2 }, 1970, 2026],
+    ['전셋값이 크게 올랐다는 집주인 전화를 받았다.', { wealth: -3, joy: -2 }, 1985, 2026],
+    ['휴대전화를 처음 샀다.', { joy: 2 }, 1997, 2010],
+    ['미세먼지 때문에 창문을 꼭 닫고 지냈다.', { hp: -1 }, 2010, 2026],
+    ['한 해가 별일 없이 지나갔다.', {}, 1900, 2100],
+    ['독감에 걸려 한동안 앓아누웠다.', { hp: -3 }, 1900, 2100],
+    ['오랜 친구와 연락이 닿았다.', { joy: 2, voice: 1 }, 1900, 2100]
+  ]
+};
+
+const STAT_INFO = [
+  ['hp', '건강', '몸의 기운'],
+  ['wealth', '재물', '토지·노비·돈'],
+  ['edu', '학식', '글과 기술'],
+  ['voice', '발언권', '집안·사회에서의 힘'],
+  ['restrict', '행동 제약', '높을수록 갇힌 삶'],
+  ['joy', '행복', '마음의 평안']
+];
+// ===== 상태 =====
+let st = null;           // 현재 인생
+let curEra = 'goryeo';
+let genderPref = 'rand';
+let speed = 1, progress = 0, timer = null, autoOn = false, modalOpen = false, cdTimer = null;
+let pendingBirth = null;
+
+const eraOf = () => ERAS[st.era];
+const KOR = { hp: '건강', wealth: '재물', edu: '학식', voice: '발언권', restrict: '행동 제약', joy: '행복' };
+
+// 효과 적용 + 문구
+function E(fx) {
+  const out = [];
+  for (const k in fx) {
+    if (!(k in st.s) || !fx[k]) continue;
+    const before = st.s[k];
+    st.s[k] = clamp(Math.round((st.s[k] + fx[k]) * 10) / 10);
+    const d = Math.round(st.s[k] - before);
+    if (d) out.push(`${KOR[k]} ${d > 0 ? '+' : '−'}${Math.abs(d)}`);
+  }
+  if (st.s.wealth > st.peakWealth) st.peakWealth = st.s.wealth;
+  return out.length ? ` (${out.join(' · ')})` : '';
+}
+const fxText = fx => Object.keys(fx).filter(k => fx[k]).map(k => `${KOR[k]} ${fx[k] > 0 ? '+' : '−'}${Math.abs(fx[k])}`).join(' · ');
+const chance = p => R() < p;
+function setJob(k) { st.job = k; }
+function setCls(k, label) { const old = st.clsLabel; st.cls = k; st.clsLabel = label; st.statusHist.push(`${st.age}세 ${old} → ${label}`); }
+function addLog(text, kind = '') {
+  st.log.unshift({ y: st.year, a: st.age, t: text, k: kind });
+  if (st.log.length > 400) st.log.length = 400;
+  renderLog();
+}
+function tag(t) { st.tags.push(`${st.age}세 ${t}`); }
+function die(cause) { st.die = cause; }
+const male = () => st.g === 'M';
+const isPre = () => st.year < 1894;
+const regionHas = re => re.test(st.region);
+
+// ===== 탄생 =====
+function rollBirth(era, gPref) {
+  const E0 = ERAS[era];
+  const by = ri(E0.birth[0], E0.birth[1]);
+  const g = gPref === 'rand' ? (R() < .512 ? 'M' : 'F') : gPref;
+  const c = wpick(classesFor(era, by));
+  let cls = c.key, clsLabel = c.label, sub = '';
+  if (era === 'joseonB' && cls === 'noble') {
+    const r = R();
+    if (r < .03) { sub = '세도 벌열 가문'; } else if (r < .6) { sub = '시골 향반'; } else { sub = '몰락 양반(잔반)'; }
+    clsLabel = '양반 · ' + sub;
+  }
+  const region = regionFor(era, by, cls);
+  const nm = makeName(era, by, cls, g);
+  const sibs = ri(1, era === 'modern' && by > 1975 ? 2 : 6);
+  const pos = ri(1, sibs);
+  let order = sibs === 1 ? (g === 'M' ? '외아들' : '외동딸') : pos === 1 ? (g === 'M' ? '장남' : '장녀') : pos === sibs ? (g === 'M' ? '막내아들' : '막내딸') : (g === 'M' ? `${pos}남` : `${pos}녀`);
+  if (g === 'M' && pos === 2 && sibs > 2) order = '차남';
+  const firstSon = g === 'M' && (pos === 1 || sibs === 1);
+  const seol = (era === 'joseonA' || era === 'joseonB') && cls === 'noble' && R() < .14;
+  const BASE = {
+    noble: { hp: 66, wealth: 72, edu: 14, voice: 50, restrict: 18, joy: 62 },
+    middle: { hp: 62, wealth: 46, edu: 12, voice: 32, restrict: 24, joy: 56 },
+    commoner: { hp: 58, wealth: 22, edu: 4, voice: 18, restrict: 30, joy: 52 },
+    sobugok: { hp: 56, wealth: 14, edu: 4, voice: 10, restrict: 50, joy: 44 },
+    slave: { hp: 52, wealth: 4, edu: 2, voice: 4, restrict: 72, joy: 36 },
+    poor: { hp: 52, wealth: 7, edu: 3, voice: 8, restrict: 34, joy: 42 }
+  };
+  const s = { ...BASE[cls] };
+  if (era === 'modern' && cls === 'middle') { s.edu = 18; s.wealth = 40; }
+  if (sub === '세도 벌열 가문') { s.wealth = 92; s.voice = 70; }
+  if (sub === '몰락 양반(잔반)') { s.wealth = 20; s.voice = 30; }
+  if (seol) { s.wealth -= 25; s.voice -= 25; s.restrict += 10; }
+  const n = normOf(by + 15);
+  if (g === 'F') {
+    const R_ = { open: 0, trans: 8, strict: cls === 'noble' ? 34 : 14, early: 20, modern: 12, now: 3 }[n];
+    const V_ = { open: 0, trans: -4, strict: -18, early: -14, modern: -9, now: -2 }[n];
+    const W_ = { open: 1, trans: 1, strict: .35, early: .5, modern: .75, now: 1 }[n];
+    s.restrict += R_; s.voice += V_; s.wealth *= W_;
+  } else if (n === 'strict' || n === 'early') {
+    if (firstSon) { s.wealth *= 1.2; s.voice += 8; } else { s.wealth *= .55; }
+  }
+  for (const k in s) s[k] = clamp(Math.round(s[k] + ri(-5, 5)));
+  const bon = cls === 'noble' && era !== 'modern' ? pick(BON[nm.s] || ['전주']) : '';
+  const lt = lifeTable(by, cls);
+  return {
+    v: 3, era, by, year: by, age: 0, g, cls, clsLabel, birthCls: clsLabel, sub, seol, region, birthRegion: region, nm, bon, order, sibs, firstSon,
+    job: 'baby', s, married: false, spouse: null, kids: [], done: {}, log: [], tags: [], statusHist: [], peakWealth: s.wealth,
+    extraRisk: 0, flags: {}, dead: false, lt
+  };
+}
+
+function birthStory(b) {
+  const n = normOf(b.by + 15), F = b.g === 'F';
+  const where = `${b.region}의 ${b.clsLabel}`;
+  const lines = {
+    open: F ? '이 시대 딸은 아들과 똑같이 부모의 땅과 노비를 나눠 받고, 혼인하면 남편이 처가로 들어와 삽니다. 남편을 잃어도 다시 혼인할 수 있습니다.'
+      : '이 시대 남자는 혼인하면 처가로 들어가 사는 일이 흔합니다. 어느 집 사위가 되느냐가 재산과 출세를 가릅니다.',
+    trans: F ? '아직은 아들딸이 재산을 고루 나누지만, 나라가 유교식 예법을 밀어붙이기 시작했습니다. 재가한 여자의 자손은 벼슬길이 막히게 됩니다.'
+      : '새 왕조가 유교 국가의 틀을 세우는 중입니다. 신분의 벽은 아직 단단하지 않아, 실력과 군공으로 올라설 틈이 있습니다.',
+    strict: F ? (b.cls === 'noble' ? '딸은 출가외인이라 상속에서 밀려나고, 혼인하면 시집살이를 합니다. 외출할 때는 장옷으로 얼굴을 가려야 합니다.'
+      : '양반집 규수와 달리 생계를 위해 장터와 들판에 나서야 합니다. 그 덕에 오히려 돈을 만질 기회가 있습니다.')
+      : (b.firstSon ? '맏아들로서 제사와 가문 재산을 물려받게 됩니다. 그만큼 가문을 일으켜야 한다는 짐도 무겁습니다.'
+        : '제사와 재산은 맏형에게 몰립니다. 스스로 살 길을 찾아야 합니다.'),
+    early: '나라가 기울고 낯선 제도와 문물이 밀려드는 시대입니다. 어린 시절부터 굶주림과 동원의 그늘이 짙습니다.',
+    modern: '전쟁의 폐허 위에서 나라가 숨 가쁘게 커 갑니다. 공부와 일자리가 운명을 가르는 시대입니다.',
+    now: '배고픔은 사라졌지만, 입시와 집값, 일자리를 두고 경쟁이 치열한 시대입니다.'
+  }[n];
+  return `${where}에서 ${b.order}로 태어났습니다. ${lines}`;
+}
+
+// ===== 시작 화면 =====
+function renderTabs() {
+  $('eraTabs').innerHTML = Object.values(ERAS).map(e =>
+    `<button class="tab" role="tab" aria-selected="${e.id === curEra}" data-era="${e.id}" style="--tc:${e.color}" type="button"><b>${e.tab}</b><span>${e.years}</span></button>`).join('');
+  document.documentElement.style.setProperty('--era', ERAS[curEra].color);
+  const e = ERAS[curEra];
+  const pv = previewClasses(curEra);
+  const lt = lifeTable(Math.round((e.birth[0] + e.birth[1]) / 2), 'commoner');
+  const ltE = lifeTable(e.birth[0], 'commoner'), ltL = lifeTable(e.birth[1], 'commoner');
+  const e0txt = curEra === 'modern' ? `${Math.round(ltE.e0)}세 → ${Math.round(ltL.e0)}세` : `약 ${Math.round(lt.e0)}세`;
+  const s5 = curEra === 'modern' ? `${Math.round((1 - ltE.curve[5]) * 100)}% → ${Math.max(1, Math.round((1 - ltL.curve[5]) * 100))}%` : `약 ${Math.round((1 - lt.curve[5]) * 100)}%`;
+  $('eraInfo').innerHTML = `
+    <div class="eyebrow">${e.tab} · ${e.title}</div>
+    <h3 class="eraHead">${e.head}</h3>
+    <p class="eraSub">${e.sub}</p>
+    <div class="chips">${e.keys.map(k => `<span class="chip">${k}</span>`).join('')}</div>
+    <div class="probs">
+      ${pv.map(c => { const v = parseFloat(String(c.p).split('→').pop()); return `<div class="prob"><span>${c.label}</span><span class="bar"><i style="width:${Math.min(100, v * 1.4)}%"></i></span><em class="num">${c.p}%</em></div>`; }).join('')}
+    </div>
+    <div class="life2" style="margin-top:14px">
+      <div class="mini"><b class="num">${e0txt}</b><span>출생 시 기대여명</span></div>
+      <div class="mini"><b class="num">${s5}</b><span>다섯 살 전에 죽는 아이</span></div>
+      <div class="mini"><b class="num">${curEra === 'modern' ? `${Math.round(ltL.e20)}세` : `약 ${Math.round(lt.e20)}세`}</b><span>20세까지 살면</span></div>
+    </div>
+    <p class="note">확률은 호적대장 신분 구성 추계를, 수명은 족보·생명표 연구를 게임용으로 근사한 값입니다. 화살표는 시대 초반에서 후반으로의 변화입니다.</p>`;
+}
+
+function shakeAndDraw() {
+  const box = $('sanBox'), btn = $('btnDraw');
+  $('birthCard').hidden = true; box.hidden = false;
+  box.classList.remove('drawn'); box.classList.add('shake');
+  btn.disabled = true;
+  const msgs = ['산통을 흔듭니다…', '달그락, 달그락…', '산가지 하나가 고개를 내밉니다…'];
+  let i = 0; $('sanMsg').textContent = msgs[0];
+  const iv = setInterval(() => { i++; if (i < msgs.length) $('sanMsg').textContent = msgs[i]; }, 600);
+  setTimeout(() => {
+    clearInterval(iv); box.classList.remove('shake'); box.classList.add('drawn');
+    pendingBirth = rollBirth(curEra, genderPref);
+    setTimeout(() => { showBirthCard(pendingBirth); btn.disabled = false; btn.textContent = '산통 다시 흔들기'; }, 900);
+  }, 1800);
+}
+
+function showBirthCard(b) {
+  const e = ERAS[b.era];
+  $('sanBox').hidden = true;
+  const sealTxt = { noble: '貴', middle: '中', commoner: '良', sobugok: '所', slave: '奴', poor: '貧' }[b.cls];
+  $('birthCard').hidden = false;
+  $('birthCard').innerHTML = `
+    <div class="birth">
+      <div class="birthTitle"><span class="seal">${sealTxt}</span>
+        <div><div class="eyebrow">운명의 산가지가 멈췄습니다</div><h3>${esc(b.nm.full)}, ${b.by}년 ${ganji(b.by)}에 태어나다</h3></div></div>
+      <dl class="kv">
+        <dt>시대</dt><dd>${e.tab} (${e.title})</dd>
+        <dt>신분</dt><dd>${esc(b.clsLabel)}${b.seol ? ' · <b>서얼</b>(첩의 자식)' : ''}${b.bon ? ` · 본관 ${b.bon}` : ''}</dd>
+        <dt>태어난 곳</dt><dd>${esc(b.region)}</dd>
+        <dt>성별·서열</dt><dd>${b.g === 'M' ? '남' : '여'} · ${b.sibs === 1 ? b.order : b.sibs + '남매 중 ' + b.order}</dd>
+        <dt>호적 표기</dt><dd>${esc(hojeokName(b))}</dd>
+      </dl>
+      <p class="fate">${birthStory(b)}</p>
+      <div class="stats" style="gap:6px">${statBars(b.s, true)}</div>
+      <p class="note">첫 관문은 다섯 살입니다. 이 시대에 같은 신분으로 태어난 아이 100명 중 ${Math.round((1 - b.lt.curve[5]) * 100)}명은 다섯 살을 넘기지 못했습니다.</p>
+      <div class="rowBtns"><button class="btn primary" id="btnAccept" type="button">이 운명으로 살아 보기</button></div>
+    </div>`;
+  $('btnAccept').onclick = () => startLife(b);
+}
+
+function statBars(s, small) {
+  return STAT_INFO.map(([k, n, d]) => `<div class="stat ${k === 'restrict' ? 'restrict' : ''}"><div class="l"><span>${n}${small ? '' : ` <span class="muted" style="font-size:11px">${d}</span>`}</span><span class="num">${Math.round(s[k])}</span></div><div class="track"><i class="${k === 'hp' ? 'hp' : ''}" style="width:${s[k]}%"></i></div></div>`).join('');
+}
+
+// ===== 게임 시작 =====
+function startLife(b) {
+  st = b;
+  document.documentElement.style.setProperty('--era', ERAS[st.era].color);
+  $('startScreen').hidden = true; $('game').hidden = false; $('speedBar').hidden = false; $('btnNew').hidden = false;
+  addLog(`${st.region}에서 ${st.clsLabel}의 ${st.order}로 태어났다. ${ganji(st.year)}이었다.`, 'good');
+  const c = crisisAt(st.year); if (c) addLog(`${c[3]}의 한가운데에서 태어났다.`, 'hist');
+  renderAll(); save(); setSpeed(1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== 시간 =====
+function setSpeed(v) {
+  speed = v;
+  document.querySelectorAll('#speedBar [data-speed]').forEach(b => b.classList.toggle('on', +b.dataset.speed === v));
+  if (timer) clearInterval(timer);
+  timer = setInterval(tick, 100);
+}
+function tick() {
+  if (!st || st.dead || modalOpen || speed === 0) return;
+  progress += 100 / (4000 / speed);
+  if (progress >= 1) { progress = 0; advanceYear(); }
+  $('yearBar').style.width = (progress * 100).toFixed(1) + '%';
+}
+
+function advanceYear() {
+  if (!st || st.dead) return;
+  st.age++; st.year++; st.extraRisk = 0;
+  const s = st.s, n = normOf(st.year);
+  // 성장·노화
+  if (st.age < 18) E({ hp: 1.2 }); else if (st.age > 40) E({ hp: st.age > 60 ? -2 : -0.8 });
+  if (st.age === 1) addLog('돌잔치를 열었다. 무사히 첫 해를 넘겼다.', 'good');
+  if (st.age === 3 && st.year < 1960) addLog(st.year < 1880 ? '마마(천연두) 고비가 마을을 덮쳤다. 아이들이 줄줄이 앓아누웠다.' : '홍역이 돌아 동네 아이들이 앓았다.', 'sad');
+  if (st.age === 5) addLog(`다섯 살 고비를 넘겼다. 같은 해 태어난 아이 100명 중 ${Math.round((1 - st.lt.curve[5]) * 100)}명은 이미 세상에 없다.`, 'good');
+  if (st.age === 5 && st.job === 'baby') st.job = 'child';
+  // 직업 효과
+  const J = JOBS[st.job] || {};
+  const jfx = {}; ['hp', 'edu', 'voice', 'joy'].forEach(k => { if (J[k]) jfx[k] = J[k]; });
+  if (J.inc) jfx.wealth = J.inc + (R() - .5) * 1.2;
+  E(jfx);
+  if (st.age >= 15 && st.age < 70 && ['baby', 'child'].includes(st.job)) setJob(defaultJob());
+  // 잔잔한 일
+  if (st.age >= 6 && chance(.45)) smallEvent();
+  // 재난
+  const c = crisisAt(st.year);
+  if (c && st.year === c[0]) { addLog(`${c[3]}이(가) 일어났다. 굶주림과 죽음이 곳곳에 퍼졌다.`, 'hist'); E({ hp: -6, wealth: -6, joy: -6 }); }
+  // 가족
+  familyYear();
+  // 은퇴(근현대)
+  if (st.age === 72 && st.year >= 1960 && !['retired'].includes(st.job)) { setJob('retired'); }
+  // 사건·기로
+  const ms = findMilestone();
+  renderAll();
+  if (ms) { openMilestone(ms); return; }
+  mortality();
+  save();
+}
+
+function defaultJob() {
+  if (st.year >= 1960) return male() ? (st.s.edu > 40 ? 'clerk' : 'factory') : (st.s.edu > 40 ? 'clerk' : 'homemaker');
+  if (st.cls === 'slave') return 'slave';
+  if (st.cls === 'noble') return male() ? 'study' : 'housewife';
+  if (!male()) return st.cls === 'commoner' || st.cls === 'poor' ? 'weaver' : 'housewife';
+  return 'farmer';
+}
+
+function smallEvent() {
+  if (st.year >= 1900) {
+    const pool = SMALL.modern.filter(x => st.year >= x[2] && st.year <= x[3]);
+    const [t, fx] = pick(pool); addLog(t + E(fx));
+  } else {
+    const [t, fx] = pick(SMALL.premod); addLog(t + E(fx));
+  }
+}
+
+function birthProb() {
+  if (st.year < 1900) return .32;
+  return lerp([[1900, .32], [1950, .3], [1960, .28], [1970, .2], [1980, .13], [1990, .09], [2000, .085], [2015, .065], [2022, .045]], st.year);
+}
+function maternalRisk() { return st.year < 1900 ? .012 : lerp([[1900, .011], [1950, .006], [1970, .002], [1990, .0003], [2020, .0001]], st.year); }
+const KIDN = { M: ['첫째', '둘째', '셋째', '넷째', '다섯째', '여섯째', '일곱째', '여덟째', '아홉째', '열째'] };
+
+function familyYear() {
+  // 자녀 사망
+  st.kids.forEach(k => {
+    if (!k.alive) return;
+    const ka = st.year - k.by;
+    if (ka > 60) return;
+    const q = baseHazard(ka, st.year, st.cls) + (crisisAt(st.year) ? .02 : 0);
+    if (chance(q)) {
+      k.alive = false; k.dy = st.year;
+      const why = ka < 5 ? (st.year < 1900 ? pick(['마마', '홍역', '설사병', '열병']) : st.year < 1970 ? pick(['홍역', '폐렴', '설사병']) : pick(['폐렴', '사고'])) : pick(['염병', '열병', '사고']);
+      addLog(`${k.label} ${k.name}이(가) ${ka}살에 ${why}로 세상을 떠났다.${E({ joy: ka < 5 ? -8 : -14 })}`, 'sad');
+    }
+  });
+  // 배우자 사망
+  if (st.married && st.spouse && st.spouse.alive) {
+    const sa = st.year - st.spouse.by;
+    if (chance(baseHazard(sa, st.year, st.cls) * 1.05)) {
+      st.spouse.alive = false;
+      addLog(`${male() ? '아내' : '남편'} ${st.spouse.name}이(가) ${sa}살에 세상을 떠났다.${E({ joy: -15 })}`, 'sad');
+      if (!male() && st.age < 52) st.flags.widow = st.year; else if (male() && st.age < 55) st.flags.widower = st.year;
+    }
+  }
+  // 출산
+  const wifeAge = male() ? (st.spouse ? st.year - st.spouse.by : 99) : st.age;
+  if (st.married && st.spouse && st.spouse.alive && wifeAge >= 16 && wifeAge <= 43 && st.kids.length < 10 && !st.flags.noKids && chance(birthProb())) {
+    const g = R() < .51 ? 'M' : 'F';
+    const label = KIDN.M[st.kids.length] + (g === 'M' ? ' 아들' : ' 딸');
+    const nm = makeName(st.era === 'modern' || st.year >= 1910 ? 'modern' : st.era, st.year, st.cls, g);
+    st.kids.push({ name: nm.given, g, by: st.year, alive: true, label });
+    addLog(`${label} ${nm.given}이(가) 태어났다.${E({ joy: 5, wealth: -2 })}`, 'good');
+    if (chance(maternalRisk())) {
+      if (male()) { st.spouse.alive = false; addLog(`아내 ${st.spouse.name}이(가) 해산하다 숨을 거두었다.${E({ joy: -18 })}`, 'sad'); if (st.age < 55) st.flags.widower = st.year; }
+      else die('해산 중의 산고');
+    }
+  }
+}
+
+function mortality() {
+  if (st.die) return finish(st.die);
+  const h = hazardNow(st, st.age - 1);
+  if (chance(h) || st.age >= 108) finish(pickCause());
+}
+
+function pickCause() {
+  const a = st.age, y = st.year, c = crisisAt(y);
+  if (c && chance(.6)) return `${c[3]}의 참화`;
+  if (a < 5) return y < 1900 ? pick(['마마(천연두)', '홍역', '설사병', '백일해', '영양실조']) : y < 1970 ? pick(['홍역', '폐렴', '설사병', '영양실조']) : pick(['선천성 질환', '폐렴', '사고']);
+  if (a < 15) return y < 1900 ? pick(['홍역', '염병(장티푸스)', '물놀이 사고', '호환(호랑이)']) : pick(['폐렴', '물놀이 사고', '교통사고', '결핵']);
+  if (y < 1900) {
+    if (a < 55) return pick(['염병(장티푸스)', '학질(말라리아)', '종기', '폐병(결핵)', '이질', '낙상 사고', '호환(호랑이)', '열병']);
+    return pick(['노환', '중풍', '해수(기침병)', '종기', '체증']);
+  }
+  if (a < 60) return y < 1960 ? pick(['결핵', '장티푸스', '폐렴', '사고']) : y < 1995 ? pick(['교통사고', '간질환', '뇌졸중', '위암', '산업재해']) : pick(['암', '심장질환', '뇌졸중', '교통사고']);
+  return y < 1970 ? pick(['노환', '중풍', '폐렴']) : pick(['폐렴', '암', '노환', '심장질환', '뇌졸중']);
+}
+
+// ===== 인생의 기로 =====
+function findMilestone() {
+  for (const h of HIST) {
+    if (st.done[h.id]) continue;
+    if (st.year < h.y[0] || st.year > h.y[1]) continue;
+    if (st.age < (h.min ?? 12)) continue;
+    if (h.max && st.age > h.max) continue;
+    if (h.cond && !h.cond()) { if (h.once) st.done[h.id] = 1; continue; }
+    if (h.p && !chance(h.p)) { if (h.once !== false) st.done[h.id] = 1; continue; }
+    st.done[h.id] = 1;
+    if (h.info) { addLog(h.info(), 'hist'); if (st.die) return null; continue; }
+    return { ...h, hist: true };
+  }
+  for (const m of LIFE) {
+    if (st.done[m.id] && !m.repeat) continue;
+    if (!m.when()) continue;
+    st.done[m.id] = (st.done[m.id] || 0) + 1;
+    if (m.info) { addLog(m.info(), ''); continue; }
+    return m;
+  }
+  return null;
+}
+
+function openMilestone(m) {
+  const opts = m.opts().filter(Boolean);
+  if (!opts.length) { mortality(); return; }
+  modalOpen = true;
+  const sh = $('sheet');
+  const tagLine = m.hist ? `${st.year}년 ${ganji(st.year)} · 역사의 갈림길` : `${st.age}세 · 인생의 기로`;
+  sh.innerHTML = `<div class="tag">${tagLine}</div><h2>${m.title}</h2><p style="margin:0">${typeof m.text === 'function' ? m.text() : m.text}</p>
+    <div class="opts">${opts.map((o, i) => `<button class="opt ${o.ok === false ? 'locked' : ''}" data-i="${i}" type="button" ${o.ok === false ? 'aria-disabled="true"' : ''}><b>${o.t}</b><span>${o.ok === false ? (o.why || '지금 처지로는 고를 수 없습니다') : o.d}</span></button>`).join('')}</div>
+    <div class="countdown" id="cd"></div>`;
+  $('modal').hidden = false;
+  sh.querySelectorAll('.opt').forEach(b => b.onclick = () => { const o = opts[+b.dataset.i]; if (o.ok === false) return; choose(m, o); });
+  if (autoOn) {
+    let n = 8; $('cd').textContent = `자동 선택까지 ${n}초`;
+    cdTimer = setInterval(() => { n--; $('cd').textContent = `자동 선택까지 ${n}초`; if (n <= 0) { clearInterval(cdTimer); const ok = opts.filter(o => o.ok !== false); choose(m, pick(ok)); } }, 1000);
+  }
+}
+
+function choose(m, o) {
+  clearInterval(cdTimer);
+  const res = o.go() || '';
+  addLog(`${m.title}: ${o.t}. ${res}`, 'choice');
+  tag(`${m.short || m.title} — ${o.t}`);
+  $('sheet').innerHTML = `<div class="tag">${m.hist ? st.year + '년' : st.age + '세'}의 선택</div><h2>${o.t}</h2><p class="result">${res || '그렇게 한 해가 지나갔다.'}</p>
+    <div class="rowBtns" style="margin-top:14px"><button class="btn primary" id="btnGoOn" type="button">${st.die ? '마지막 순간으로' : '계속 살아가기'}</button></div>`;
+  renderAll();
+  const go = () => { $('modal').hidden = true; modalOpen = false; mortality(); save(); };
+  $('btnGoOn').onclick = go;
+  if (autoOn) cdTimer = setTimeout(go, 2600);
+}
+
+// ===== 혼인 =====
+function marry(kind) {
+  const n = normOf(st.year);
+  const sg = male() ? 'F' : 'M';
+  const nm = makeName(st.year >= 1910 ? 'modern' : st.era, st.by + (male() ? 3 : -3), st.cls, sg);
+  const age = male() ? st.age - ri(1, 5) : st.age + ri(1, 7);
+  st.married = true; st.spouse = { name: nm.full, alive: true, by: st.year - age };
+  let fx = {}, t = '';
+  if (n === 'open' || (n === 'trans' && st.year < 1600)) {
+    if (male()) { fx = { wealth: st.year < 1500 ? 8 : 4, voice: 4, joy: 6 }; t = '혼례 뒤 처가로 들어가 살았다(남귀여가). 처가의 재산과 인맥이 든든한 뒷배가 되었다.'; }
+    else { fx = { joy: 6, voice: 3 }; t = '남편이 우리 집으로 들어와 살았다. 친정 부모 곁에서 내 몫의 재산을 그대로 지켰다.'; }
+  } else if (n === 'strict') {
+    if (male()) { fx = { voice: 5, joy: 5 }; t = '신부를 집으로 맞아들였다(친영). 이제 한 집안의 가장이다.'; }
+    else { fx = { restrict: st.cls === 'noble' ? 12 : 6, joy: -6, voice: -4 }; t = '가마를 타고 시집으로 들어갔다. 시부모와 시누이 사이에서 시집살이가 시작되었다.'; }
+  } else if (n === 'early') {
+    fx = male() ? { voice: 4, joy: 4 } : { restrict: 6, joy: -2 }; t = '부모가 정한 상대와 혼인했다. 얼굴은 혼례 날 처음 보았다.';
+  } else {
+    fx = { joy: 8, wealth: n === 'now' ? -10 : -4 }; t = kind === 'love' ? '연애 끝에 결혼식을 올렸다.' : '맞선으로 만난 사람과 결혼식을 올렸다.';
+    if (!male() && n === 'modern') { fx.restrict = 4; t += ' 결혼과 함께 직장을 그만두라는 말을 들었다.'; if (['clerk', 'factory', 'yeogong'].includes(st.job) && chance(.6)) setJob('homemaker'); }
+  }
+  return `${st.spouse.name}과(와) 혼인했다. ${t}${E(fx)}`;
+}
+function marriageAge() {
+  const y = st.year;
+  if (y < 1900) return male() ? 18 : 16;
+  return Math.round(male() ? lerp([[1900, 19], [1940, 22], [1960, 26], [1980, 27], [2000, 29], [2023, 34]], y) : lerp([[1900, 17], [1940, 19], [1960, 22], [1980, 24], [2000, 26.5], [2023, 31.5]], y));
+}
+
+// ===== 과거 =====
+function gwageoP(kind) {
+  const base = kind === 'mu' ? .1 + st.s.hp * .003 : .02 + Math.max(0, st.s.edu - 40) * .006;
+  const m = { noble: 1, middle: .55, commoner: .2, sobugok: .05, slave: 0, poor: .1 }[st.cls];
+  return clamp(base * m * (st.seol && kind !== 'mu' ? .2 : 1), 0, .45);
+}
+// ===== 생애 기로 =====
+const LIFE = [
+  { // 7세 배움
+    id: 'edu7', short: '어린 시절', when: () => st.age === 7, title: '일곱 살, 무엇을 배울까',
+    text: () => st.year >= 1910 ? '학교에 갈 나이가 되었습니다. 집안 형편과 시대가 길을 정합니다.' : '글을 깨칠 나이가 되었습니다. 신분과 성별에 따라 열린 문이 다릅니다.',
+    opts: () => {
+      const y = st.year, n = normOf(y);
+      if (y >= 1910) {
+        const fee = y < 1950 ? 6 : y < 1970 ? 3 : 1;
+        const poor = st.s.wealth < (y < 1950 ? 25 : 12);
+        return [
+          { t: y < 1945 ? '보통학교에 입학한다' : y < 1996 ? '국민학교에 입학한다' : '초등학교에 입학한다', d: `학식 +12 · 재물 −${fee}`, ok: !(poor && y < 1950) || st.cls !== 'poor', why: '월사금을 낼 형편이 안 됩니다', go: () => { setJob('student'); return '책보를 메고 학교에 다니기 시작했다.' + E({ edu: 12, wealth: -fee, voice: 2 }); } },
+          !male() && y < 1975 ? { t: '동생들을 업어 키우며 집안일을 한다', d: '학식 +2 · 재물 +3 · 행복 −6', go: () => { st.flags.kjangnyeo = 1; return '학교 대신 동생을 업고 부엌일을 도왔다.' + E({ edu: 2, wealth: 3, joy: -6 }); } } : null,
+          y < 1975 ? { t: y < 1960 ? '신문팔이·구두닦이로 돈을 번다' : '농사일을 거든다', d: '재물 +4 · 건강 −3 · 학식 +1', go: () => '어린 나이에 생계를 거들었다.' + E({ wealth: 4, hp: -3, edu: 1 }) } : { t: '학교 끝나고 학원을 서너 개 돈다', d: '학식 +16 · 재물 −6 · 행복 −8', go: () => { setJob('student'); return '해가 져서야 학원 가방을 메고 돌아왔다.' + E({ edu: 16, wealth: -6, joy: -8 }); } }
+        ].filter(Boolean);
+      }
+      if (st.cls === 'slave') return [
+        { t: '주인집 잔심부름을 한다', d: '재물 +1 · 행복 −4', go: () => '물 긷고 불 때는 일로 하루가 갔다.' + E({ wealth: 1, joy: -4 }) },
+        { t: '도련님 글공부를 어깨너머로 엿듣는다', d: '학식 +8 · 들키면 매질', go: () => chance(.3) ? '몰래 엿듣다 들켜 호되게 매를 맞았다.' + E({ hp: -10, joy: -6, edu: 3 }) : '귀동냥으로 천자문 몇 줄을 깨쳤다.' + E({ edu: 8, joy: 3 }) }
+      ];
+      if (st.cls === 'noble' && male()) return [
+        { t: st.era === 'goryeo' ? '사학(私學) 12도에 들어가 경전을 읽는다' : '서당과 향교에서 경전을 외운다', d: '학식 +15 · 행복 −3', go: () => '천자문을 떼고 소학을 읽기 시작했다.' + E({ edu: 15, joy: -3 }) },
+        { t: '활쏘기와 말타기를 익힌다', d: '건강 +8 · 학식 +5', go: () => { st.flags.mu = 1; return '활 시위를 당기며 몸을 단련했다.' + E({ hp: 8, edu: 5 }); } },
+        st.era === 'goryeo' ? { t: '절에 들어가 스님에게 글을 배운다', d: '학식 +12 · 행복 +3', go: () => { st.flags.temple = 1; return '산사에서 불경과 글을 함께 익혔다.' + E({ edu: 12, joy: 3 }); } } : null
+      ].filter(Boolean);
+      if (st.cls === 'noble' && !male()) return n === 'strict' ? [
+        { t: '《내훈》과 《소학》으로 부녀의 도리를 배운다', d: '학식 +6 · 행동 제약 +5', go: () => '규방에서 말씨와 몸가짐을 익혔다.' + E({ edu: 6, restrict: 5 }) },
+        { t: '몰래 한시를 짓고 그림을 그린다', d: '학식 +12 · 행복 +6 · 발언권 −3', go: () => { st.flags.art = 1; return '오라비 책을 몰래 펼쳐 시를 지었다.' + E({ edu: 12, joy: 6, voice: -3 }); } }
+      ] : [
+        { t: '글과 셈을 배워 집안 살림을 익힌다', d: '학식 +10 · 발언권 +4', go: () => { st.flags.manage = 1; return '장부 보는 법과 노비 다루는 법을 배웠다.' + E({ edu: 10, voice: 4 }); } },
+        { t: '시와 그림, 거문고를 익힌다', d: '학식 +10 · 행복 +6', go: () => { st.flags.art = 1; return '붓을 잡는 손이 날로 능숙해졌다.' + E({ edu: 10, joy: 6 }); } }
+      ];
+      return [
+        { t: '들일과 길쌈을 거든다', d: '건강 +5 · 재물 +2', go: () => '고사리손으로 김을 매고 실을 자았다.' + E({ hp: 5, wealth: 2 }) },
+        { t: '서당 심부름을 하며 어깨너머로 글을 배운다', d: '학식 +8 · 행복 +2', go: () => '훈장님 심부름을 하며 글자를 주워 배웠다.' + E({ edu: 8, joy: 2 }) },
+        { t: '장터에 따라다니며 셈을 익힌다', d: '재물 +3 · 발언권 +2', go: () => { st.flags.trade = 1; return '흥정하는 어른들 사이에서 눈치와 셈이 늘었다.' + E({ wealth: 3, voice: 2 }); } }
+      ];
+    }
+  },
+  { // 15세 진로
+    id: 'career', short: '진로', when: () => st.age === 15, title: '열다섯, 어떤 길을 걸을까',
+    text: () => st.year >= 1894 ? '이제 어른 몫의 일을 해야 할 나이입니다.' : (male() ? '관례를 올릴 나이입니다. 평생의 업이 정해집니다.' : '계례를 올릴 나이입니다. 집 밖과 안, 어디에 설지 정해야 합니다.'),
+    opts: () => careerOpts()
+  },
+  { // 과거 시험 (반복)
+    id: 'gwageo', repeat: true, short: '과거', when: () => (st.job === 'study' || st.flags.muExam) && [20, 25, 30, 36].includes(st.age) && st.year < 1894 && !st.flags.passed,
+    title: '과거 시험장의 문이 열렸다',
+    text: () => `${st.flags.muExam ? '무과' : '문과'}에 응시할 수 있습니다. 합격할 가능성은 지금 실력과 신분으로 따져 대략 ${Math.round(gwageoP(st.flags.muExam ? 'mu' : 'mun') * 100)}%입니다. 평생 낙방하는 선비가 대부분입니다.`,
+    opts: () => {
+      const kind = st.flags.muExam ? 'mu' : 'mun', p = gwageoP(kind);
+      return [
+        { t: '시험을 본다', d: `합격 확률 약 ${Math.round(p * 100)}%`, go: () => {
+          if (chance(p)) { st.flags.passed = 1; setJob(kind === 'mu' ? 'military' : 'official'); return `급제했다! 어사화를 꽂고 삼일유가를 돌았다.${E({ voice: 25, wealth: 12, joy: 15 })}`; }
+          return `낙방했다. 방(榜)에 이름이 없었다.${E({ joy: -8, edu: 3 })}`;
+        } },
+        st.era === 'joseonB' && st.s.wealth >= 35 ? { t: '돈을 써서 대리 작성자(거벽)를 산다', d: '재물 −20 · 합격 확률 2배 · 들키면 큰 화', go: () => {
+          E({ wealth: -20 });
+          if (chance(.12)) { st.flags.studyQuit = 1; setJob('farmer'); return `부정이 들통나 곤장을 맞고 응시 자격을 잃었다.${E({ hp: -15, voice: -20, joy: -12 })}`; }
+          if (chance(Math.min(.8, p * 2))) { st.flags.passed = 1; setJob('official'); return `대리 답안으로 급제했다. 마음 한구석이 무겁다.${E({ voice: 20, joy: 4 })}`; }
+          return `돈만 쓰고 낙방했다.${E({ joy: -10 })}`;
+        } } : null,
+        { t: '과거를 접고 다른 길을 찾는다', d: '훈장이나 농사로 생계를 꾸린다', go: () => { st.flags.studyQuit = 1; st.flags.muExam = 0; setJob(st.s.edu > 40 ? 'teacher' : 'farmer'); return `책을 덮었다. ${st.s.edu > 40 ? '마을 아이들을 가르치는 훈장이 되었다.' : '땅을 일구며 살기로 했다.'}${E({ joy: 4 })}`; } }
+      ].filter(Boolean);
+    }
+  },
+  { // 근현대 학업의 끝
+    id: 'school19', short: '학업', when: () => st.age === 19 && st.job === 'student' && st.year >= 1920, title: '학교를 마칠 때가 되었다',
+    text: () => st.year < 1960 ? '상급학교로 가는 사람은 손에 꼽습니다.' : st.year < 1990 ? '대학 진학률이 빠르게 오르는 중입니다.' : '대부분이 대학에 가는 시대입니다. 어느 대학이냐가 문제입니다.',
+    opts: () => {
+      const y = st.year, collegeOk = st.s.edu >= (y < 1960 ? 45 : y < 1990 ? 38 : 30) && st.s.wealth >= (y < 1960 ? 40 : 15);
+      return [
+        { t: '대학에 진학한다', ok: collegeOk, why: '학비나 성적이 모자랍니다', d: '학식 +15 · 재물 −8 · 4년 뒤 좋은 일자리', go: () => { st.flags.college = 1; return `대학 배지를 달았다.${E({ edu: 15, wealth: -8, voice: 5 })}`; } },
+        { t: y < 1990 ? '공장이나 상점에 취직한다' : '바로 취업한다', d: '재물 +6', go: () => { setJob(y < 1985 ? (male() ? 'factory' : 'yeogong') : 'gigs'); return `첫 월급을 받았다.${E({ wealth: 6, joy: 3 })}`; } },
+        { t: '공무원·교원 시험을 준비한다', d: '합격하면 평생 안정', go: () => { if (chance(clamp(st.s.edu / 160, .1, .55))) { setJob('civil'); return `합격했다. 철밥통을 손에 쥐었다.${E({ wealth: 4, voice: 6, joy: 8 })}`; } setJob('gigs'); return `몇 년을 매달렸지만 떨어졌다.${E({ joy: -10, wealth: -5 })}`; } }
+      ];
+    }
+  },
+  { id: 'college23', when: () => st.age === 23 && st.flags.college && st.job === 'student', info: () => {
+      const y = st.year, r = R();
+      const k = st.s.edu > 70 && r < .35 ? 'pro' : r < .75 ? (y < 1997 || st.s.edu > 60 ? 'clerk' : 'gigs') : 'civil';
+      setJob(k); return `대학을 마치고 ${JOBS[k].n}(으)로 사회에 나섰다.${E({ wealth: 4, voice: 4 })}`;
+    } },
+  { id: 'army', when: () => male() && st.age === 21 && st.year >= 1953 && st.year <= 2100, info: () => {
+      const mo = Math.round(lerp([[1953, 36], [1968, 36], [1984, 30], [1993, 26], [2003, 24], [2011, 21], [2020, 18]], st.year));
+      return `입대해 ${mo}개월 동안 군 복무를 했다.${E({ hp: -2, joy: -4, voice: 2 })}`;
+    } },
+  { // 혼인
+    id: 'marry', short: '혼인', when: () => !st.married && !['monk', 'nun'].includes(st.job) && st.age >= marriageAge() && st.age <= marriageAge() + 2 && !st.done.marry,
+    title: '혼담이 들어왔다',
+    text: () => {
+      const n = normOf(st.year);
+      if (n === 'open') return male() ? '고려에서는 신랑이 처가로 들어가 사는 것이 보통입니다. 어느 집안의 사위가 되느냐가 앞날을 가릅니다.' : '고려의 딸은 혼인해도 자기 재산을 그대로 갖고, 남편을 친정으로 맞아들입니다.';
+      if (n === 'trans') return '혼례는 신부 집에서 치르고, 신랑이 한동안 처가에 머무는 것이 아직 흔합니다.';
+      if (n === 'strict') return male() ? '혼인하면 신부를 집으로 데려와야 합니다.' : '혼인하면 시집에 들어가 시부모를 모시고 살아야 합니다. 거절할 수 있는 여자는 거의 없습니다.';
+      if (n === 'early') return '혼인은 집안끼리 정하는 일입니다.';
+      return st.year >= 2000 ? '결혼은 이제 선택입니다. 집값과 일자리가 발목을 잡습니다.' : '적령기라는 말이 사방에서 들려옵니다.';
+    },
+    opts: () => {
+      const n = normOf(st.year);
+      const o = [];
+      if (n === 'open' && male()) o.push({ t: '권세 있는 집안의 사위가 된다', d: '재물 +12 · 발언권 +8 · 처가 눈치', go: () => marry() + E({ wealth: 12, voice: 8, restrict: 4 }) });
+      o.push({ t: n === 'modern' || n === 'now' ? '맞선 보고 결혼한다' : '집안에서 정한 혼처로 혼인한다', d: '배우자를 맞는다', go: () => marry() });
+      if (n === 'modern' || n === 'now') o.push({ t: '연애결혼을 한다', d: '행복 +6 · 집안 반대를 무릅쓴다', go: () => marry('love') + E({ joy: 6 }) });
+      if (st.cls === 'slave' && n !== 'now') o[0].d = '같은 집 노비와 짝을 짓는다. 자식도 주인의 노비가 된다';
+      if (!male() && (n === 'open' || n === 'trans') && st.year < 1600) o.push({ t: '출가해 비구니가 된다', d: '혼인 대신 불가에 귀의', go: () => { setJob('nun'); return `머리를 깎고 절에 들어갔다.${E({ joy: 6, restrict: -6, edu: 4 })}`; } });
+      if (n === 'now') o.push({ t: '결혼하지 않고 혼자 산다', d: '행복 ±, 재물 +4', go: () => { st.flags.single = 1; return `혼자 사는 삶을 택했다.${E({ wealth: 4, joy: chance(.5) ? 4 : -3 })}`; } });
+      else if (n === 'modern') o.push({ t: '좀 더 미룬다', d: '몇 년 뒤 다시 혼담이 온다', go: () => { st.flags.later = st.age + 5; return `아직은 때가 아니라고 버텼다.${E({ joy: -2 })}`; } });
+      return o;
+    }
+  },
+  { id: 'marry2', short: '늦은 혼인', when: () => !st.married && st.flags.later && st.age === st.flags.later, title: '늦은 혼담', text: '혼기를 넘겼다는 말을 들으며 다시 중매가 들어왔습니다.',
+    opts: () => [
+      { t: '이번에는 결혼한다', d: '배우자를 맞는다', go: () => marry() },
+      { t: '혼자 살기로 한다', d: '자유 +, 주변의 눈총', go: () => { st.flags.single = 1; return `혼자 살기로 마음을 굳혔다.${E({ restrict: -4, voice: -3 })}`; } }
+    ] },
+  { // 과부
+    id: 'widow', repeat: true, short: '홀로 됨', when: () => st.flags.widow && st.flags.widow === st.year - 1 && st.age < 52 && !st.married2done,
+    title: '남편을 잃었다',
+    text: () => {
+      const y = st.year;
+      if (y < 1392) return '고려에서는 남편을 잃은 여자가 다시 혼인하는 일이 흔하고, 흠이 되지 않습니다. 남편이 남긴 집안의 호주가 될 수도 있습니다.';
+      if (y < 1485) return '재가가 아직 막혀 있지는 않지만, 나라가 수절을 칭찬하기 시작했습니다.';
+      if (y < 1894) return '경국대전에 따라 재가한 여자의 아들과 손자는 문과에 응시할 수 없습니다. 양반가에서 재가는 사실상 금지입니다.';
+      if (y < 1945) return '갑오개혁으로 과부의 재가가 법으로 허용되었습니다. 하지만 수군거림은 여전합니다.';
+      return '혼자 아이를 키우며 살아갈지, 새 짝을 찾을지 정해야 합니다.';
+    },
+    opts: () => {
+      const y = st.year;
+      const sharp = y >= 1485 && y < 1894 && (st.cls === 'noble' || st.cls === 'middle');
+      return [
+        { t: '다시 혼인한다', d: sharp ? '행복 +8 · 자식의 벼슬길이 막힌다 · 발언권 −15' : '행복 +8', go: () => { st.married2done = 1; st.flags.widow = 0; if (sharp) st.flags.jaega = 1; const r = marry(); return r + E(sharp ? { joy: 8, voice: -15 } : { joy: 8 }); } },
+        { t: y < 1392 ? '홀로 집안의 호주가 되어 가산을 꾸린다' : '수절하며 홀로 자식을 키운다', d: y < 1392 ? '발언권 +8 · 재물 +4' : y < 1894 ? '발언권 +4 · 행동 제약 +10 · 열녀로 칭송될 수도' : '재물 −4 · 발언권 +3', go: () => {
+          st.married2done = 1; st.flags.widow = 0; st.married = false;
+          if (y < 1392) return `남편이 남긴 집을 이끄는 호주가 되었다.${E({ voice: 8, wealth: 4 })}`;
+          if (y < 1894) { const honor = st.cls === 'noble' && chance(.15); return `흰 소복을 벗지 않고 수절했다.${honor ? ' 고을에서 정절을 기리는 정려를 내려 주었다.' : ''}${E(honor ? { voice: 10, restrict: 10 } : { voice: 4, restrict: 10, joy: -4 })}`; }
+          return `홀로 생계를 꾸렸다.${E({ wealth: -4, voice: 3 })}`;
+        } }
+      ];
+    }
+  },
+  { id: 'widower', when: () => st.flags.widower && st.flags.widower === st.year - 1, info: () => {
+      st.flags.widower = 0;
+      if (chance(st.year < 1990 ? .75 : .3)) { const r = marry(); return '홀아비로 오래 지낼 수 없다는 집안 성화에 새 아내를 맞았다. ' + r; }
+      st.married = false; return '홀로 남은 삶을 받아들였다.' + E({ joy: -3 });
+    } },
+  { // 상속
+    id: 'inherit', short: '상속', when: () => st.age >= 30 && st.age <= 48 && st.cls !== 'slave' && chance(.22), title: '부모님이 세상을 떠났다',
+    text: () => {
+      const n = normOf(st.year);
+      if (n === 'open' || n === 'trans') return '분재기(分財記)를 펼쳤습니다. 아들딸, 맏이와 막내, 시집간 딸까지 똑같이 나누는 것이 관습입니다. 제사도 자녀들이 돌아가며 지냅니다(윤회봉사).';
+      if (n === 'strict') return '제사를 받드는 맏아들에게 재산을 몰아주는 것이 도리라고들 합니다. 시집간 딸은 출가외인이라 몫이 거의 없습니다.';
+      if (n === 'early' || st.year < 1991) return '법은 호주를 이을 맏아들에게 더 많은 몫을 줍니다. 시집간 딸의 몫은 아들의 4분의 1입니다.';
+      return '1991년부터 아들딸, 혼인 여부와 관계없이 똑같이 나눕니다. 그래도 집집마다 다툼은 생깁니다.';
+    },
+    opts: () => {
+      const n = normOf(st.year), F = !male(), first = st.firstSon;
+      let share;
+      if (n === 'open' || n === 'trans') share = 14;
+      else if (n === 'strict') share = first ? 26 : F ? 2 : 6;
+      else if (st.year < 1991) share = first ? 18 : F ? 3 : 7;
+      else share = 10;
+      share = Math.round(share * (st.cls === 'noble' ? 1.3 : st.cls === 'commoner' || st.cls === 'poor' ? .5 : .8));
+      const o = [{ t: '관습대로 물려받는다', d: `재물 +${share}${first && n === 'strict' ? ' · 제사를 도맡는다' : ''}`, go: () => `${share > 10 ? '넉넉한' : share > 3 ? '얼마간의' : '쥐꼬리만 한'} 몫을 받았다.${E({ wealth: share, voice: first && n === 'strict' ? 6 : 0, joy: share < 4 ? -6 : 2 })}` }];
+      if (n === 'strict' && first) o.push({ t: '아우와 누이에게도 고루 나눈다', d: '재물 +10 · 행복 +6 · 문중의 눈총', go: () => `옛 분재기처럼 고루 나눴다. 문중 어른들이 혀를 찼다.${E({ wealth: 10, joy: 6, voice: -4 })}` });
+      if ((n === 'strict' || (st.year < 1991 && st.year >= 1894)) && !first) o.push({ t: '몫을 더 달라고 다툰다', d: '재물 +? · 형제 사이가 틀어진다', go: () => chance(F ? .2 : .4) ? `소송 끝에 몫을 더 받아냈다.${E({ wealth: 8, joy: -6, voice: 3 })}` : `다툼만 하고 얻은 것이 없다.${E({ joy: -10, voice: -3 })}` });
+      return o;
+    }
+  },
+  { // 노비의 몸값
+    id: 'myeoncheon', short: '면천', when: () => st.cls === 'slave' && st.age >= 22 && st.age <= 45 && st.year < 1894 && chance(.25), title: '노비 문서를 불태울 수 있다면',
+    text: '평생 남의 집 종으로 살 수는 없습니다. 몸값을 바치거나(속량), 도망치거나, 주인의 눈에 들어 재산을 모을 수 있습니다.',
+    opts: () => [
+      { t: '모은 재물로 몸값을 치른다', ok: st.s.wealth >= 25, why: '재물 25 이상 필요', d: '재물 −20 · 양인이 된다', go: () => { setCls('commoner', '양인(속량)'); setJob(male() ? 'farmer' : 'weaver'); return `노비 문서에서 이름을 지웠다. 이제 양인이다.${E({ wealth: -20, restrict: -35, joy: 18, voice: 8 })}`; } },
+      { t: '야밤에 도망친다', d: '성공 55% · 잡히면 매질', go: () => {
+        if (chance(.55)) { setCls('commoner', '도망 노비(양인 행세)'); setJob('runaway'); return `먼 고을로 달아나 이름을 바꾸고 양인 행세를 했다.${E({ restrict: -25, joy: 10, wealth: -2 })}`; }
+        return `추노꾼에게 붙잡혀 끌려왔다.${E({ hp: -18, joy: -14, restrict: 8 })}`;
+      } },
+      { t: '주인 몰래 사경(私耕) 땅을 부쳐 재산을 모은다', d: '재물 +10 · 언젠가 몸값으로', go: () => `틈틈이 남의 땅을 부쳐 곡식을 모았다.${E({ wealth: 10, hp: -3 })}` }
+    ]
+  },
+  { // 신분 세탁
+    id: 'jokbo', short: '신분 세탁', when: () => st.year >= 1600 && st.year < 1894 && (st.cls === 'commoner' || st.cls === 'middle') && st.s.wealth >= 45 && st.age >= 28 && st.age <= 60 && chance(.4),
+    title: '족보를 팝니다',
+    text: '전란 뒤 나라는 곡식을 바치면 벼슬 이름을 적은 공명첩을 내주고, 몰락한 양반은 족보에 이름을 끼워 넣어 줍니다. 돈이 있으면 양반이 될 수 있는 시대입니다.',
+    opts: () => [
+      { t: '족보를 사서 양반이 된다', d: '재물 −25 · 신분 양반(신향) · 군역 면제', go: () => { setCls('noble', '양반(족보를 산 신향)'); return `몰락한 양반 가문의 족보에 이름을 올렸다. 호적에 '유학(幼學)'이라 적혔다.${E({ wealth: -25, voice: 12, joy: 6, restrict: -5 })}`; } },
+      { t: '공명첩을 사서 벼슬 이름만 단다', d: '재물 −12 · 발언권 +6', go: () => `빈 이름뿐인 첨지 벼슬을 샀다. 그래도 사람들이 '첨지 어른'이라 불렀다.${E({ wealth: -12, voice: 6 })}` },
+      { t: '그 돈으로 장사를 키운다', d: '재물 +? · 상인으로 산다', go: () => { setJob('bigmerchant'); return chance(.6) ? `가게를 늘려 도매까지 손을 뻗었다.${E({ wealth: 15 })}` : `무리하게 늘리다 손해를 봤다.${E({ wealth: -12 })}`; } }
+    ]
+  },
+  { // 중년의 기회
+    id: 'mid', short: '중년의 기회', when: () => st.age >= 28 && st.age <= 40 && st.year < 1960 && chance(.3) && !['official', 'monk', 'nun'].includes(st.job),
+    title: '한몫 잡을 기회가 왔다', text: () => st.era === 'goryeo' && st.year < 1392 ? '벽란도에 송나라와 아라비아 상선이 들어왔습니다. 인삼과 비단, 청자를 실어 보내면 큰돈이 됩니다.' : st.year < 1700 ? '전란 뒤 빈 땅이 많습니다. 손이 빠른 사람이 먼저 차지합니다.' : st.year < 1894 ? '모내기법과 상업이 퍼지며 머리 좋은 사람은 큰돈을 법니다.' : '격변기에는 위험한 만큼 기회도 큽니다.',
+    opts: () => {
+      const y = st.year, o = [];
+      if (st.year < 1392) o.push({ t: '벽란도 상선에 밑천을 걸고 무역한다', d: '55%: 재물 +28 / 45%: 재물 −20', go: () => { setJob(st.cls === 'slave' ? 'slave' : 'merchant'); return chance(.55) ? `배가 무사히 돌아왔다. 큰 이문을 남겼다.${E({ wealth: 28, voice: 6 })}` : `배가 풍랑에 침몰했다.${E({ wealth: -20, joy: -10 })}`; } });
+      else if (y < 1700) o.push({ t: '황무지를 개간해 땅을 넓힌다', d: '재물 +12 · 건강 −6', go: () => `손이 터지도록 땅을 일궜다.${E({ wealth: 12, hp: -6 })}` });
+      else if (y < 1894) {
+        o.push({ t: '담배·인삼 같은 상품작물을 심는다', d: '60%: 재물 +18 / 40%: 재물 −8', go: () => chance(.6) ? `장시에서 비싼 값을 받았다.${E({ wealth: 18 })}` : `흉작으로 밑천을 날렸다.${E({ wealth: -8, joy: -5 })}` });
+        o.push({ t: '청나라로 인삼을 몰래 넘긴다(밀무역)', d: '50%: 재물 +30 / 50%: 적발', go: () => chance(.5) ? `의주 국경을 넘어 큰돈을 벌었다.${E({ wealth: 30 })}` : `국경에서 붙잡혀 물건을 빼앗기고 곤장을 맞았다.${E({ wealth: -18, hp: -12 })}` });
+        if (!male() && st.cls !== 'noble') o.push({ t: '객주를 열고 거상이 된다(김만덕의 길)', d: '50%: 재물 +25 · 발언권 +10', go: () => { setJob('innkeeper'); return chance(.5) ? `객주가 번창해 여자 거상으로 이름이 났다.${E({ wealth: 25, voice: 10, joy: 8 })}` : `빚만 지고 문을 닫았다.${E({ wealth: -12 })}`; } });
+        if (male() && st.cls !== 'noble') o.push({ t: '광산 덕대가 되어 금·은을 캔다', d: '45%: 재물 +30 / 55%: 재물 −15 · 건강 −8', go: () => { setJob('miner'); return chance(.45) ? `좋은 광맥을 만났다.${E({ wealth: 30, hp: -8 })}` : `광맥이 끊겼다.${E({ wealth: -15, hp: -8 })}`; } });
+      } else o.push({ t: '새 문물 장사(석유·성냥·옷감)를 시작한다', d: '50%: 재물 +20 / 50%: 재물 −10', go: () => { setJob('merchant'); return chance(.5) ? `양품점이 자리를 잡았다.${E({ wealth: 20 })}` : `일본 상인에게 밀려 문을 닫았다.${E({ wealth: -10 })}`; } });
+      o.push({ t: '모험하지 않고 하던 일을 한다', d: '변화 없음', go: () => `괜한 욕심을 내지 않았다.${E({ joy: 2 })}` });
+      return o;
+    }
+  },
+  { // 환갑
+    id: 'hwangap', short: '환갑', when: () => st.age === 61, title: '환갑을 맞았다',
+    text: () => `태어난 해의 ${ganji(st.by)}이 다시 돌아왔습니다. 같은 해 태어난 아이 100명 중 ${Math.round(st.lt.curve[61] * 100)}명만 이 나이까지 살았습니다.`,
+    opts: () => [
+      { t: '잔치를 크게 연다', d: '재물 −6 · 행복 +10 · 발언권 +4', go: () => `자손과 이웃이 모여 큰상을 받았다.${E({ wealth: -6, joy: 10, voice: 4 })}` },
+      { t: '조촐하게 보낸다', d: '행복 +4', go: () => `식구끼리 국수를 나눠 먹었다.${E({ joy: 4 })}` },
+      st.year >= 1970 ? { t: '쉬지 않고 일을 계속한다', d: '재물 +6 · 건강 −4', go: () => { setJob(st.year >= 1995 ? 'gigs' : 'laborer'); return `경비원·택배 일로 생계를 이었다.${E({ wealth: 6, hp: -4 })}`; } } : null
+    ].filter(Boolean)
+  }
+];
+
+function careerOpts() {
+  const y = st.year, n = normOf(y), F = !male(), c = st.cls, g = st.era === 'goryeo' && y < 1392;
+  // 근현대
+  if (y >= 1894) {
+    if (y < 1945) {
+      const o = [];
+      if (c === 'noble' || c === 'middle') o.push({ t: '상급학교(고등보통학교)에 진학한다', d: '학식 +14 · 재물 −8', go: () => { setJob('student'); return `까까머리 교복 차림으로 학교에 다녔다.${E({ edu: 14, wealth: -8 })}`; } });
+      if (c === 'noble') o.push({ t: '일본으로 유학을 간다', d: '학식 +20 · 재물 −18', go: () => { setJob('student'); st.flags.japan = 1; return `현해탄을 건넜다.${E({ edu: 20, wealth: -18, voice: 6 })}`; } });
+      o.push({ t: F ? '제사(製絲)공장 여공이 된다' : '도시로 나가 공장에 들어간다', d: '재물 +6 · 건강 −5', go: () => { setJob(F ? 'yeogong' : 'factory'); return `하루 열두 시간 넘게 일했다.${E({ wealth: 6, hp: -5, joy: -3 })}`; } });
+      o.push({ t: '농사를 짓는다', d: c === 'poor' || c === 'commoner' ? '소작료가 수확의 절반을 넘는다' : '집안 땅을 돌본다', go: () => { setJob(c === 'noble' ? 'farmer' : 'tenant'); return `땅을 일구며 살기 시작했다.${E({ hp: 2 })}`; } });
+      if (c === 'poor' || c === 'commoner') o.push({ t: '만주·간도로 떠난다', d: '재물 +4 · 행복 −6 · 낯선 땅', go: () => { st.region = '간도(만주)'; setJob('farmer'); return `봇짐 하나 지고 두만강을 건넜다.${E({ wealth: 4, joy: -6 })}`; } });
+      return o;
+    }
+    if (y < 1980) {
+      const canSchool = st.s.wealth >= 12 || st.cls === 'noble' || st.cls === 'middle';
+      return [
+        { t: '중학교·고등학교에 진학한다', ok: canSchool, why: '등록금을 낼 형편이 안 됩니다', d: '학식 +14 · 재물 −6', go: () => { setJob('student'); return `입시를 치르고 교복을 입었다.${E({ edu: 14, wealth: -6 })}`; } },
+        F ? { t: '오빠·남동생 학비를 벌러 공장에 간다', d: '재물 +8 · 행복 −10 · 건강 −5', go: () => { st.flags.kjangnyeo = 1; setJob('yeogong'); return `봉제공장 미싱 앞에 앉았다. 월급은 대부분 집으로 부쳤다.${E({ wealth: 8, joy: -10, hp: -5 })}`; } } : { t: '공장에 취직한다', d: '재물 +6 · 건강 −4', go: () => { setJob('factory'); return `공단 기숙사에 짐을 풀었다.${E({ wealth: 6, hp: -4 })}`; } },
+        { t: '집에서 농사를 짓는다', d: '건강 +2', go: () => { setJob('farmer'); return `부모님과 함께 논밭에 나갔다.${E({ hp: 2 })}`; } }
+      ];
+    }
+    return [
+      { t: '인문계 고교에서 입시에 올인한다', d: '학식 +14 · 행복 −8', go: () => { setJob('student'); return `야간 자율학습이 밤 열 시까지 이어졌다.${E({ edu: 14, joy: -8 })}`; } },
+      { t: '특성화고에서 기술을 배운다', d: '학식 +8 · 재물 +2', go: () => { setJob('student'); st.flags.voc = 1; return `자격증을 따며 일찍 진로를 정했다.${E({ edu: 8, wealth: 2, joy: 2 })}`; } },
+      { t: '예체능에 인생을 건다', d: '행복 +8 · 재물 −8', go: () => { setJob('student'); st.flags.arts = 1; return `연습실에서 하루를 보냈다.${E({ joy: 8, wealth: -8, edu: 5 })}`; } }
+    ];
+  }
+  // 전근대 노비
+  if (c === 'slave') {
+    const o = [{ t: '주인에게 순종하며 산다', d: '목숨은 안전 · 행복 −4', go: () => { setJob('slave'); return `주인댁 일을 도맡았다.${E({ joy: -4 })}`; } }];
+    o.push({ t: '도망쳐 자유를 찾는다', d: '성공 50% · 잡히면 매질', go: () => {
+      if (chance(.5)) { setCls('commoner', '도망 노비(양인 행세)'); setJob('runaway'); return `산을 넘어 멀리 달아났다.${E({ restrict: -25, joy: 12 })}`; }
+      setJob('slave'); return `붙잡혀 끌려왔다. 얼굴에 낙인이 남았다.${E({ hp: -18, joy: -12 })}`;
+    } });
+    if (g) o.push({ t: '절로 숨어들어 머리를 깎는다', d: '성공 50% · 승려는 신분을 묻지 않는다', go: () => { if (chance(.5)) { setCls('commoner', '출가승'); setJob(F ? 'nun' : 'monk'); return `산문에 들어 새 이름을 얻었다.${E({ restrict: -30, edu: 8, joy: 10 })}`; } setJob('slave'); return `절에서도 추쇄를 피하지 못했다.${E({ hp: -10, joy: -8 })}`; } });
+    if (F && st.era !== 'goryeo') o.push({ t: '관비로서 의녀 선발에 도전한다', ok: st.s.edu >= 8, why: '글을 조금은 알아야 합니다(학식 8 이상)', d: '성공 45% · 의술을 배운다', go: () => { if (chance(.45)) { setJob('physician'); return `혜민서에 뽑혀 침과 약을 배웠다.${E({ edu: 12, restrict: -10, joy: 8 })}`; } setJob('slave'); return `떨어졌다.${E({ joy: -4 })}`; } });
+    if (!F && y >= 1593) o.push({ t: '훈련도감·속오군에 들어간다', d: '급료 · 공을 세우면 면천', go: () => { setJob('gunner'); return `조총을 메고 군졸이 되었다.${E({ restrict: -10, hp: -2 })}`; } });
+    return o;
+  }
+  if (c === 'sobugok') return [
+    { t: '대대로 이어 온 소(所)의 장인 일을 한다', d: '청자·종이·먹을 나라에 바친다', go: () => { setJob('potter'); return `가마 불 앞에서 비색 청자를 구웠다.${E({ edu: 6 })}`; } },
+    { t: '몰래 고향을 떠나 양민 행세를 한다', d: '성공 50%', go: () => { if (chance(.5)) { setCls('commoner', '양민(이주)'); setJob('farmer'); return `다른 고을에서 새 삶을 시작했다.${E({ restrict: -20, joy: 8 })}`; } setJob('potter'); return `관아에 붙잡혀 돌아왔다.${E({ hp: -10, joy: -8 })}`; } },
+    { t: '농사를 짓는다', d: '건강 +2', go: () => { setJob('farmer'); return `부곡의 땅을 일궜다.${E({ hp: 2 })}`; } }
+  ];
+  // 양반·귀족 남자
+  if (c === 'noble' && !F) {
+    if (st.sub === '몰락 양반(잔반)') return [
+      { t: '체면을 지키며 과거 공부를 계속한다', d: '학식 +10 · 재물 −4', go: () => { setJob('study'); return `굶어도 갓은 벗지 않았다.${E({ edu: 10, wealth: -4, joy: -3 })}`; } },
+      { t: '체면을 버리고 장사에 뛰어든다', d: '재물 +8 · 발언권 −8', go: () => { setJob('merchant'); return `양반이 장사한다고 손가락질받았다.${E({ wealth: 8, voice: -8 })}`; } },
+      { t: '서당 훈장이 된다', d: '학식 +4 · 재물 +2', go: () => { setJob('teacher'); return `마을 아이들에게 천자문을 가르쳤다.${E({ edu: 4, wealth: 2 })}`; } }
+    ];
+    const o = [{ t: g ? '제술과(문과) 과거를 준비한다' : '대과(문과)를 준비한다', d: '학식 +10 · 몇 년 뒤 과거', go: () => { setJob('study'); return `경전을 끼고 살았다.${E({ edu: 10 })}`; } }];
+    if (g) o.push({ t: '음서로 시험 없이 벼슬에 나간다', d: '바로 관료 · 발언권 +15', go: () => { setJob('official'); return `가문의 공덕으로 말단 벼슬을 받았다.${E({ voice: 15, wealth: 6 })}`; } });
+    o.push({ t: '무과를 준비한다', d: '건강 +6 · 몇 년 뒤 무과', go: () => { setJob('study'); st.flags.muExam = 1; return `활터에서 살다시피 했다.${E({ hp: 6 })}`; } });
+    if (st.seol) o.push({ t: '서얼의 길, 잡과로 역관·의관이 된다', d: '학식 +8 · 중인으로 실속', go: () => { setJob('translator'); return `사역원에서 중국어를 배워 역관이 되었다.${E({ edu: 8, wealth: 6 })}`; } });
+    if (g) o.push({ t: '출가해 고승의 길을 간다', d: '승과에 붙으면 국사·왕사도 가능', go: () => { setJob('monk'); return `머리를 깎고 승과를 준비했다.${E({ edu: 8, joy: 4, voice: 4 })}`; } });
+    else o.push({ t: '낙향해 농장을 경영한다', d: '재물 +6', go: () => { setJob('farmer'); return `노비를 부려 농사를 지었다.${E({ wealth: 6 })}`; } });
+    return o;
+  }
+  // 양반·귀족 여자
+  if (c === 'noble' && F) {
+    if (n === 'strict') return [
+      { t: '규방에서 혼인을 준비한다', d: '행동 제약 +4', go: () => { setJob('housewife'); return `바깥출입 없이 수를 놓으며 지냈다.${E({ restrict: 4 })}`; } },
+      { t: '시와 그림으로 이름을 남기려 한다', d: '학식 +10 · 행복 +6 · 들키면 흉', go: () => { st.flags.art = 1; setJob('housewife'); return chance(.25) ? `여자가 글을 쓴다고 꾸중을 들었다.${E({ edu: 6, joy: -4 })}` : `몰래 쓴 시가 친척들 사이에 돌았다.${E({ edu: 10, joy: 6 })}`; } },
+      { t: '언문 편지로 집안 살림과 장부를 맡는다', d: '재물 +4 · 발언권 +5', go: () => { setJob('housewife'); return `곳간 열쇠를 넘겨받았다.${E({ wealth: 4, voice: 5 })}`; } }
+    ];
+    const o = [
+      { t: '내 몫의 땅과 노비를 직접 관리한다', d: '재물 +8 · 발언권 +6', go: () => { setJob('housewife'); return `분재받은 땅의 소작료를 손수 챙겼다.${E({ wealth: 8, voice: 6 })}`; } },
+      { t: '시와 그림을 익혀 이름을 얻는다', d: '학식 +10 · 행복 +6', go: () => { st.flags.art = 1; setJob('housewife'); return `붓 솜씨가 이웃에 알려졌다.${E({ edu: 10, joy: 6 })}`; } }
+    ];
+    if (n === 'open' || y < 1450) o.push({ t: '출가해 비구니가 된다', d: '행복 +6 · 학식 +6', go: () => { setJob('nun'); return `비구니 절에 들어갔다.${E({ joy: 6, edu: 6, restrict: -6 })}`; } });
+    return o;
+  }
+  // 중인·향리
+  if (c === 'middle' && !F) return [
+    { t: '향리 가업을 잇는다', d: '발언권 +6 · 재물 +4', go: () => { setJob('hyangni'); return `아버지를 따라 관아 일을 배웠다.${E({ voice: 6, wealth: 4 })}`; } },
+    { t: g ? '과거에 도전한다' : '잡과로 역관·의관·천문관이 된다', d: g ? '학식 +10 · 향리 자제도 과거를 본다' : '학식 +10 · 전문직', go: () => { if (g) { setJob('study'); return `과거 공부를 시작했다.${E({ edu: 10 })}`; } setJob(chance(.5) ? 'translator' : 'techno'); return `전문 기술직의 길에 들어섰다.${E({ edu: 10, wealth: 4 })}`; } },
+    { t: '상업에 뛰어든다', d: '재물 +6', go: () => { setJob('merchant'); return `셈 빠른 머리로 장사를 시작했다.${E({ wealth: 6 })}`; } }
+  ];
+  // 양인 남자
+  if (!F) {
+    const o = [
+      { t: '농사를 짓는다', d: '건강 +2 · 안정', go: () => { setJob('farmer'); return `소 한 마리와 쟁기로 땅을 갈았다.${E({ hp: 2 })}`; } },
+      { t: g ? '벽란도로 가서 장사를 배운다' : '보부상이 되어 장터를 돈다', d: '재물 +5 · 건강 −3', go: () => { setJob(g ? 'merchant' : 'peddler'); return g ? `송나라 말 몇 마디를 배웠다.${E({ wealth: 5, edu: 3 })}` : `등짐을 지고 오일장을 돌았다.${E({ wealth: 5, hp: -3 })}`; } },
+      { t: '장인 밑에서 기술을 배운다', d: '학식 +5 · 재물 +2', go: () => { setJob(g ? 'potter' : 'artisan'); return `망치와 끌을 잡았다.${E({ edu: 5, wealth: 2 })}`; } }
+    ];
+    if (g) o.push({ t: '출가해 승려가 된다', d: '학식 +8 · 군역 면제', go: () => { setJob('monk'); return `절에 들어갔다.${E({ edu: 8, joy: 3 })}`; } });
+    if (st.s.edu >= 15 && !g) o.push({ t: '과거 공부에 도전한다', d: '양인도 법으로는 응시할 수 있다', go: () => { setJob('study'); return `호미 대신 책을 잡았다. 마을 사람들이 비웃었다.${E({ edu: 8, wealth: -3 })}`; } });
+    if (y >= 1593 && y < 1894) o.push({ t: '훈련도감 포수가 된다', d: '급료 · 건강 −2', go: () => { setJob('gunner'); return `조총을 메고 한양에 올라갔다.${E({ wealth: 3, hp: -2 })}`; } });
+    return o;
+  }
+  // 양인 여자
+  const o = [
+    { t: '길쌈과 삯바느질로 살림을 돕는다', d: '재물 +4', go: () => { setJob('weaver'); return `베틀 앞에서 밤을 지새웠다.${E({ wealth: 4, hp: -1 })}`; } },
+    { t: '장터에서 장사를 한다', d: '재물 +5 · 발언권 +2', go: () => { setJob(n === 'strict' ? 'innkeeper' : 'merchant'); return `좌판을 펴고 물건을 팔았다.${E({ wealth: 5, voice: 2 })}`; } },
+    { t: '농사일을 한다', d: '건강 +2', go: () => { setJob('farmer'); return `호미를 들고 밭으로 나갔다.${E({ hp: 2 })}`; } }
+  ];
+  if (g || y < 1450) o.push({ t: '출가해 비구니가 된다', d: '행복 +6', go: () => { setJob('nun'); return `머리를 깎았다.${E({ joy: 6, restrict: -5 })}`; } });
+  return o;
+}
+// ===== 역사의 갈림길 (실제 연도에 발생) =====
+// info: 선택 없이 기록만 / opts: 선택
+const fight = (p, win, lose) => chance(p) ? lose() : win();
+const HIST = [
+  // ── 고려
+  { id: 'seohui', y: [993, 994], min: 8, info: () => '거란의 소손녕이 대군을 이끌고 쳐들어왔으나, 서희가 담판 끝에 강동 6주를 얻어 냈다는 소식이 들렸다.' },
+  { id: 'khitan2', y: [1010, 1011], title: '거란의 2차 침입', short: '거란 침입', text: '거란 성종이 40만 대군으로 쳐들어와 개경이 불탔습니다. 임금은 나주까지 피난했습니다.',
+    opts: () => [
+      male() && st.age <= 50 ? { t: '군역에 나가 싸운다', d: '전사 위험 12% · 발언권 +6', go: () => fight(.12, () => `흥화진 싸움에서 살아 돌아왔다.${E({ voice: 6, hp: -6 })}`, () => { die('거란과의 싸움'); return '성벽 위에서 화살을 맞았다.'; }) } : null,
+      { t: '가족을 이끌고 산성으로 피난한다', d: '재물 −8 · 건강 −4', go: () => `산성에서 겨울을 났다.${E({ wealth: -8, hp: -4 })}` },
+      { t: '집과 곳간을 지킨다', d: '사망 위험 8%', go: () => fight(.08, () => `다행히 거란군이 마을을 비껴갔다.${E({ joy: 2 })}`, () => { die('거란군의 약탈'); return '약탈하던 거란군을 막아서다 쓰러졌다.'; }) }
+    ].filter(Boolean) },
+  { id: 'gwiju', y: [1018, 1019], max: 55, cond: () => male(), title: '강감찬, 귀주에서 기다리다', short: '귀주대첩', text: '거란 소배압의 10만 군이 다시 쳐들어왔습니다. 강감찬이 흥화진에서 쇠가죽으로 강물을 막고 귀주에서 결전을 준비합니다.',
+    opts: () => [
+      { t: '강감찬의 군대에 합류한다', d: '전사 위험 7% · 발언권 +10 · 행복 +6', go: () => fight(.07, () => `귀주대첩의 승전고를 직접 울렸다. 살아 돌아온 거란군은 수천에 불과했다.${E({ voice: 10, joy: 6 })}`, () => { die('귀주대첩'); return '승리의 날, 들판에 쓰러졌다.'; }) },
+      { t: '군량을 나르는 일로 돕는다', d: '건강 −4 · 발언권 +3', go: () => `수레를 끌며 군량을 날랐다.${E({ hp: -4, voice: 3 })}` },
+      { t: '몸을 사린다', d: '변화 없음', go: () => '전쟁이 끝나기만을 기다렸다.' }
+    ] },
+  { id: 'byeolmuban', y: [1104, 1108], max: 40, cond: () => male() && st.cls !== 'slave', title: '윤관의 별무반', short: '별무반', text: '여진을 치기 위해 윤관이 기병·보병·승병으로 이루어진 별무반을 꾸립니다.',
+    opts: () => [
+      { t: st.job === 'monk' ? '항마군(승병)에 들어간다' : '신기군·신보군에 들어간다', d: '전사 위험 8% · 발언권 +8', go: () => fight(.08, () => `동북 9성을 쌓는 데 힘을 보탰다.${E({ voice: 8, hp: -5 })}`, () => { die('여진 정벌'); return '함경도 들판에서 돌아오지 못했다.'; }) },
+      { t: '뇌물을 쓰고 빠진다', d: '재물 −5', go: () => `아전에게 쌀 몇 섬을 건넸다.${E({ wealth: -5 })}` }
+    ] },
+  { id: 'musin', y: [1170, 1171], min: 16, title: '무신정변', short: '무신정변', text: '보현원에서 정중부·이의방이 들고일어나 문신들을 죽였습니다. "문관을 쓴 자는 서리라도 죽이라"는 말이 돕니다.',
+    opts: () => (st.job === 'official' || st.job === 'study' || (st.cls === 'noble' && male())) ? [
+      { t: '무신에게 줄을 선다', d: '발언권 +8 · 행복 −6', go: () => `무신 정권에 머리를 숙였다.${E({ voice: 8, joy: -6 })}` },
+      { t: '관을 벗고 절이나 시골로 숨는다', d: '발언권 −10 · 목숨은 건진다', go: () => { setJob(male() ? 'monk' : st.job); return `산속 절에 숨어 목숨을 부지했다.${E({ voice: -10, joy: -4 })}`; } },
+      { t: '문신의 도리를 지켜 맞선다', d: '사망 위험 45%', go: () => fight(.45, () => `난리 통에 기적처럼 살아남았다.${E({ voice: 6 })}`, () => { die('무신정변'); return '칼날이 문관의 관을 가리지 않았다.'; }) }
+    ] : [
+      male() ? { t: '무신 정권의 군졸이 된다', d: '발언권 +6 · 재물 +4', go: () => { setJob('soldier'); return `칼을 찬 자가 세상을 쥐었다.${E({ voice: 6, wealth: 4 })}`; } } : null,
+      { t: '지켜본다', d: '변화 없음', go: () => '높은 사람들의 싸움이라 여겼다.' }
+    ].filter(Boolean) },
+  { id: 'mangi', y: [1176, 1177], cond: () => st.cls === 'sobugok' || (st.cls === 'commoner' && regionHas(/공주|양광/)), title: '망이·망소이의 봉기', short: '망이·망소이', text: '공주 명학소에서 망이·망소이가 소(所)민의 차별에 맞서 들고일어났습니다.',
+    opts: () => [
+      { t: '봉기에 가담한다', d: '사망 위험 30% · 성공하면 신분 상승', go: () => fight(.3, () => { if (st.cls === 'sobugok') setCls('commoner', '양민(명학소 승격)'); return `명학소가 충순현으로 올라갔다. 잠깐이나마 숨통이 트였다.${E({ restrict: -10, voice: 8 })}`; }, () => { die('망이·망소이의 봉기 진압'); return '관군의 진압에 쓰러졌다.'; }) },
+      { t: '숨죽이고 지켜본다', d: '변화 없음', go: () => '봉기는 결국 진압되었다.' + E({ joy: -2 }) }
+    ] },
+  { id: 'manjeok', y: [1198, 1198], cond: () => st.cls === 'slave', title: '만적의 모의', short: '만적의 난', text: '최충헌의 노비 만적이 말합니다. "왕후장상의 씨가 따로 있겠는가." 개경 노비들이 봉기를 모의합니다.',
+    opts: () => [
+      { t: '모의에 가담한다', d: '발각 위험이 크다', go: () => fight(.55, () => `모의가 탄로 났지만 운 좋게 이름이 빠졌다.${E({ joy: -4 })}`, () => { die('만적의 난 실패'); return '배신자의 밀고로 모두 붙잡혀 강물에 던져졌다.'; }) },
+      { t: '주인에게 밀고한다', d: '면천 · 행복 −12', go: () => { setCls('commoner', '양인(밀고로 면천)'); return `밀고의 대가로 노비 문서에서 풀려났다. 동무들의 얼굴이 떠나지 않는다.${E({ restrict: -30, wealth: 6, joy: -12 })}`; } },
+      { t: '모른 척한다', d: '변화 없음', go: () => '아무 말도 듣지 못한 척했다.' }
+    ] },
+  { id: 'mongol', y: [1231, 1236], title: '몽골의 침입', short: '대몽항쟁', text: '살리타가 이끄는 몽골군이 쳐들어왔습니다. 조정은 강화도로 옮겨 버티기로 했습니다(1232). 백성은 산성과 섬으로 들어가야 합니다.',
+    opts: () => [
+      st.cls === 'noble' || st.job === 'official' ? { t: '조정을 따라 강화도로 간다', d: '재물 −8 · 비교적 안전', go: () => { st.region = '강화'; return `강화도에서 개경을 그리워하며 지냈다.${E({ wealth: -8 })}`; } } : null,
+      { t: '산성과 섬으로 입보한다', d: '건강 −6 · 재물 −8', go: () => `산성에 들어가 몽골군을 버텼다.${E({ hp: -6, wealth: -8 })}` },
+      { t: '처인성의 김윤후처럼 맞서 싸운다', d: '전사 위험 15% · 발언권 +12', go: () => fight(.15, () => { const free = st.cls === 'slave'; if (free) setCls('commoner', '양인(군공 면천)'); return `몽골 장수를 쓰러뜨린 싸움에 함께했다.${free ? ' 그 공으로 천인 신분을 벗었다.' : ''}${E({ voice: 12, hp: -6 })}`; }, () => { die('대몽항쟁'); return '성벽을 넘어온 몽골 기병에게 쓰러졌다.'; }) },
+      { t: '항복해 목숨을 건진다', d: '행복 −12 · 발언권 −5', go: () => `머리를 조아리고 살아남았다.${E({ joy: -12, voice: -5 })}` }
+    ].filter(Boolean) },
+  { id: 'daejang', y: [1251, 1252], min: 8, info: () => '16년 만에 강화도에서 팔만대장경판이 완성되었다. 부처의 힘으로 몽골을 물리치려는 염원이었다.' + E({ joy: 2 }) },
+  { id: 'sambyeol', y: [1270, 1271], max: 45, cond: () => male() && st.cls !== 'noble', title: '삼별초, 개경 환도를 거부하다', short: '삼별초', text: '조정이 몽골과 강화하고 개경으로 돌아가자, 삼별초가 배중손을 따라 진도로 내려가 항쟁을 이어 갑니다.',
+    opts: () => [
+      { t: '삼별초를 따라 진도·제주로 간다', d: '전사 위험 45%', go: () => fight(.45, () => { st.region = '제주'; return `탐라에서 마지막까지 싸우다 흩어져 살아남았다.${E({ voice: 6, hp: -10 })}`; }, () => { die('삼별초 항쟁'); return '여몽 연합군에게 진도가 함락되었다.'; }) },
+      { t: '조정을 따른다', d: '변화 없음', go: () => '개경으로 돌아가는 행렬에 섞였다.' }
+    ] },
+  { id: 'japanexp', y: [1274, 1281], max: 45, p: .5, cond: () => male() && ['commoner', 'slave', 'sobugok'].includes(st.cls), title: '일본 원정에 끌려가다', short: '일본 원정', text: '원나라가 일본을 치려고 고려에 배 900척과 군사를 내라고 합니다. 고을마다 장정을 뽑아 갑니다.',
+    opts: () => [
+      { t: '배 만드는 노역을 자원한다', d: '건강 −10 · 바다엔 안 간다', go: () => `합포에서 밤낮으로 배를 지었다.${E({ hp: -10, joy: -4 })}` },
+      { t: '원정군으로 배에 오른다', d: '사망 위험 35% · 재물 +6', go: () => fight(.35, () => `태풍을 뚫고 살아 돌아왔다.${E({ wealth: 6, hp: -8 })}`, () => { die('일본 원정 중 태풍'); return '하카타 앞바다의 태풍이 배를 삼켰다.'; }) },
+      { t: '산으로 도망친다', d: '50%: 잡히면 매질', go: () => chance(.5) ? `깊은 산속에 숨어 지냈다.${E({ wealth: -4 })}` : `붙잡혀 곤장을 맞고 노역에 끌려갔다.${E({ hp: -14 })}` }
+    ] },
+  { id: 'gongnyeo', y: [1275, 1355], min: 11, max: 17, once: false, cond: () => !male() && !st.married && st.year % 3 === 0, p: .6, title: '공녀 차출', short: '공녀', text: '원나라가 해마다 고려의 처녀를 바치라고 요구합니다. 결혼도감이 집집마다 딸을 찾아다닙니다. 이 때문에 딸을 일찍 시집보내는 조혼이 퍼졌습니다.',
+    opts: () => [
+      { t: '서둘러 혼인시킨다(조혼)', d: '바로 혼인 · 행복 −4', go: () => marry() + E({ joy: -4 }) },
+      { t: '운에 맡긴다', d: '25%: 원나라로 끌려간다', go: () => {
+        if (chance(.25)) {
+          st.region = '원나라 대도(베이징)';
+          if (st.cls === 'noble' && chance(.08)) return `원나라 궁에 들어가 황제의 눈에 들었다. 고려 출신 여인이 원 황실에서 권세를 얻는 일도 있었다.${E({ voice: 35, wealth: 30, joy: -10 })}`;
+          return `통곡하는 가족을 뒤로하고 원나라로 끌려갔다.${E({ joy: -28, restrict: 20, voice: -10 })}`;
+        }
+        return `이번에는 이름이 빠졌다.${E({ joy: 2 })}`;
+      } }
+    ] },
+  { id: 'honggeon', y: [1361, 1362], min: 8, info: () => '홍건적이 개경을 함락했다. 공민왕은 안동까지 피난했다.' + (regionHas(/개경/) ? E({ wealth: -10, hp: -4 }) : '') },
+  { id: 'wihwa', y: [1388, 1388], min: 10, info: () => '이성계가 요동 정벌군을 돌려 위화도에서 회군했다. 개경의 공기가 무겁다.' },
+  { id: 'joseon', y: [1392, 1393], min: 16, cond: () => st.cls === 'noble' || st.cls === 'middle' || st.job === 'official', title: '두 왕조의 갈림길', short: '조선 건국', text: '이성계가 왕위에 올라 새 왕조를 열었습니다. 정몽주는 선죽교에서 죽었고, 고려의 신하 일부는 두문동에 들어가 나오지 않습니다.',
+    opts: () => [
+      { t: '새 왕조에 참여한다', d: '발언권 +12', go: () => { if (male() && st.job !== 'official' && chance(.4)) setJob('official'); return `한양 천도와 새 법전 편찬에 힘을 보탰다.${E({ voice: 12, wealth: 6 })}`; } },
+      { t: '고려에 대한 충절을 지킨다(두문동)', d: '발언권 −12 · 행복 +4', go: () => { setJob('farmer'); return `"두 임금을 섬길 수 없다." 벼슬을 버리고 숨어 살았다.${E({ voice: -12, joy: 4, wealth: -8 })}`; } }
+    ] },
+  // ── 조선 전·중기
+  { id: 'hopae', y: [1413, 1414], min: 16, cond: () => male(), info: () => '호패법이 시행되었다. 열여섯 살 넘은 남자는 이름과 신분이 새겨진 호패를 차야 한다.' + E({ restrict: 3 }) },
+  { id: 'samin', y: [1433, 1450], max: 45, p: .3, cond: () => ['commoner', 'slave'].includes(st.cls) && regionHas(/경상|전라|충청/), title: '북쪽으로 이주하라', short: '사민정책', text: '4군 6진을 개척한 뒤, 나라가 남쪽 백성을 압록강·두만강 변경으로 옮겨 살게 합니다(사민정책).',
+    opts: () => [
+      { t: '명을 따라 함경도로 간다', d: '재물 +8(새 땅) · 건강 −6 · 노비는 면천될 수 있다', go: () => { st.region = '함경도(6진)'; if (st.cls === 'slave' && chance(.5)) setCls('commoner', '양인(사민 면천)'); return `두만강 가에 새 집을 지었다. 겨울이 혹독했다.${E({ wealth: 8, hp: -6, joy: -4 })}`; } },
+      { t: '뇌물을 써서 빠진다', d: '재물 −8', go: () => `수령에게 베 몇 필을 바쳤다.${E({ wealth: -8 })}` }
+    ] },
+  { id: 'hunmin', y: [1446, 1460], min: 8, title: '훈민정음이 반포되었다', short: '훈민정음', text: '세종이 백성을 위한 새 글자 스물여덟 자를 반포했습니다. "슬기로운 이는 아침나절이 되기 전에, 어리석은 이도 열흘이면 배운다"고 합니다.',
+    opts: () => [
+      { t: '언문을 배운다', d: (!male() || st.cls !== 'noble') ? '학식 +12 · 행복 +4' : '학식 +6', go: () => { st.flags.eonmun = 1; return `새 글자로 편지를 쓸 수 있게 되었다.${E((!male() || st.cls !== 'noble') ? { edu: 12, joy: 4 } : { edu: 6 })}`; } },
+      st.cls === 'noble' && male() ? { t: '암클이라며 거들떠보지 않는다', d: '발언권 +1', go: () => `한문만이 참 글이라 여겼다.${E({ voice: 1 })}` } : { t: '먹고살기 바빠 미룬다', d: '변화 없음', go: () => '글보다 끼니가 급했다.' }
+    ].filter(Boolean) },
+  { id: 'gyeyu', y: [1453, 1453], min: 18, cond: () => st.job === 'official' || (st.cls === 'noble' && male()), title: '계유정난', short: '계유정난', text: '수양대군이 김종서를 죽이고 권력을 잡았습니다. 어린 단종의 자리가 위태롭습니다.',
+    opts: () => [
+      { t: '수양대군 편에 선다', d: '발언권 +14 · 행복 −8', go: () => `정난공신 명단 끝에 이름을 올렸다.${E({ voice: 14, wealth: 10, joy: -8 })}` },
+      { t: '단종 복위를 꾀한다', d: '사망 위험 40%', go: () => fight(.4, () => `모의가 드러나기 전에 몸을 뺐다. 귀양길에 올랐다.${E({ voice: -15, hp: -8 })}`, () => { die('단종 복위 모의로 처형'); return '사육신과 함께 이름이 남았다.'; }) },
+      { t: '병을 핑계로 물러난다', d: '발언권 −5', go: () => { setJob('farmer'); return `고향으로 내려가 문을 걸어 잠갔다.${E({ voice: -5 })}`; } }
+    ] },
+  { id: 'gyeongguk', y: [1485, 1486], min: 10, info: () => '《경국대전》이 반포되었다. 재가한 여자의 자손은 문과에 응시할 수 없게 되었다.' + (!male() ? E({ restrict: 4 }) : '') },
+  { id: 'sahwa', y: [1498, 1546], min: 20, cond: () => st.job === 'official', title: '사화의 피바람', short: '사화', text: '훈구와 사림이 맞서며 무오·갑자·기묘·을사년에 잇따라 선비들이 죽어 나갑니다.',
+    opts: () => [
+      { t: '사림의 편에서 바른말을 한다', d: '사망 위험 20% · 살아남으면 발언권 +10', go: () => fight(.2, () => `유배를 다녀와 다시 조정에 섰다.${E({ voice: 10, hp: -8 })}`, () => { die('사화'); return '사약을 받았다.'; }) },
+      { t: '훈구 세력에 붙는다', d: '발언권 +8 · 행복 −6', go: () => `권신의 문턱을 드나들었다.${E({ voice: 8, wealth: 6, joy: -6 })}` },
+      { t: '벼슬을 버리고 낙향해 서원을 연다', d: '학식 +6 · 발언권 −4', go: () => { setJob('teacher'); return `고향에 정자를 짓고 제자를 길렀다.${E({ edu: 6, voice: -4, joy: 6 })}`; } }
+    ] },
+  { id: 'imkkeok', y: [1559, 1562], max: 45, cond: () => male() && ['commoner', 'slave'].includes(st.cls) && regionHas(/황해|경기|한양/), title: '임꺽정의 무리', short: '임꺽정', text: '백정 출신 임꺽정이 황해도 구월산을 근거로 관아를 털어 곡식을 나눕니다.',
+    opts: () => [
+      { t: '무리에 합류한다', d: '사망 위험 40% · 재물 +10', go: () => fight(.4, () => `무리가 흩어지기 전에 빠져나왔다.${E({ wealth: 10, joy: 4 })}`, () => { die('임꺽정 토벌'); return '관군의 토벌에 붙잡혔다.'; }) },
+      { t: '관아에 고발한다', d: '재물 +4 · 행복 −4', go: () => `포상금을 받았다.${E({ wealth: 4, joy: -4 })}` },
+      { t: '모른 척한다', d: '변화 없음', go: () => '도적인지 의적인지 말하지 않았다.' }
+    ] },
+  { id: 'imjin', y: [1592, 1593], min: 10, title: '임진왜란', short: '임진왜란', text: '왜군이 부산에 상륙해 스무 날 만에 한양을 점령했습니다. 임금은 의주로 피난했고, 전국에서 의병이 일어납니다.',
+    opts: () => {
+      const art = ['artisan', 'potter'].includes(st.job) && regionHas(/경상|전라/);
+      const captured = () => art && chance(.25) ? (st.region = '일본 사쓰마', ' 왜군이 도공과 장인을 끌고 갔다. 낯선 섬나라에서 가마를 지어야 했다.' + E({ joy: -20, edu: 6 })) : '';
+      const o = [];
+      if (male() && st.age <= 55) {
+        o.push({ t: '의병에 가담한다', d: '사망 위험 22% · 발언권 +14 · 노비는 면천', go: () => fight(.22, () => { let t = `곽재우·조헌 같은 의병장 밑에서 싸웠다.`; if (st.cls === 'slave') { setCls('commoner', '양인(군공 면천)'); t += ' 그 공으로 노비 신분을 벗었다.'; } return t + E({ voice: 14, hp: -10 }) + captured(); }, () => { die('임진왜란 의병 전투'); return '의병 깃발 아래 쓰러졌다.'; }) });
+        o.push({ t: '관군·수군에 들어간다', d: '사망 위험 20% · 재물 +4', go: () => fight(.2, () => `이순신의 수군에서 노를 저었다. 바다에서는 지지 않았다.${E({ voice: 10, wealth: 4, hp: -8 })}`, () => { die('임진왜란 관군 전투'); return '탄금대에서, 혹은 동래성에서 돌아오지 못했다.'; }) });
+      } else {
+        o.push({ t: '행주산성에서 돌을 날라 싸움을 돕는다', d: '사망 위험 10% · 발언권 +8', go: () => fight(.1, () => `치마에 돌을 담아 날랐다. 산성은 버텨 냈다.${E({ voice: 8, hp: -6 })}`, () => { die('임진왜란'); return '조총 소리가 마지막이었다.'; }) });
+      }
+      o.push({ t: '가족을 데리고 피난한다', d: '사망 위험 8% · 재물 −15', go: () => fight(.08, () => `산과 들을 떠돌며 겨우 살아남았다.${E({ wealth: -15, hp: -8, joy: -8 })}` + captured(), () => { die('임진왜란 피난길'); return '피난길의 굶주림과 역병을 넘지 못했다.'; }) });
+      o.push({ t: '집을 지킨다', d: '사망 위험 18%', go: () => fight(.18, () => `왜군이 휩쓸고 간 뒤 잿더미를 정리했다.${E({ wealth: -10, joy: -10 })}` + captured(), () => { die('임진왜란'); return '마을에 들이닥친 왜군을 피하지 못했다.'; }) });
+      return o;
+    } },
+  { id: 'hullyeon', y: [1594, 1600], max: 35, p: .5, cond: () => male() && ['commoner', 'slave', 'poor'].includes(st.cls) && st.job !== 'gunner', title: '훈련도감 모집', short: '훈련도감', text: '전쟁 중 만든 훈련도감이 급료를 주는 직업 군인을 모읍니다. 포수·사수·살수의 삼수병입니다.',
+    opts: () => [
+      { t: '포수로 지원한다', d: '급료 · 행동 제약 −6', go: () => { setJob('gunner'); return `조총 쏘는 법을 배웠다.${E({ restrict: -6, wealth: 3 })}`; } },
+      { t: '고향에 남는다', d: '변화 없음', go: () => '쟁기를 다시 잡았다.' }
+    ] },
+  { id: 'byeongja', y: [1636, 1637], min: 10, title: '병자호란', short: '병자호란', text: '청 태종이 12만 대군으로 압록강을 건넜습니다. 임금은 남한산성으로 들어갔다가 삼전도에서 머리를 조아렸습니다. 수십만 명이 포로로 끌려갑니다.',
+    opts: () => {
+      const north = regionHas(/평안|황해|한양|경기|강화/);
+      const cap = () => {
+        if (north && chance(.3)) {
+          st.region = '심양(청)'; st.flags.captive = 1;
+          return ' 청군에게 붙잡혀 심양으로 끌려갔다.' + E({ joy: -25, restrict: 25, hp: -10 });
+        }
+        return '';
+      };
+      return [
+        male() && st.age <= 55 ? { t: '근왕병·의병으로 싸운다', d: '사망 위험 25% · 발언권 +10', go: () => fight(.25, () => `혹한 속에서 싸웠지만 강화는 이미 맺어졌다.${E({ voice: 10, hp: -10 })}`, () => { die('병자호란'); return '눈 덮인 들판에서 쓰러졌다.'; }) } : null,
+        { t: '강화도·산속으로 피난한다', d: '재물 −10 · 포로가 될 수도', go: () => `피난길에 올랐다.${E({ wealth: -10, hp: -6 })}` + cap() },
+        { t: '집에 숨는다', d: '포로 위험이 더 크다', go: () => { const r = cap() || cap(); return '문을 걸어 잠그고 숨었다.' + (r || E({ joy: -6 })); } }
+      ].filter(Boolean);
+    } },
+  { id: 'sokhwan', y: [1638, 1645], cond: () => st.flags.captive, title: '속환, 몸값을 치르고 돌아갈 길', short: '속환', text: '심양의 포로 시장에서 가족이 몸값을 치르면 돌아갈 수 있습니다. 값은 날로 치솟습니다.',
+    opts: () => [
+      { t: '가족에게 몸값을 부탁한다', d: '재물 −20 · 귀환 60%', go: () => {
+        E({ wealth: -20 });
+        if (chance(.6)) { st.region = st.birthRegion; st.flags.captive = 0; return `고향 땅을 다시 밟았다.${!male() ? ' 돌아온 여자들은 정절을 의심받아 시댁에서 내쫓기기도 했다. 나라가 홍제천에서 몸을 씻으면 허물을 묻지 않겠다고 했지만 수군거림은 남았다.' + E({ joy: 6, voice: -10 }) : E({ joy: 12 })}`; }
+        return `값이 올라 몸값이 모자랐다.${E({ joy: -10 })}`;
+      } },
+      { t: '목숨을 걸고 탈출한다', d: '성공 35%', go: () => chance(.35) ? (st.region = st.birthRegion, st.flags.captive = 0, `압록강을 몰래 건너 돌아왔다.${E({ joy: 14, hp: -10 })}`) : (die('심양 탈출 실패'), '추격대에게 붙잡혔다.') },
+      { t: '그곳에 뿌리를 내린다', d: '행복 −8', go: () => { st.flags.captive = 0; return `낯선 땅에서 살아가기로 했다.${E({ joy: -8 })}`; } }
+    ] },
+  { id: 'yesong', y: [1659, 1675], min: 20, cond: () => st.job === 'official', title: '예송 논쟁', short: '예송', text: '효종과 왕비가 죽자 대비가 상복을 몇 년 입어야 하느냐를 두고 서인과 남인이 목숨을 걸고 다툽니다.',
+    opts: () => [
+      { t: '서인(송시열) 쪽에 선다', d: '50%: 발언권 +8 / 50%: 귀양', go: () => chance(.5) ? `상소가 받아들여졌다.${E({ voice: 8 })}` : `정국이 뒤집혀 귀양을 갔다.${E({ voice: -10, hp: -6 })}` },
+      { t: '남인(허목·윤휴) 쪽에 선다', d: '50%: 발언권 +8 / 50%: 귀양', go: () => chance(.5) ? `남인이 정권을 잡았다.${E({ voice: 8 })}` : `파직당했다.${E({ voice: -10 })}` },
+      { t: '말을 아낀다', d: '발언권 −2', go: () => `상복 몇 해가 그리 중요한가 싶었다.${E({ voice: -2 })}` }
+    ] },
+  { id: 'gyeongsin', y: [1670, 1671], min: 5, title: '경신대기근', short: '경신대기근', text: '가뭄·냉해·홍수·역병이 겹쳐 두 해 동안 전국에서 굶어 죽은 사람이 수십만에 이릅니다. 길가에 시신이 쌓였습니다.',
+    opts: () => [
+      { t: '관아 진휼소에서 죽을 받는다', d: '사망 위험 10% · 건강 −6', go: () => fight(.1, () => `멀건 죽 한 그릇으로 하루를 버텼다.${E({ hp: -6, joy: -6 })}`, () => { die('경신대기근'); return '진휼소 앞 줄에서 쓰러졌다.'; }) },
+      { t: '산에서 풀뿌리와 소나무 껍질을 캔다', d: '사망 위험 8% · 건강 −12', go: () => fight(.08, () => `송기떡으로 연명했다.${E({ hp: -12 })}`, () => { die('경신대기근'); return '부황이 들어 일어나지 못했다.'; }) },
+      st.cls !== 'slave' && st.cls !== 'noble' ? { t: '양반집에 몸을 의탁해 노비가 된다', d: '살아남는다 · 신분이 노비로 떨어진다', go: () => { setCls('slave', '노비(투탁)'); setJob('slave'); return `스스로 노비 문서에 이름을 적었다. 굶어 죽는 것보다는 나았다.${E({ hp: 4, restrict: 35, joy: -16, voice: -10 })}`; } } : null,
+      st.s.wealth >= 45 ? { t: '곳간을 열어 이웃을 먹인다', d: '재물 −20 · 발언권 +15', go: () => `곳간이 비어 갔지만 마을 사람들이 살아남았다.${E({ wealth: -20, voice: 15, joy: 8 })}` } : null
+    ].filter(Boolean) },
+  { id: 'eulbyeong', y: [1695, 1696], min: 5, title: '을병대기근', short: '을병대기근', text: '경신년 못지않은 흉년이 또 찾아왔습니다. 역병까지 돌아 인구가 크게 줄었습니다.',
+    opts: () => [
+      { t: '고향을 떠나 떠돌며 먹을 것을 찾는다', d: '사망 위험 12% · 재물 −6', go: () => fight(.12, () => `유랑민 무리에 섞여 살아남았다.${E({ wealth: -6, hp: -8 })}`, () => { die('을병대기근'); return '길 위에서 숨을 거두었다.'; }) },
+      { t: '집에서 버틴다', d: '사망 위험 8% · 건강 −10', go: () => fight(.08, () => `허리띠를 졸라맸다.${E({ hp: -10 })}`, () => { die('을병대기근'); return '굶주림을 이기지 못했다.'; }) },
+      st.s.wealth >= 45 ? { t: '곡식을 내어 구휼한다', d: '재물 −15 · 발언권 +12', go: () => `고을 수령이 장계를 올려 칭찬했다.${E({ wealth: -15, voice: 12, joy: 6 })}` } : null
+    ].filter(Boolean) },
+  // ── 조선 후기
+  { id: 'daedong', y: [1708, 1709], min: 15, cond: () => st.cls === 'commoner', info: () => '대동법이 전국에서 시행되었다. 특산물 대신 쌀로 세금을 내니 방납의 횡포가 줄었다.' + E({ wealth: 2 }) },
+  { id: 'gyunyeok', y: [1750, 1751], min: 16, cond: () => male() && st.cls === 'commoner', info: () => '균역법으로 해마다 바치던 군포가 두 필에서 한 필로 줄었다.' + E({ wealth: 3 }) },
+  { id: 'catholic', y: [1785, 1830], min: 16, p: .12, title: '서학(천주교)을 만나다', short: '천주교', text: '"하느님 앞에 양반과 상놈, 남자와 여자가 따로 없다"는 가르침이 몰래 퍼지고 있습니다. 나라는 제사를 거부한다며 금지했습니다.',
+    opts: () => [
+      { t: '세례를 받는다', d: '행복 +10 · 박해의 위험', go: () => { st.flags.catholic = 1; return `몰래 기도문을 외웠다.${E({ joy: 10 })}`; } },
+      { t: '거절한다', d: '변화 없음', go: () => '조상 제사를 저버릴 수는 없었다.' }
+    ] },
+  { id: 'gongno', y: [1801, 1801], min: 5, cond: () => st.cls === 'slave', info: () => { if (chance(.3)) { setCls('commoner', '양인(공노비 해방)'); setJob(male() ? 'farmer' : 'weaver'); return '순조가 내수사와 각 관청의 공노비 6만여 명을 해방했다. 관아의 노비였던 나도 양인이 되었다.' + E({ restrict: -30, joy: 18 }); } return '나라가 공노비 6만여 명을 풀어 주었다. 하지만 사노비인 나는 그대로였다.' + E({ joy: -4 }); } },
+  { id: 'sinyu', y: [1801, 1801], cond: () => st.flags.catholic, title: '신유박해', short: '신유박해', text: '천주교 신자들을 잡아들이라는 명이 떨어졌습니다. 이승훈·정약종이 처형되고 정약용은 강진으로 유배되었습니다.',
+    opts: () => [
+      { t: '신앙을 지킨다', d: '사망 위험 40%', go: () => fight(.4, () => `숨어 지내며 신앙을 지켰다.${E({ joy: 4, hp: -6 })}`, () => { die('신유박해 순교'); return '형장에서 십자가를 그었다.'; }) },
+      { t: '배교한다', d: '행복 −14', go: () => { st.flags.catholic = 0; return `관아에서 신앙을 버린다고 말했다.${E({ joy: -14 })}`; } }
+    ] },
+  { id: 'hwaseong', y: [1794, 1796], max: 55, p: .5, cond: () => male() && ['commoner', 'slave', 'poor'].includes(st.cls), title: '수원 화성 축조', short: '화성 축조', text: '정조가 수원에 새 성을 쌓습니다. 백성을 강제로 부리지 않고 품삯을 주며, 거중기로 돌을 들어 올린답니다.',
+    opts: () => [
+      { t: '품삯을 받고 공사장에 간다', d: '재물 +8 · 건강 −4', go: () => `《화성성역의궤》 어딘가에 이름 한 줄이 남았다.${E({ wealth: 8, hp: -4 })}` },
+      { t: '가지 않는다', d: '변화 없음', go: () => '고향 일이 바빴다.' }
+    ] },
+  { id: 'gyujang', y: [1779, 1800], min: 18, max: 55, cond: () => st.seol && male() && st.s.edu >= 40, title: '서얼에게 열린 문, 규장각 검서관', short: '검서관', text: '정조가 박제가·이덕무·유득공 같은 서얼을 규장각 검서관으로 뽑았습니다. 서얼에게도 벼슬길이 조금 열렸습니다.',
+    opts: () => [
+      { t: '검서관에 응한다', d: '성공 50% · 발언권 +15', go: () => chance(.5) ? (setJob('official'), `규장각에서 책을 교정하며 임금 곁에 섰다.${E({ voice: 15, joy: 10, edu: 6 })}`) : `이번에는 뽑히지 못했다.${E({ joy: -6 })}` },
+      { t: '포기한다', d: '변화 없음', go: () => '어차피 끝까지 막힌 길이라 여겼다.' }
+    ] },
+  { id: 'honggyeong', y: [1811, 1812], min: 16, max: 60, cond: () => regionHas(/평안/) || (st.sub === '몰락 양반(잔반)' && chance(.4)), title: '홍경래의 난', short: '홍경래의 난', text: '평안도 차별에 분노한 홍경래가 가산 다복동에서 봉기했습니다. 몰락 양반과 광산 노동자, 농민이 모여 청천강 북쪽을 휩쓸었습니다.',
+    opts: () => [
+      { t: '봉기군에 가담한다', d: '사망 위험 40%', go: () => fight(.4, () => `정주성이 함락되기 전에 빠져나왔다.${E({ voice: 6, hp: -10 })}`, () => { die('홍경래의 난 정주성 함락'); return '정주성이 무너지던 날 함께 무너졌다.'; }) },
+      { t: '관군 쪽에 선다', d: '발언권 +4 · 행복 −4', go: () => `이웃을 향해 창을 겨눴다.${E({ voice: 4, joy: -4 })}` },
+      { t: '숨는다', d: '변화 없음', go: () => '난리가 지나가기를 기다렸다.' }
+    ] },
+  { id: 'gihae', y: [1839, 1839], cond: () => st.flags.catholic, title: '기해박해', short: '기해박해', text: '천주교 박해가 다시 시작되었습니다.',
+    opts: () => [
+      { t: '신앙을 지킨다', d: '사망 위험 35%', go: () => fight(.35, () => `산속 교우촌으로 숨어들었다.${E({ hp: -6 })}`, () => { die('기해박해 순교'); return '새남터에서 순교했다.'; }) },
+      { t: '배교한다', d: '행복 −12', go: () => { st.flags.catholic = 0; return `신앙을 버렸다.${E({ joy: -12 })}`; } }
+    ] },
+  { id: 'donghak', y: [1861, 1893], min: 16, p: .1, cond: () => ['commoner', 'slave', 'poor'].includes(st.cls) || st.sub === '몰락 양반(잔반)', title: '동학을 만나다', short: '동학', text: '경주의 최제우가 "사람이 곧 하늘(人乃天)"이라 가르칩니다. 양반과 상놈, 적서의 차별이 없다고 합니다.',
+    opts: () => [
+      { t: '동학에 입도한다', d: '행복 +8 · 발언권 +4', go: () => { st.flags.donghak = 1; return `주문을 외우며 접(接)에 들었다.${E({ joy: 8, voice: 4 })}`; } },
+      { t: '거리를 둔다', d: '변화 없음', go: () => '혹세무민이라는 말을 믿었다.' }
+    ] },
+  { id: 'imsul', y: [1862, 1862], min: 16, max: 65, cond: () => ['commoner', 'slave', 'poor'].includes(st.cls) && regionHas(/경상|전라|충청/), title: '임술농민봉기', short: '임술농민봉기', text: '진주에서 시작된 봉기가 삼남 70여 고을로 번졌습니다. 삼정(전정·군정·환곡)의 문란에 백성이 들고일어났습니다.',
+    opts: () => [
+      { t: '앞장서서 관아로 몰려간다', d: '사망 위험 18% · 발언권 +8', go: () => fight(.18, () => `탐관오리의 집을 불태웠다. 조정은 삼정이정청을 만들었다.${E({ voice: 8, joy: 6 })}`, () => { die('임술농민봉기 진압'); return '주모자로 몰려 효수되었다.'; }) },
+      { t: '뒤에서 곡식을 보탠다', d: '재물 −3 · 행복 +2', go: () => `몰래 쌀자루를 날랐다.${E({ wealth: -3, joy: 2 })}` },
+      { t: '관망한다', d: '변화 없음', go: () => '세상이 바뀔 거라 믿지 않았다.' }
+    ] },
+  { id: 'byeongin', y: [1866, 1866], cond: () => st.flags.catholic, title: '병인박해', short: '병인박해', text: '흥선대원군이 천주교 신자 8천여 명을 처형하는 대박해를 일으켰습니다.',
+    opts: () => [
+      { t: '신앙을 지킨다', d: '사망 위험 40%', go: () => fight(.4, () => `깊은 산골로 숨었다.${E({ hp: -8 })}`, () => { die('병인박해 순교'); return '절두산에서 순교했다.'; }) },
+      { t: '배교한다', d: '행복 −12', go: () => { st.flags.catholic = 0; return `신앙을 버렸다.${E({ joy: -12 })}`; } }
+    ] },
+  { id: 'yangyo', y: [1866, 1871], min: 10, info: () => '프랑스(병인양요)와 미국(신미양요) 함대가 강화도를 침범했다. 전국에 척화비가 세워졌다.' },
+  { id: 'gaehang', y: [1876, 1885], min: 20, max: 55, p: .4, cond: () => ['merchant', 'peddler', 'bigmerchant', 'innkeeper', 'farmer'].includes(st.job), title: '개항장의 문이 열렸다', short: '개항', text: '강화도조약으로 부산·원산·인천이 열렸습니다. 일본·청 상인이 몰려와 쌀과 콩을 사 가고 옷감을 팝니다.',
+    opts: () => [
+      { t: '개항장으로 가서 객주가 된다', d: '55%: 재물 +20 / 45%: 재물 −10', go: () => { setJob('merchant'); return chance(.55) ? `외국 상인과 거간을 하며 큰돈을 만졌다.${E({ wealth: 20 })}` : `청 상인에게 밀려 손해만 봤다.${E({ wealth: -10 })}`; } },
+      { t: '하던 일을 계속한다', d: '쌀값이 올라 살기 팍팍해진다', go: () => `곡식이 일본으로 빠져나가 쌀값이 뛰었다.${E({ wealth: -3 })}` }
+    ] },
+  { id: 'noseseup', y: [1886, 1886], min: 5, cond: () => st.cls === 'slave', info: () => '노비 신분을 대물림하는 법이 폐지되었다. 내 자식들은 더 이상 노비로 태어나지 않는다.' + E({ joy: 8 }) },
+  { id: 'donghakwar', y: [1894, 1894], min: 15, max: 65, cond: () => st.flags.donghak || ['commoner', 'slave', 'poor'].includes(st.cls), title: '동학농민운동', short: '동학농민운동', text: '고부에서 전봉준이 일어섰습니다. 농민군은 전주성을 점령하고 집강소를 세웠다가, 일본군을 몰아내려 다시 일어나 공주 우금치로 향합니다.',
+    opts: () => [
+      { t: '농민군으로 우금치까지 간다', d: '사망 위험 35%', go: () => fight(.35, () => `우금치에서 패한 뒤 살아 돌아왔다.${E({ voice: 10, hp: -12, joy: -6 })}`, () => { die('우금치 전투'); return '일본군의 기관총 앞에서 쓰러졌다.'; }) },
+      { t: '집강소 일만 돕는다', d: '발언권 +6', go: () => `폐정개혁안을 고을에 알렸다.${E({ voice: 6 })}` },
+      { t: '지켜본다', d: '변화 없음', go: () => '농민군이 지나가는 것을 지켜보았다.' }
+    ] },
+  { id: 'gabo', y: [1894, 1895], min: 0, info: () => {
+      let t = '갑오개혁으로 신분제가 폐지되었다. 과거제가 없어지고, 과부의 재가가 허용되었으며 조혼이 금지되었다.';
+      if (st.cls === 'slave') { setCls('commoner', '평민(갑오개혁 신분 해방)'); if (st.job === 'slave') setJob(male() ? 'farmer' : 'weaver'); t += ' 법적으로 노비가 아니게 되었다!' + E({ restrict: -30, joy: 15 }); }
+      else if (st.cls === 'noble') t += ' 양반의 특권도 법에서 사라졌다.' + E({ voice: -6 });
+      if (st.job === 'study') { setJob('teacher'); t += ' 평생 매달린 과거가 사라졌다.' + E({ joy: -10 }); }
+      return t;
+    } },
+  { id: 'danbal', y: [1895, 1896], min: 15, cond: () => male(), title: '단발령', short: '단발령', text: '"신체발부는 부모에게 받은 것"이라 했건만, 나라가 상투를 자르라 명합니다.',
+    opts: () => [
+      { t: '상투를 자른다', d: '행복 −4 · 신문물에 적응', go: () => `가위 소리에 눈을 질끈 감았다.${E({ joy: -4, edu: 2 })}` },
+      { t: '목을 자를지언정 머리는 못 자른다', d: '발언권 +4 · 행동 제약 +4', go: () => `상투를 지켰다. 을미의병 소식이 들려왔다.${E({ voice: 4, restrict: 4 })}` }
+    ] },
+  { id: 'uibyeong', y: [1905, 1909], min: 18, max: 55, p: .5, cond: () => male(), title: '을사늑약, 의병이 일어나다', short: '정미의병', text: '외교권을 빼앗긴 뒤 군대마저 해산되었습니다. 해산된 군인들이 의병에 합류합니다.',
+    opts: () => [
+      { t: '의병에 들어간다', d: '사망 위험 30% · 발언권 +12', go: () => fight(.3, () => `산을 타며 일본군과 싸우다 살아남았다.${E({ voice: 12, hp: -10 })}`, () => { die('정미의병 전투'); return '산중에서 일본군 토벌대에 쓰러졌다.'; }) },
+      { t: '학교와 신문으로 실력을 기른다(애국계몽)', d: '학식 +8', go: () => `야학에서 글을 가르쳤다.${E({ edu: 8, voice: 3 })}` },
+      { t: '살길만 찾는다', d: '변화 없음', go: () => '식구들 입에 풀칠하는 게 먼저였다.' }
+    ] },
+  // ── 근현대
+  { id: 'gyeongsul', y: [1910, 1910], min: 8, info: () => '나라가 일본에 병합되었다(경술국치). 조선총독부가 들어섰다.' + E({ joy: -6 }) },
+  { id: 'toji', y: [1912, 1918], min: 18, cond: () => ['farmer', 'tenant'].includes(st.job) || ['commoner', 'poor'].includes(st.cls), title: '토지조사사업', short: '토지조사', text: '총독부가 정해진 기간 안에 땅을 신고하라고 합니다. 서류를 모르면 대대로 부치던 땅도 국유지가 됩니다.',
+    opts: () => [
+      { t: '서류를 꼼꼼히 챙겨 신고한다', ok: st.s.edu >= 15, why: '글을 몰라 서류를 볼 수 없습니다(학식 15 이상)', d: '땅을 지킨다', go: () => `면사무소를 몇 번이나 오가며 신고를 마쳤다.${E({ joy: 2 })}` },
+      { t: '이장에게 맡긴다', d: '40%: 땅을 잃는다', go: () => chance(.4) ? (setJob('tenant'), `땅이 동양척식주식회사 소유로 넘어갔다. 이제 남의 땅을 부치는 소작인이다.${E({ wealth: -15, joy: -10 })}`) : `다행히 내 이름으로 올랐다.${E({ joy: 2 })}` }
+    ] },
+  { id: 'flu', y: [1918, 1918], min: 0, info: () => '무오년 독감(스페인 독감)이 조선을 덮쳐 14만 명 넘게 숨졌다.' + E({ hp: -4 }) },
+  { id: 'samil', y: [1919, 1919], min: 12, title: '3·1 운동', short: '3·1 운동', text: '탑골공원에서 독립선언서가 낭독되고, 전국 장터마다 "대한독립 만세" 소리가 울립니다.',
+    opts: () => [
+      { t: '태극기를 들고 만세를 부른다', d: '체포 20% · 사망 2% · 발언권 +10', go: () => { if (chance(.02)) { die('3·1 운동 시위 현장'); return '헌병의 총탄이 날아왔다.'; } if (chance(.2)) return `헌병에게 끌려가 서대문형무소에서 고초를 겪었다.${E({ hp: -15, voice: 10, joy: -4 })}`; return `목이 터져라 만세를 불렀다.${E({ voice: 10, joy: 8 })}`; } },
+      { t: '숨죽여 지켜본다', d: '변화 없음', go: () => '장터의 함성을 멀리서 들었다.' }
+    ] },
+  { id: 'sanmi', y: [1920, 1934], min: 18, cond: () => ['farmer', 'tenant'].includes(st.job), info: () => '산미증식계획으로 쌀이 일본으로 빠져나갔다. 소작료는 수확의 절반을 넘었다.' + E({ wealth: -4, hp: -2 }) },
+  { id: 'manju', y: [1931, 1940], min: 18, max: 45, p: .35, cond: () => ['tenant', 'farmer', 'gyeongseong'].includes(st.job) && !regionHas(/간도|만주/), title: '만주로 가면 땅을 준다는데', short: '만주 이주', text: '살기 어려워진 농민들이 만주와 간도로 떠납니다. 총독부는 이주를 부추깁니다.',
+    opts: () => [
+      { t: '간도로 이주한다', d: '재물 +6 · 행복 −6', go: () => { st.region = '간도(만주)'; return `두만강을 건너 황무지를 일궜다.${E({ wealth: 6, joy: -6 })}`; } },
+      { t: '남는다', d: '변화 없음', go: () => '고향을 떠날 수 없었다.' }
+    ] },
+  { id: 'changssi', y: [1940, 1940], min: 15, title: '창씨개명', short: '창씨개명', text: '일본식 성과 이름으로 바꾸라는 명령이 내려왔습니다. 따르지 않으면 자식이 학교에 못 가고 배급도 끊긴다고 합니다.',
+    opts: () => [
+      { t: '따른다', d: '행복 −8', go: () => `호적에 낯선 이름이 적혔다.${E({ joy: -8 })}` },
+      { t: '끝까지 버틴다', d: '재물 −6 · 발언권 +4', go: () => `불이익을 감수했다.${E({ wealth: -6, voice: 4 })}` }
+    ] },
+  { id: 'dongwon', y: [1939, 1945], min: 15, max: 40, p: .45, cond: () => ['commoner', 'poor', 'middle'].includes(st.cls) && !st.flags.dongwon, title: '전시 강제동원', short: '강제동원', text: () => male() ? '면사무소에서 징용 영장이 나왔습니다. 일본·사할린의 탄광과 군수공장으로 보낸다고 합니다. 1944년부터는 징병도 시작되었습니다.' : '근로보국대와 정신대 모집이라는 이름으로 젊은 여성들을 공장에 동원한다고 합니다.',
+    opts: () => male() ? [
+      { t: '끌려간다', d: '사망 위험 12% · 건강 −15', go: () => { st.flags.dongwon = 1; return fight(.12, () => { setJob('drafted'); return `지쿠호 탄광 막장에서 하루 열두 시간을 일했다.${E({ hp: -15, joy: -15 })}`; }, () => { die('강제동원 탄광 사고'); return '갱도가 무너졌다.'; }); } },
+      { t: '산으로 숨는다', d: '50%: 붙잡히면 더 가혹하다', go: () => { st.flags.dongwon = 1; return chance(.5) ? `광복 때까지 산골을 떠돌았다.${E({ hp: -8, wealth: -6 })}` : (setJob('drafted'), `붙잡혀 더 먼 곳으로 끌려갔다.${E({ hp: -20, joy: -15 })}`); } }
+    ] : [
+      { t: '서둘러 혼인해 동원을 피한다', d: '바로 혼인', go: () => { st.flags.dongwon = 1; return st.married ? `이미 혼인한 몸이라 겨우 피했다.${E({ joy: -4 })}` : marry(); } },
+      { t: '공장에 끌려간다', d: '건강 −12 · 행복 −15', go: () => { st.flags.dongwon = 1; return `군수공장에서 쉬지 않고 일했다.${E({ hp: -12, joy: -15 })}`; } }
+    ] },
+  { id: 'gwangbok', y: [1945, 1945], min: 0, info: () => {
+      let t = '8월 15일, 광복을 맞았다. 사람들이 거리로 쏟아져 나와 만세를 불렀다.' + E({ joy: 18 });
+      if (st.job === 'drafted') { setJob(male() ? 'farmer' : 'homemaker'); t += ' 동원된 곳에서 겨우 고향으로 돌아왔다.'; }
+      if (regionHas(/간도|만주|일본|사쓰마/)) { if (chance(.6)) { t += ' 해외에서 귀국선을 타고 돌아왔다.'; st.region = '부산(귀환 동포)'; } else t += ' 돌아가지 못하고 그 땅에 남았다.'; }
+      return t;
+    } },
+  { id: 'jeju43', y: [1948, 1949], min: 0, cond: () => regionHas(/제주/), info: () => { st.extraRisk = .06; return '제주에서 4·3 사건의 무력 충돌과 진압이 이어지며 수많은 주민이 희생되었다.' + E({ joy: -15 }); } },
+  { id: 'nongji', y: [1950, 1950], min: 18, cond: () => !isNorth(st.region), info: () => {
+      if (['tenant', 'farmer'].includes(st.job) && st.cls !== 'noble') { setJob('farmer'); return '농지개혁으로 부치던 땅을 상환 조건으로 분배받았다. 내 땅이 생겼다.' + E({ wealth: 10, joy: 10 }); }
+      if (st.cls === 'noble') return '농지개혁으로 땅을 내놓고 지가증권을 받았다. 전쟁 통에 휴지 조각이 되었다.' + E({ wealth: -20 });
+      return '농지개혁이 실시되었다.';
+    } },
+  { id: 'war625', y: [1950, 1950], min: 6, title: '6·25 전쟁', short: '6·25 전쟁', text: () => isNorth(st.region) ? '전쟁이 터졌습니다. 국군과 유엔군이 북진했다가 중공군에 밀려 내려갑니다. 흥남 부두와 대동강에는 남쪽으로 가려는 사람들이 몰렸습니다.' : '6월 25일 새벽, 북한군이 38선을 넘었습니다. 사흘 만에 서울이 떨어졌습니다.',
+    opts: () => {
+      if (isNorth(st.region)) return [
+        { t: '남쪽으로 피난한다(월남)', d: '재물이 거의 사라진다 · 가족과 생이별할 수도', go: () => { st.region = '부산(피란민)'; st.s.wealth = Math.min(st.s.wealth, 8); return `흥남에서 배를 탔다. 금방 돌아올 줄 알았다.${E({ joy: -18 })}`; } },
+        { t: '고향에 남는다', d: '이후의 삶은 휴전선 너머의 일이 된다', go: () => { st.flags.northEnd = 1; die('분단'); return '휴전선이 그어지고 소식이 끊겼다. 남쪽 기록은 여기서 멈춘다.'; } }
+      ];
+      const o = [];
+      if (male() && st.age >= 17 && st.age <= 35) o.push({ t: '국군에 입대한다', d: '전사 위험 15%', go: () => fight(.15, () => `낙동강 전선에서, 인천에서, 그리고 고지전에서 살아남았다.${E({ hp: -12, voice: 6, joy: -10 })}`, () => { die('6·25 전쟁 전투'); return '이름 모를 고지에서 전사했다.'; }) });
+      o.push({ t: '부산으로 피난한다', d: '사망 위험 4% · 재물 −12', go: () => fight(.04, () => { st.region = st.region.includes('부산') ? st.region : '부산(피란민)'; return `판잣집에서 피란살이를 했다.${E({ wealth: -12, hp: -6, joy: -8 })}`; }, () => { die('피난길'); return '피난 행렬 위로 폭격이 쏟아졌다.'; }) });
+      o.push({ t: '집에 남아 숨어 지낸다', d: '사망 위험 7%', go: () => fight(.07, () => `서울이 몇 번이나 주인을 바꾸는 동안 다락에 숨어 지냈다.${E({ hp: -8, joy: -10 })}`, () => { die('6·25 전쟁'); return '난리 통에 목숨을 잃었다.'; }) });
+      return o;
+    } },
+  { id: 'armistice', y: [1953, 1953], min: 5, info: () => '휴전협정이 조인되었다. 전쟁은 멈췄지만 끝나지 않았다.' + E({ joy: 4 }) },
+  { id: 'april19', y: [1960, 1960], min: 15, max: 40, title: '4·19 혁명', short: '4·19', text: '3·15 부정선거에 맞서 학생과 시민이 거리로 나섰습니다. 경무대 앞에서 총성이 울렸습니다.',
+    opts: () => [
+      { t: '거리로 나선다', d: '사망 1% · 발언권 +8', go: () => chance(.01) ? (die('4·19 혁명 시위'), '경무대 앞에서 총에 맞았다.') : `이승만이 하야했다.${E({ voice: 8, joy: 8 })}` },
+      { t: '라디오로 소식을 듣는다', d: '변화 없음', go: () => '세상이 바뀌는 소리를 들었다.' }
+    ] },
+  { id: 'pado', y: [1963, 1977], min: 21, max: 35, p: .35, cond: () => st.s.wealth < 50 && !st.flags.pado, title: '서독으로 가는 길', short: '파독', text: () => male() ? '서독 탄광에서 광부를 뽑습니다. 월급이 국내의 여덟 배라는 말에 대졸자까지 몰립니다.' : '서독 병원에서 간호사와 간호조무사를 뽑습니다.',
+    opts: () => [
+      { t: male() ? '파독 광부로 간다' : '파독 간호사로 간다', d: '재물 +20 · 건강 −8 · 행복 −4', go: () => { st.flags.pado = 1; return male() ? `지하 1,000미터 막장에서 3년을 버텼다. 월급 대부분을 고향에 부쳤다.${E({ wealth: 20, hp: -10, joy: -4 })}` : `낯선 병원에서 시신 닦는 일부터 시작했다. 고향에 돈을 부쳤다.${E({ wealth: 20, hp: -6, joy: -4 })}`; } },
+      { t: '남는다', d: '변화 없음', go: () => { st.flags.pado = 1; return '고향에서 살길을 찾기로 했다.'; } }
+    ] },
+  { id: 'vietnam', y: [1965, 1972], min: 20, max: 30, p: .3, cond: () => male(), title: '베트남 파병', short: '베트남 파병', text: '국군이 베트남에 파병되었습니다. 전투수당을 모아 오면 집을 살 수 있다는 말이 돕니다.',
+    opts: () => [
+      { t: '파병에 지원한다', d: '사망 위험 3% · 재물 +12 · 건강 −6', go: () => fight(.03, () => `정글에서 돌아왔다. 고엽제 이야기는 한참 뒤에야 들었다.${E({ wealth: 12, hp: -8 })}`, () => { die('베트남전 전투'); return '정글에서 돌아오지 못했다.'; }) },
+      { t: '지원하지 않는다', d: '변화 없음', go: () => '그냥 남았다.' }
+    ] },
+  { id: 'sanggyeong', y: [1962, 1988], min: 15, max: 32, cond: () => regionHas(/농촌|산골|충청|전라|경상|강원|경기도/) && !st.flags.sanggyeong, title: '서울로, 서울로', short: '상경', text: '공장 굴뚝이 늘어나고 농촌 젊은이들이 기차를 타고 서울로 올라갑니다(이촌향도).',
+    opts: () => [
+      { t: '서울로 올라간다', d: '재물 +4 · 행복 −3 · 일자리', go: () => { st.flags.sanggyeong = 1; st.region = '서울'; if (!['student', 'civil', 'clerk', 'pro'].includes(st.job)) setJob(st.s.edu > 45 ? 'clerk' : male() ? 'factory' : 'yeogong'); return `${JOBS[st.job].n}(으)로 서울살이를 시작했다. 쪽방 하나가 전부였다.${E({ wealth: 4, joy: -3 })}`; } },
+      { t: '고향에 남는다', d: '건강 +2', go: () => { st.flags.sanggyeong = 1; return `고향 땅을 지켰다.${E({ hp: 2 })}`; } }
+    ] },
+  { id: 'jeontaeil', y: [1970, 1970], min: 14, cond: () => ['factory', 'yeogong'].includes(st.job), info: () => '평화시장 재단사 전태일이 "근로기준법을 지켜라"를 외쳤다는 소식이 공장에 돌았다.' + E({ voice: 3 }) },
+  { id: 'saemaeul', y: [1971, 1975], min: 15, cond: () => st.job === 'farmer', info: () => '새마을운동으로 초가지붕이 슬레이트로 바뀌고 마을 길이 넓어졌다.' + E({ wealth: 3 }) },
+  { id: 'jungdong', y: [1975, 1985], min: 25, max: 45, p: .3, cond: () => male() && st.s.wealth < 60 && !st.flags.jungdong, title: '중동 건설 붐', short: '중동 건설', text: '사우디아라비아와 쿠웨이트의 건설 현장에서 일꾼을 찾습니다. 40도가 넘는 사막이지만 돈이 됩니다.',
+    opts: () => [
+      { t: '사막으로 간다', d: '재물 +22 · 건강 −10', go: () => { st.flags.jungdong = 1; return `모래바람 속에서 2년을 일하고 돌아왔다.${E({ wealth: 22, hp: -10, joy: -4 })}`; } },
+      { t: '가족 곁에 남는다', d: '행복 +2', go: () => { st.flags.jungdong = 1; return `가족 곁을 지켰다.${E({ joy: 2 })}`; } }
+    ] },
+  { id: 'gangnam', y: [1976, 1992], min: 28, max: 58, p: .3, cond: () => st.s.wealth >= 35 && !st.flags.gangnam, title: '강남 개발과 아파트 청약', short: '강남 아파트', text: '논밭이던 영동(강남)에 아파트 단지가 올라갑니다. 복부인이라는 말이 생겼습니다.',
+    opts: () => [
+      { t: '아파트를 산다', d: '재물 −10 후 크게 오를 수도', go: () => { st.flags.gangnam = 1; E({ wealth: -10 }); return chance(.65) ? `몇 년 만에 집값이 몇 배로 뛰었다.${E({ wealth: 35, joy: 8 })}` : `빚을 내 샀는데 오르기까지 오래 걸렸다.${E({ wealth: 12, joy: -2 })}`; } },
+      { t: '은행에 저축한다', d: '재물 +4', go: () => { st.flags.gangnam = 1; return `꼬박꼬박 적금을 부었다.${E({ wealth: 4 })}`; } }
+    ] },
+  { id: 'gwangju', y: [1980, 1980], min: 8, cond: () => regionHas(/광주|전라/), info: () => { if (regionHas(/광주/)) st.extraRisk = .01; return '5월, 광주에서 계엄군의 진압으로 많은 시민이 희생되었다. 한동안 바깥에는 제대로 알려지지 않았다.' + E({ joy: -10 }); } },
+  { id: 'june87', y: [1987, 1987], min: 18, max: 50, title: '6월 민주항쟁', short: '6월 항쟁', text: '박종철 군의 죽음과 4·13 호헌 조치에 분노한 시민들이 거리로 나왔습니다. 넥타이를 맨 회사원들도 합류했습니다.',
+    opts: () => [
+      { t: '거리로 나간다', d: '발언권 +8 · 최루탄', go: () => `6·29 선언으로 대통령 직선제를 되찾았다.${E({ voice: 8, joy: 6, hp: -2 })}` },
+      { t: '퇴근길에 박수만 보탠다', d: '행복 +2', go: () => `빌딩 창문에서 휴지를 뿌렸다.${E({ joy: 2 })}` },
+      { t: '관심 두지 않는다', d: '변화 없음', go: () => '먹고살기 바빴다.' }
+    ] },
+  { id: 'olympic', y: [1988, 1988], min: 6, info: () => '서울 올림픽이 열렸다. 호돌이와 굴렁쇠 소년을 텔레비전으로 보았다.' + E({ joy: 3 }) },
+  { id: 'imf', y: [1997, 1998], min: 25, max: 62, cond: () => ['clerk', 'factory', 'manager', 'selfemp', 'yeogong', 'pro', 'gigs', 'laborer'].includes(st.job), title: 'IMF 외환위기', short: 'IMF', text: '나라가 국제통화기금(IMF)에 구제금융을 신청했습니다. 회사가 줄줄이 무너지고 명예퇴직 바람이 붑니다.',
+    opts: () => {
+      const fired = st.job !== 'pro' && chance(.45);
+      if (fired) { setJob('jobless'); E({ joy: -12, wealth: -8 }); }
+      const pre = fired ? '정리해고 명단에 이름이 있었다. ' : '';
+      return [
+        { t: '금 모으기 운동에 돌반지를 낸다', d: '재물 −2 · 행복 +3', go: () => pre + `아이 돌반지를 내놓았다.${E({ wealth: -2, joy: 3 })}` },
+        { t: '퇴직금으로 치킨집을 차린다', d: '50%: 재물 +6 / 50%: 재물 −18', go: () => { setJob('selfemp'); return pre + (chance(.5) ? `동네 단골이 생겼다.${E({ wealth: 6 })}` : `2년 만에 문을 닫고 빚만 남았다.${E({ wealth: -18, joy: -10 })}`); } },
+        { t: '이를 악물고 버틴다', d: fired ? '비정규직으로 재취업' : '자리를 지킨다', go: () => { if (fired) setJob('gigs'); return pre + (fired ? `계약직으로 다시 일을 구했다.${E({ joy: -4 })}` : `동료들이 떠난 자리를 혼자 메웠다.${E({ joy: -6, hp: -3 })}`); } }
+      ];
+    } },
+  { id: 'worldcup', y: [2002, 2002], min: 6, info: () => '한일 월드컵에서 4강에 올랐다. 온 나라가 붉은 옷을 입고 거리로 나왔다.' + E({ joy: 5 }) },
+  { id: 'gfc', y: [2008, 2009], min: 25, cond: () => st.s.wealth > 40, info: () => '글로벌 금융위기로 펀드와 주식이 반 토막 났다.' + E({ wealth: -5, joy: -3 }) },
+  { id: 'covid', y: [2020, 2021], min: 0, info: () => {
+      let t = '코로나19가 퍼져 마스크 없이는 밖에 나갈 수 없었다.';
+      if (st.age >= 70) st.extraRisk = .02;
+      if (st.job === 'selfemp') t += ' 손님이 끊겨 가게가 휘청였다.' + E({ wealth: -10 });
+      return t + E({ joy: -4 });
+    } },
+  { id: 'yeongkkeul', y: [2020, 2021], min: 25, max: 45, cond: () => st.s.wealth >= 20 && st.s.wealth <= 75 && !st.flags.house, title: '영끌해서 집을 살까', short: '영끌', text: '집값이 하루가 다르게 오릅니다. "지금 아니면 평생 못 산다"는 말과 "꼭지"라는 말이 동시에 들립니다.',
+    opts: () => [
+      { t: '영혼까지 끌어모아 산다', d: '50%: 재물 +16 / 50%: 재물 −12 · 대출 이자', go: () => { st.flags.house = 1; return chance(.5) ? `집값이 더 올랐다.${E({ wealth: 16, joy: 4 })}` : `금리가 오르며 이자에 허덕였다.${E({ wealth: -12, joy: -8 })}`; } },
+      { t: '전세로 버틴다', d: '행복 −2', go: () => `계약 만료가 다가올 때마다 불안했다.${E({ joy: -2 })}` }
+    ] },
+  { id: 'lowbirth', y: [2023, 2023], min: 10, info: () => '합계출산율이 0.72명으로 세계 최저를 기록했다. 기대수명은 83.5세에 이르렀다.' },
+  { id: 'future', y: [2035, 2035], min: 10, info: () => '(여기부터는 가상의 미래입니다) 인구의 30%가 65세를 넘었다. 지하철 노약자석이 모자랐다.' + E({ joy: -2 }) },
+  { id: 'future2', y: [2050, 2050], min: 10, info: () => '(가상의 미래) 일하는 사람 한 명이 노인 한 명을 부양하는 시대가 되었다.' }
+];
+// ===== 화면 그리기 =====
+function stageOf(a) {
+  if (a < 5) return '영유아기 · 다섯 살 고비';
+  if (a < 15) return '어린 시절';
+  if (a < 20) return st.year < 1900 ? '관례·계례를 올린 젊은이' : '청소년기';
+  if (a < 40) return '젊은 날';
+  if (a < 60) return '중년';
+  return '노년';
+}
+function avatarOf() {
+  const a = st.age, F = !male();
+  if (a < 5) return '👶';
+  if (a < 15) return F ? '👧' : '👦';
+  if (a >= 60) return F ? '👵' : '👴';
+  return F ? '👩' : '👨';
+}
+function renderAll() {
+  if (!st) return;
+  $('avatar').textContent = avatarOf();
+  $('whoName').textContent = st.nm.full;
+  $('whoBadges').innerHTML = [ERAS[st.era].tab, st.clsLabel, st.region].map((b, i) => `<span class="badge ${i === 1 && st.cls === 'slave' ? 'red' : ''}">${esc(b)}</span>`).join('') + (st.seol ? '<span class="badge red">서얼</span>' : '');
+  $('whoSub').textContent = `${male() ? '남' : '여'} · ${st.by}년생 · ${st.sibs === 1 ? st.order : st.sibs + '남매 중 ' + st.order}`;
+  const job = JOBS[st.job] ? JOBS[st.job].n : st.job;
+  $('whoKv').innerHTML = `<dt>호적 표기</dt><dd>${esc(hojeokName(st))}</dd><dt>하는 일</dt><dd>${esc(job)}</dd>
+    <dt>혼인</dt><dd>${st.married && st.spouse ? `${st.spouse.alive ? '' : '고(故) '}${esc(st.spouse.name)}` : st.flags.single ? '독신' : '미혼'}</dd>
+    ${st.statusHist.length ? `<dt>신분 변화</dt><dd>${esc(st.statusHist.join(' / '))}</dd>` : ''}`;
+  $('ageNow').textContent = st.age;
+  $('stageLbl').textContent = stageOf(st.age);
+  $('gzNow').textContent = ganji(st.year);
+  $('yearNow').textContent = st.year + '년';
+  const alive = Math.round((st.lt.curve[Math.min(st.age, 109)] || 0) * 100);
+  $('aliveOf100').textContent = alive + '명';
+  $('lifeBar').style.width = alive + '%';
+  $('e0Lbl').textContent = Math.round(st.lt.e0) + '세';
+  $('e20Lbl').textContent = Math.round(st.lt.e20) + '세';
+  const h = hazardNow(st);
+  $('riskLbl').textContent = h < .005 ? '매우 낮음' : h < .02 ? '낮음' : h < .05 ? '보통' : h < .12 ? '높음' : '위험';
+  $('riskLbl').style.color = h >= .05 ? 'var(--bad)' : 'var(--ink)';
+  const c = crisisAt(st.year);
+  $('tickerTxt').textContent = c ? `${c[3]}이(가) 계속되고 있다` : modalOpen ? '갈림길 앞에서 시간이 멈췄다' : speed === 0 ? '잠시 멈춤' : '한 해가 흘러갑니다';
+  const nx = nextHint(); $('nextHint').textContent = nx;
+  $('stats').innerHTML = statBars(st.s, false);
+  const kids = st.kids;
+  $('famSum').textContent = kids.length ? `자녀 ${kids.length}명 중 ${kids.filter(k => k.alive).length}명 생존` : '';
+  $('fam').innerHTML = (st.spouse ? `<div class="kid ${st.spouse.alive ? '' : 'dead'}"><span>${male() ? '아내' : '남편'} ${esc(st.spouse.name)}</span><span class="num">${st.spouse.alive ? (st.year - st.spouse.by) + '세' : '세상을 떠남'}</span></div>` : '<div class="muted ui" style="font-size:13px">아직 꾸린 가정이 없습니다.</div>') +
+    kids.map(k => `<div class="kid ${k.alive ? '' : 'dead'}"><span>${k.label} ${esc(k.name)}</span><span class="num">${k.alive ? (st.year - k.by) + '세' : (k.dy - k.by) + '세에 떠남'}</span></div>`).join('');
+}
+function nextHint() {
+  const marks = [5, 7, 15, 61];
+  const n = marks.find(m => m > st.age);
+  return n ? `다음 고비: ${n}세` : '';
+}
+function renderLog() {
+  if (!st) return;
+  $('log').innerHTML = st.log.slice(0, 160).map(e => `<div class="entry k-${e.k}"><div class="when"><b>${e.a}세</b>${e.y}년</div><p>${esc(e.t)}</p></div>`).join('');
+}
+
+// ===== 죽음과 비석 =====
+function finish(cause) {
+  if (st.dead) return;
+  st.dead = true; st.cause = cause; speed = 0;
+  addLog(`${cause}(으)로 눈을 감았다. 향년 ${st.age}세.`, 'sad');
+  const alive = st.lt.curve[Math.min(st.age, 109)];
+  const outlived = Math.round((1 - alive) * 100);
+  const kidsAlive = st.kids.filter(k => k.alive).length;
+  const best = STAT_INFO.filter(x => x[0] !== 'restrict').sort((a, b) => st.s[b[0]] - st.s[a[0]])[0];
+  const epi = epitaph(cause, outlived);
+  const rec = { name: st.nm.full, era: ERAS[st.era].tab, by: st.by, dy: st.year, age: st.age, cls: st.birthCls, endCls: st.clsLabel, g: st.g, cause, kids: st.kids.length, kidsAlive, epi, region: st.birthRegion, when: Date.now() };
+  const jb = lsGet('k1000_jokbo') || []; jb.unshift(rec); lsSet('k1000_jokbo', jb.slice(0, 40));
+  try { localStorage.removeItem('k1000_life'); } catch (e) { }
+  const north = st.flags.northEnd;
+  modalOpen = true;
+  $('sheet').innerHTML = `
+    <div class="tag">${st.year}년 ${ganji(st.year)}</div>
+    <h2>${north ? '휴전선 너머로 기록이 끊겼다' : `${esc(st.nm.full)}, ${st.age}세에 눈을 감다`}</h2>
+    <div class="stoneWrap">
+      <div class="stone" aria-label="비석"><div class="v">${esc(stoneName())}之墓<br><small>${st.by} ― ${st.year}</small></div></div>
+      <div class="report">
+        <p class="epi">${esc(epi)}</p>
+        <dl class="kv">
+          <dt>사인</dt><dd>${esc(cause)}</dd>
+          <dt>태어남</dt><dd>${st.by}년 ${esc(st.birthRegion)} · ${esc(st.birthCls)}</dd>
+          <dt>마지막 신분</dt><dd>${esc(st.clsLabel)} · ${esc(JOBS[st.job] ? JOBS[st.job].n : '')}</dd>
+          <dt>자녀</dt><dd>${st.kids.length}명 낳아 ${kidsAlive}명 생존</dd>
+          <dt>가장 높던 재물</dt><dd>${Math.round(st.peakWealth)} / 100</dd>
+          <dt>가장 강한 기운</dt><dd>${best[1]} ${Math.round(st.s[best[0]])}</dd>
+        </dl>
+        <p style="margin:0">같은 해 같은 신분으로 태어난 아이 100명 중 <b>${outlived}명</b>보다 오래 살았습니다. 이 시대의 출생 시 기대여명은 약 ${Math.round(st.lt.e0)}세였습니다.</p>
+      </div>
+    </div>
+    ${st.tags.length ? `<h3 style="font-size:16px;margin:14px 0 6px">삶을 가른 선택</h3><ul class="srcList">${st.tags.slice(-8).map(t => `<li>${esc(t)}</li>`).join('')}</ul>` : ''}
+    <div class="rowBtns" style="margin-top:12px">
+      <button class="btn primary" id="btnRebirth" type="button">다시 태어나기</button>
+      <button class="btn" id="btnCard" type="button">기록 카드 만들기</button>
+      <button class="btn" id="btnCopy" type="button">한 줄 기록 복사</button>
+    </div>
+    <div id="cardOut"></div>`;
+  $('modal').hidden = false;
+  $('btnRebirth').onclick = () => { $('modal').hidden = true; modalOpen = false; backToStart(); };
+  $('btnCard').onclick = makeCard;
+  $('btnCopy').onclick = () => copyText(`[천년 한반도 생존기] ${rec.era} ${rec.by}년 ${rec.region}의 ${rec.cls}로 태어난 ${rec.name}, ${rec.age}세에 ${rec.cause}(으)로 눈을 감다. 같은 해 태어난 100명 중 ${outlived}명보다 오래 살았다.`);
+  renderAll();
+}
+function stoneName() { if (male()) return st.nm.full.replace(/\s/g, ''); return hojeokName(st).replace(/\(.*?\)/g, '').replace(/\s/g, ''); }
+function epitaph(cause, outlived) {
+  const n = st.nm.full, a = st.age;
+  if (st.flags.northEnd) return `${n}의 남쪽 기록은 ${st.year}년에서 멈췄다. 그 뒤의 삶은 아무도 모른다.`;
+  if (a < 5) return `이름이 족보에 오르기도 전에, ${n}은(는) ${a === 0 ? '첫 돌' : '다섯 살'}을 넘기지 못했다. 이 시대 아이들의 흔한 운명이었다.`;
+  if (st.flags.passed && st.job === 'official') return `과거에 급제해 벼슬에 오른 ${n}, ${a}세에 ${cause}(으)로 생을 마쳤다.`;
+  if (st.statusHist.length && /면천|속량|해방|양인/.test(st.clsLabel)) return `노비로 태어나 스스로 이름을 되찾은 ${n}, ${a}세에 잠들다.`;
+  if (/족보를 산/.test(st.clsLabel)) return `돈으로 양반의 족보에 이름을 올린 ${n}. 그 자손은 대대로 양반이라 말할 것이다.`;
+  if (a >= 80) return `${n}, 천수를 누리고 ${a}세에 잠들다. 같은 해 태어난 아이 대부분보다 오래 살았다.`;
+  if (st.kids.length >= 5) return `${st.kids.length}남매를 낳아 기른 ${n}, ${a}세에 ${cause}(으)로 떠나다.`;
+  return `${ERAS[st.era].tab}의 ${st.birthCls}로 태어난 ${n}, ${a}세에 ${cause}(으)로 눈을 감다.`;
+}
+
+// 공유 카드(캔버스)
+function makeCard() {
+  const W = 1080, H = 1350, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const x = cv.getContext('2d');
+  x.fillStyle = '#f1e7d2'; x.fillRect(0, 0, W, H);
+  for (let i = 0; i < 2600; i++) { x.fillStyle = `rgba(120,90,40,${R() * .05})`; x.fillRect(R() * W, R() * H, 2 + R() * 3, 1); }
+  const cols = ['#2c5866', '#6f9a8c', '#b98a2a', '#a8321f'];
+  for (let i = 0; i < W; i += 40) { x.fillStyle = cols[(i / 40) % 4]; x.fillRect(i, 0, 40, 18); x.fillRect(i, H - 18, 40, 18); }
+  const F = '"Song Myung", "Gowun Batang", serif';
+  x.fillStyle = '#a8321f'; x.fillRect(80, 80, 120, 120);
+  x.fillStyle = '#fff6ea'; x.font = `52px ${F}`; x.textAlign = 'center'; x.fillText('千年', 140, 135); x.fillText('生', 140, 188);
+  x.textAlign = 'left'; x.fillStyle = '#24201b'; x.font = `44px ${F}`; x.fillText('천년 한반도 생존기', 230, 130);
+  x.font = `30px ${F}`; x.fillStyle = '#5d5448'; x.fillText(`${ERAS[st.era].tab} · ${st.by}–${st.year}`, 230, 180);
+  // 비석
+  x.fillStyle = '#56534c'; x.beginPath(); x.moveTo(390, 1000); x.lineTo(390, 390); x.quadraticCurveTo(540, 260, 690, 390); x.lineTo(690, 1000); x.fill();
+  x.fillStyle = '#3d3a35'; x.fillRect(350, 1000, 380, 40);
+  x.fillStyle = '#f1e7d2'; x.font = `56px ${F}`; x.textAlign = 'center';
+  const name = (stoneName() + '之墓').slice(0, 9);
+  [...name].forEach((ch, i) => x.fillText(ch, 540, 450 + i * 62));
+  x.font = `30px ${F}`; x.fillStyle = '#24201b';
+  wrap(x, epitaph(st.cause, 0), 540, 1110, 900, 44);
+  x.fillStyle = '#a8321f'; x.font = `30px ${F}`;
+  x.fillText(`향년 ${st.age}세 · ${st.cause}`, 540, 1250);
+  const url = cv.toDataURL('image/png');
+  $('cardOut').innerHTML = `<img id="shareImg" src="${url}" alt="기록 카드"><p class="note">이미지를 길게 누르거나 오른쪽 클릭해서 저장하세요.</p>`;
+}
+function wrap(x, text, cx, y, maxW, lh) {
+  let line = '', lines = [];
+  for (const ch of text) { if (x.measureText(line + ch).width > maxW) { lines.push(line); line = ch; } else line += ch; }
+  lines.push(line);
+  lines.slice(0, 3).forEach((l, i) => x.fillText(l, cx, y + i * lh));
+}
+function copyText(t) {
+  const done = () => toast('복사했습니다');
+  try { navigator.clipboard.writeText(t).then(done, () => fallbackCopy(t)); } catch (e) { fallbackCopy(t); }
+}
+function fallbackCopy(t) {
+  const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('복사했습니다'); } catch (e) { toast('복사하지 못했습니다. 직접 선택해 복사하세요'); }
+  ta.remove();
+}
+let toastT;
+function toast(t) { const el = $('toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 1800); }
+
+// ===== 저장 =====
+function save() { if (st && !st.dead) lsSet('k1000_life', st); }
+function backToStart() {
+  st = null; speed = 0; progress = 0;
+  $('game').hidden = true; $('speedBar').hidden = true; $('btnNew').hidden = true; $('startScreen').hidden = false;
+  $('birthCard').hidden = true; $('sanBox').hidden = false; $('sanBox').classList.remove('drawn');
+  $('sanMsg').textContent = '산통을 흔들면 산가지 하나가 솟아오릅니다.'; $('btnDraw').textContent = '산통 흔들어 태어나기';
+  renderTabs(); renderResume();
+  window.scrollTo({ top: 0 });
+}
+function renderResume() {
+  const s = lsGet('k1000_life'), box = $('resumeBox');
+  if (s && s.v === 3 && !s.dead) {
+    box.hidden = false;
+    box.innerHTML = `<div class="resume"><span>${esc(s.nm.full)} · ${ERAS[s.era].tab} · ${s.age}세(${s.year}년)의 삶이 이어지길 기다립니다.</span><span class="rowBtns"><button class="btn" id="btnResume" type="button">이어 살기</button><button class="btn" id="btnDrop" type="button">버리기</button></span></div>`;
+    $('btnResume').onclick = () => { st = s; curEra = s.era; document.documentElement.style.setProperty('--era', ERAS[st.era].color); $('startScreen').hidden = true; $('game').hidden = false; $('speedBar').hidden = false; $('btnNew').hidden = false; renderAll(); renderLog(); setSpeed(0); toast('멈춤 상태입니다. 속도를 골라 이어 가세요'); };
+    $('btnDrop').onclick = () => { try { localStorage.removeItem('k1000_life'); } catch (e) { } box.hidden = true; };
+  } else box.hidden = true;
+}
+
+// ===== 족보 · 출처 =====
+function openSheet(html) { modalOpen = true; $('sheet').innerHTML = html + `<div class="rowBtns" style="margin-top:14px"><button class="btn" id="btnClose" type="button">닫기</button></div>`; $('modal').hidden = false; $('btnClose').onclick = closeSheet; }
+function closeSheet() { $('modal').hidden = true; modalOpen = false; }
+function openJokbo() {
+  const jb = lsGet('k1000_jokbo') || [];
+  const rows = jb.map(r => `<tr><td>${esc(r.era)}</td><td>${esc(r.name)}</td><td class="num">${r.by}–${r.dy}</td><td class="num">${r.age}세</td><td>${esc(r.cls)}${r.endCls !== r.cls ? ' → ' + esc(r.endCls) : ''}</td><td>${esc(r.cause)}</td></tr>`).join('');
+  const avg = jb.length ? Math.round(jb.reduce((s, r) => s + r.age, 0) / jb.length) : 0;
+  const u5 = jb.filter(r => r.age < 5).length;
+  openSheet(`<div class="tag">이 기기에 남은 지난 생애</div><h2>족보</h2>
+    ${jb.length ? `<p style="margin:0 0 8px">지금까지 ${jb.length}번 살았고 평균 ${avg}세에 눈을 감았습니다. 그중 ${u5}번은 다섯 살을 넘기지 못했습니다.</p>
+    <div class="tblWrap"><table class="t"><thead><tr><th>시대</th><th>이름</th><th>생몰</th><th>향년</th><th>신분</th><th>사인</th></tr></thead><tbody>${rows}</tbody></table></div>` : '<p>아직 마친 생애가 없습니다. 첫 삶을 살아 보세요.</p>'}`);
+}
+function openSources() {
+  openSheet(`<div class="tag">이 게임의 숫자는 어디서 왔나</div><h2>고증과 출처</h2>
+  <h3 style="font-size:16px;margin:10px 0 4px">수명</h3>
+  <ul class="srcList">
+    <li>전근대 출생 시 기대여명은 게임 모형에서 약 24~32세(신분별)입니다. 차명수(2009, 『한국인구학』 32-1)는 네 족보의 1700~1899년 생몰 기록과 모형 생명표로 18~19세기 전체 남성의 출생 시 기대여명을 약 23세로 추정했습니다.</li>
+    <li>낮은 기대여명은 영유아 사망 때문입니다. 게임에서는 다섯 살 전에 약 35~45%가 숨지고, 20세까지 산 사람은 평균 50대 초반까지 삽니다. 박희진·김두얼의 족보 연구는 1780~1899년 20세 양반 남성의 기대여명을 약 32.6년으로 제시했습니다.</li>
+    <li>조선 국왕 27명의 평균 수명은 약 46세였고, 『양세계보』의 환관은 약 70세까지 살았다는 연구가 있습니다. 집단마다 수치가 다르므로 하나로 합치지 않았습니다.</li>
+    <li>평민만 따로 집계한 전국 평균수명 통계는 없습니다. 족보에는 양반 성인 남성이, 호적대장에는 세금 목적의 기록이 주로 남아 영유아가 빠지기 때문입니다. 황상익의 ‘35세 안팎’은 유추치입니다.</li>
+    <li>근현대는 통계청 생명표 흐름(1925~30년 출생 시 기대여명 30대 중반 → 2023년 83.5세)과 영아사망률 감소를 연도별 배수로 근사했습니다.</li>
+  </ul>
+  <h3 style="font-size:16px;margin:10px 0 4px">신분 구성</h3>
+  <ul class="srcList">
+    <li>단성·대구 호적대장 연구의 추계를 바탕으로 했습니다. 조선 후기로 갈수록 호적상 양반 비율이 30%대에서 40%대 이상으로 늘고 노비는 크게 줄어듭니다(족보 매입·납속·도망 포함).</li>
+    <li>고려의 ‘백정’은 일반 농민을 뜻합니다. 향·소·부곡민은 양민이지만 거주 이전과 출세에 제약이 있었습니다.</li>
+    <li>근현대 계층 비율은 농가 비중과 도시화 흐름을 반영한 게임용 근사치입니다.</li>
+  </ul>
+  <h3 style="font-size:16px;margin:10px 0 4px">가족과 여성의 삶</h3>
+  <ul class="srcList">
+    <li>고려~조선 전기: 자녀 균분 상속, 혼인 뒤 처가살이(남귀여가), 제사 윤행, 재가 허용. 율곡 이이가 외가인 강릉 오죽헌에서 태어난 것이 대표적입니다.</li>
+    <li>경국대전(1485)의 재가녀 자손 금고, 17세기 이후 장자 봉사·장자 우대 상속·친영(시집살이)·내외법 확산.</li>
+    <li>호적 표기의 차이: 양반 여성은 ‘○씨(氏)’, 양인 여성은 ‘○소사(召史)’, 노비는 ‘노(奴)·비(婢) + 이름’으로 적혔습니다.</li>
+    <li>1894년 갑오개혁으로 신분제 폐지와 과부 재가 허용, 1991년 민법 개정으로 상속에서 아들딸 차별이 사라졌습니다.</li>
+  </ul>
+  <h3 style="font-size:16px;margin:10px 0 4px">참고 자료</h3>
+  <ul class="srcList">
+    <li>차명수, 「조선후기의 출산력, 사망력 및 인구증가」, 『한국인구학』 32(1), 2009.</li>
+    <li>박희진, 「족보의 계층성과 사망력―선원속보의 관직, 부부 및 적서를 중심으로」, 『한국인구학』 46(4), 2023.</li>
+    <li>「역사인구학 지표로 살펴본 조선후기 생활수준의 장기 추이, 1734~1910」, 『사회와 역사』 121, 2019.</li>
+    <li>국사편찬위원회 우리역사넷 『신편 한국사』, 한국민족문화대백과사전 「고려」·「상속」·「직업」.</li>
+    <li>『미암일기』·『쇄미록』 등 조선시대 일기 자료, 『고려묘지명집성』.</li>
+    <li>통계청 생명표, 연합뉴스·KISTI 과학향기의 조선시대 수명 해설.</li>
+  </ul>
+  <p class="note">이름과 개인사, 선택지의 성공 확률은 창작입니다. 역사적 사건의 연도와 제도는 사실에 맞추었습니다.</p>`);
+}
+
+// ===== 이벤트 연결 =====
+function bind() {
+  $('eraTabs').addEventListener('click', e => { const b = e.target.closest('[data-era]'); if (!b) return; curEra = b.dataset.era; renderTabs(); $('birthCard').hidden = true; $('sanBox').hidden = false; $('sanBox').classList.remove('drawn'); $('btnDraw').textContent = '산통 흔들어 태어나기'; });
+  $('genderPick').addEventListener('click', e => { const b = e.target.closest('[data-g]'); if (!b) return; genderPref = b.dataset.g; document.querySelectorAll('#genderPick [data-g]').forEach(x => x.classList.toggle('on', x === b)); });
+  $('btnDraw').onclick = shakeAndDraw;
+  document.querySelectorAll('#speedBar [data-speed]').forEach(b => b.onclick = () => setSpeed(+b.dataset.speed));
+  $('btnSkip').onclick = () => { if (st && !st.dead && !modalOpen) { progress = 0; advanceYear(); } };
+  $('btnAuto').onclick = () => { autoOn = !autoOn; $('btnAuto').classList.toggle('on', autoOn); $('btnAuto').textContent = autoOn ? '자동 선택 켬' : '자동 선택 끔'; };
+  $('btnNew').onclick = () => {
+    if (st && !st.dead) {
+      openSheet(`<h2>지금 삶을 버리고 새로 태어날까요?</h2><p>지금 인생은 족보에 남지 않습니다.</p><div class="rowBtns"><button class="btn primary" id="btnYesNew" type="button">새로 태어나기</button></div>`);
+      $('btnYesNew').onclick = () => { closeSheet(); try { localStorage.removeItem('k1000_life'); } catch (e) { } backToStart(); };
+    } else backToStart();
+  };
+  $('btnSources').onclick = () => { if (!modalOpen) openSources(); };
+  $('btnJokbo').onclick = () => { if (!modalOpen) openJokbo(); };
+  document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+}
+
+bind(); renderTabs(); renderResume();
+</script>
+</body></html>
